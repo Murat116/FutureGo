@@ -96,6 +96,17 @@ class ElementModel {
             view.configure(with: parametrs)
             
             return view
+        case .swipableView:
+            let view = DragableSwipe(frame: CGRect(x: 100, y: 100, width: 200, height: 200), model: self, parentView: parentView, id: id, selectOutput: output)
+            view.backgroundColor = .red
+            
+            self.parametrs = [
+                .backgroundColor(.gray),
+                .radius(8)
+            ]
+            
+            view.configure(with: parametrs)
+            return view
         }
     }
     
@@ -140,6 +151,8 @@ class ElementModel {
                     view.setImage(optional, for: .normal)
                 case .action(let idForPush):
                     view.idContrForPush = idForPush
+                default:
+                    break
                 }
             }
             
@@ -198,6 +211,9 @@ class ElementModel {
                     break
                 }
             }
+            return view
+        case .swipableView:
+            let view = SwipeableCardViewContainer()
             return view
         }
     }

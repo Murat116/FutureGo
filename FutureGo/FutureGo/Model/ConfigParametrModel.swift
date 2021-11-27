@@ -14,6 +14,7 @@ enum ConfigParametrModel: Equatable {
     case radius(CGFloat?)
     case backgroundImage(UIImage?)
     case action(String?)
+    case duration(CGFloat?)
     
     var name: String {
         switch self {
@@ -27,6 +28,8 @@ enum ConfigParametrModel: Equatable {
             return "Радиус"
         case .backgroundImage:
             return "Фоновая картинка"
+        case .duration:
+            return "Скорость анимации"
         case .action:
             return "Действие"
         }
@@ -39,6 +42,7 @@ enum ConfigParametrModel: Equatable {
             .backgroundColor(nil),
             .radius(nil),
             .backgroundImage(nil),
+            .duration(nil),
             .action(nil)
         ]
     }
@@ -76,6 +80,13 @@ enum ConfigParametrModel: Equatable {
         case .backgroundImage(_):
             switch rhs {
             case .backgroundImage(_):
+                return true
+            default:
+                return false
+            }
+        case .duration(_):
+            switch rhs {
+            case .duration(_):
                 return true
             default:
                 return false

@@ -188,6 +188,8 @@ class DragableButton: UIButton, Dragable {
                 self.setImage(image, for: .normal)
             case .action(_):
                 break
+            default:
+                break
             }
         }
     }
@@ -324,4 +326,8 @@ class DragableTextField: DragableView {
             }
         }
     }
+}
+
+class DragableSwipe: DragableView {
+    
 }
