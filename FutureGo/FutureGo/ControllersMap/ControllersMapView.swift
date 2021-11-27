@@ -39,7 +39,6 @@ class ControllersMapView: UICollectionView {
         flow.scrollDirection = .horizontal
         super.init(frame: .zero, collectionViewLayout: flow)
         setUp()
-        self.isScrollEnabled = false
     }
     
     required init?(coder: NSCoder) {

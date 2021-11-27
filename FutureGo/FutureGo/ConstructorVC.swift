@@ -131,7 +131,7 @@ class ConstructorVC: UIViewController {
     var build: BuildManager?
     @objc func buildAction() {
         self.buildBtn.setTitle("Build \(Int.random(in: 0...100))", for: .normal)
-        self.build = BuildManager(model: AppModel(rootVC: self.controllers.first!, controllers: self.controllers))
+        self.build = BuildManager(model: AppModel(controllers: self.controllers))
         self.build!.navigationConstroller = self.navigationController
         self.build!.run()
         self.blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
@@ -223,7 +223,10 @@ extension ConstructorVC: EditingParametrOutput {
         newParametrs.insert(parametr, at: curInd)
         
         (needView as? Dragable)?.configure(with: newParametrs)
-        needView.layoutIfNeeded()
+    }
+    
+    func getControllers() -> [ControllerModel] {
+        self.controllers
     }
 }
 

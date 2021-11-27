@@ -34,7 +34,8 @@ class ElementModel {
             let view = DragableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
             self.parametrs = [
                 .backgroundColor(.gray),
-                .radius(8)
+                .radius(8),
+                .action(nil)
             ]
             view.configure(with: parametrs)
             return view
@@ -53,7 +54,8 @@ class ElementModel {
                 .backgroundColor(.gray),
                 .textColor(.black),
                 .title("Some Text ..."),
-                .radius(8)
+                .radius(8),
+                .action(nil)
             ]
             view.configure(with: parametrs)
             return view
@@ -76,7 +78,8 @@ class ElementModel {
             
             self.parametrs = [
                 .backgroundImage(nil),
-                .radius(8)
+                .radius(8),
+                .action(nil)
             ]
             view.configure(with: parametrs)
             
@@ -89,7 +92,8 @@ class ElementModel {
                 .backgroundColor(.gray),
                 .title("Some Text ..."),
                 .textColor(.black),
-                .radius(8)
+                .radius(8),
+                .action(nil)
             ]
             view.configure(with: parametrs)
             
@@ -108,18 +112,33 @@ class ElementModel {
         }
     }
     
-    func gerRealElement() -> UIView {
+    func getAction() -> String? {
+        return ""
+    }
+    
+    func getRealElement() -> UIView {
         switch self.type {
         case .window:
-            let view = UIView(frame: self.frame)
-            view.backgroundColor = .lightGray
+            let view = TappedView(frame: self.frame)
+            for parameter in self.parametrs {
+                switch parameter {
+                case .backgroundColor(let optional):
+                    view.backgroundColor = optional
+                case .radius(let optional):
+                    view.layer.cornerRadius = optional ?? 0
+                case .action(let idForPush):
+                    view.idContrForPush = idForPush
+                default:
+                    break
+                }
+            }
             return view
         case .tableView:
             let view = UITableView(frame: self.frame)
             view.backgroundColor = .brown
             return view
         case .button:
-            let view = UIButton(frame: self.frame)
+            let view = TappedBtn(frame: self.frame)
             for parameter in self.parametrs {
                 switch parameter {
                 case .title(let optional):
@@ -132,31 +151,68 @@ class ElementModel {
                     view.layer.cornerRadius = optional ?? 0
                 case .backgroundImage(let optional):
                     view.setImage(optional, for: .normal)
-                case .action(let optional):
-//                    view.
-                    print("cvbn")
-                    break
+                case .action(let idForPush):
+                    view.idContrForPush = idForPush
                 default:
                     break
                 }
             }
-//            view.backgroundColor = model.parametrs.firstIndex(of: $0 == .backgroundColor)
-//            view.backgroundColor = model.parametrs.firstIndex(of: $0 == .backgroundColor)
-//            view.backgroundColor = model.parametrs.firstIndex(of: $0 == .backgroundColor)
-//            view.backgroundColor = model.parametrs.firstIndex(of: $0 == .backgroundColor)
             
             return view
         case .textField:
             let view = UITextField(frame: self.frame)
-            view.backgroundColor = .red
+            for parameter in self.parametrs {
+                switch parameter {
+                case .title(let optional):
+                    view.text = optional
+                case .textColor(let optional):
+                    view.textColor = optional
+                case .backgroundColor(let optional):
+                    view.backgroundColor = optional
+                case .radius(let optional):
+                    view.layer.cornerRadius = optional ?? 0
+                default:
+                    break
+                }
+            }
             return view
         case .image:
-            let view = UIImageView(frame: self.frame)
+            let view = TappedImageView(frame: self.frame)
+            view.clipsToBounds = true
             view.backgroundColor = .green
+            for parameter in self.parametrs {
+                switch parameter {
+                case .backgroundColor(let optional):
+                    view.backgroundColor = optional
+                case .radius(let optional):
+                    view.layer.cornerRadius = optional ?? 0
+                case .backgroundImage(let image):
+                    view.image = image
+                case .action(let idForPush):
+                    view.idContrForPush = idForPush
+                default:
+                    break
+                }
+            }
             return view
         case .label:
-            let view = UILabel(frame: self.frame)
-            view.backgroundColor = .blue
+            let view = TappedLabel(frame: self.frame)
+            for parameter in self.parametrs {
+                switch parameter {
+                case .backgroundColor(let optional):
+                    view.backgroundColor = optional
+                case .radius(let optional):
+                    view.layer.cornerRadius = optional ?? 0
+                case .textColor(let color):
+                    view.textColor = color
+                case .title(let text):
+                    view.text = text
+                case .action(let idForPush):
+                    view.idContrForPush = idForPush
+                default:
+                    break
+                }
+            }
             return view
         case .swipableView:
             let view = SwipeableCardViewContainer()
