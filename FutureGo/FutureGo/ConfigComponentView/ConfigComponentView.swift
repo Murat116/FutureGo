@@ -14,6 +14,7 @@ class ConfigComponentView: UITableView {
     var parametrs: [ConfigParametrModel] = []
     
     weak var editingParametrOutput: EditingParametrOutput?
+    weak var parentVC: UIViewController?
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -32,10 +33,11 @@ class ConfigComponentView: UITableView {
         register(ConfigComponentCell.self, forCellReuseIdentifier: "ConfigComponentCell")
     }
     
-    func configure(with parametrs: [ConfigParametrModel], idElement: String?, editingParametrOutput: EditingParametrOutput?) {
+    func configure(with parametrs: [ConfigParametrModel], idElement: String?, editingParametrOutput: EditingParametrOutput?, parentVC: UIViewController?) {
         self.idElement = idElement
         self.editingParametrOutput = editingParametrOutput
         self.parametrs = parametrs
+        self.parentVC = parentVC
         reloadData()
     }
 }
@@ -47,7 +49,7 @@ extension ConfigComponentView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConfigComponentCell", for: indexPath) as! ConfigComponentCell
         
-        cell.configure(with: parametrs[indexPath.row], idElement: idElement, editingOutput: editingParametrOutput)
+        cell.configure(with: parametrs[indexPath.row], idElement: idElement, editingOutput: editingParametrOutput, parentVC: parentVC)
         return cell
     }
 }
