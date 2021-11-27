@@ -45,7 +45,8 @@ extension ElementTableView: UITableViewDataSource {
 extension ElementTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let element = elements[indexPath.row]
-        self.output?.addElement(element)
+        let el = ElementModel(type: element.type, frame: element.frame)
+        self.output?.addElement(el)
         self.isHidden = true
     }
 }
