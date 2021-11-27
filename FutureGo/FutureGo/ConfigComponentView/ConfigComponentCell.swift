@@ -35,7 +35,7 @@ class ConfigComponentCell: UITableViewCell {
 class ConfigComponentElementView: UIView {
     
     let nameLabel = UILabel()
-    let valueLabel = UILabel()
+    let textField = UITextField()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,17 +48,17 @@ class ConfigComponentElementView: UIView {
     
     private func setUp() {
         addSubview(nameLabel)
-        nameLabel.pinToSuperView(sides: [.top(10, .required), .left(10, .required)])
+        nameLabel.pinToSuperView(sides: [.top(10), .left(10), .right(-10)])
         
-        addSubview(valueLabel)
-        valueLabel.pinToSuperView(sides: [.top(10), .right(-10)])
-        valueLabel.pin(side: .left(10), to: .right(nameLabel))
+        addSubview(textField)
+        textField.pinToSuperView(sides: [.top(10), .left(10), .right(-10)])
+        textField.pin(side: .top(5), to: .bottom(nameLabel))
         
-        pin(side: .bottom(10), to: .bottom(nameLabel))
+        pin(side: .bottom(10), to: .bottom(textField))
     }
     
     func configure(with model: ConfigParametrModel) {
         nameLabel.text = model.name
-        valueLabel.text = ""
+        textField.text = ""
     }
 }
