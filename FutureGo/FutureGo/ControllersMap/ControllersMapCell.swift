@@ -10,6 +10,7 @@ import UIKit
 
 protocol ControllersMapCellOutput: AnyObject {
     func removewFromSuperview(model: ControllerModel, element: ElementsType)
+    func changeModelOf(model: ControllerModel?)
 }
 
 class ControllersMapCell: UICollectionViewCell, ParentView {
@@ -50,7 +51,7 @@ class ControllersMapCell: UICollectionViewCell, ParentView {
         
         var el = element
         
-        let view = el.getUIProection(parentView: self, output: selectOutput)
+        let view = el.getUIProection(parentView: self, output: selectOutput, id: el.id)
         
         model.elements.append(el)
         controllerModel = model
@@ -62,4 +63,9 @@ class ControllersMapCell: UICollectionViewCell, ParentView {
         self.output?.removewFromSuperview(model: self.controllerModel!, element: type)
     }
     
+    func changeFrame(of: Dragable, to new: CGRect) {
+        self.controllerModel?.elements.first{$0.id == of.id}?.changeFrame(frame: new)
+        self.output?.changeModelOf(model: self.controllerModel)
+    }
+        
 }

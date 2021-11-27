@@ -44,6 +44,8 @@ class ConstructorVC: UIViewController {
         return btn
     }()
     
+    // MARK: - Model
+    
     public var controllers = [ControllerModel]() {
         didSet{
             self.appMap.configure(with: self.controllers)
@@ -123,7 +125,10 @@ class ConstructorVC: UIViewController {
     }
     
     @objc func buildAction() {
-        self.navigationController?.pushViewController(UIViewController(), animated: true)
+        let build = BuildManager(model: AppModel(rootVC: self.controllers.first!, controllers: self.controllers))
+        build.navigationConstroller = self.navigationController
+        build.run()
+//        self.navigationController?.pushViewController(UIViewController(), animated: true)
     }
     
     @objc func showElementTable() {
