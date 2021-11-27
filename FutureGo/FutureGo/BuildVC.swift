@@ -10,21 +10,48 @@ import UIKit
 class BuildManager {
     var model: AppModel
     var navigationConstroller: UINavigationController?
+    var popupWindow: UIWindow? = nil
+    var selfNav: UINavigationController?
     
     init(model: AppModel) {
         self.model = model
     }
     
+    func hide() {
+        self.selfNav?.view.removeFromSuperview()
+        self.selfNav = nil
+        self.popupWindow?.resignKey()
+        self.popupWindow?.rootViewController = nil
+        self.popupWindow = nil
+    }
+    
     func run() {
-        let rootVc = model.rootVC
+        
         let vc = PresentationVC()
+        let rootVc = model.rootVC
+        
         for element in rootVc.elements {
-            let view = element.gerRealElement(model: element)
+            let view = element.gerRealElement()
             vc.mainView.addSubview(view)
         }
-        self.navigationConstroller?.pushViewController(vc, animated: true)
-        self.navigationConstroller?.navigationBar.isHidden = false
-//        self.navigationConstroller?.present(vc, animated: true, completion: nil)
+        
+        
+        let windowScene = UIApplication.shared
+                        .connectedScenes
+                        .filter { $0.activationState == .foregroundActive }
+                        .first
+        if let windowScene = windowScene as? UIWindowScene {
+            popupWindow = UIWindow(windowScene: windowScene)
+        }
+        self.selfNav = UINavigationController(rootViewController: UIViewController())
+        popupWindow?.frame = CGRect(x: 0, y: 0, width: 375, height: 812)
+        popupWindow?.center = self.navigationConstroller!.view.center
+        popupWindow?.backgroundColor = .clear
+        popupWindow?.windowLevel = UIWindow.Level.statusBar + 1
+        popupWindow?.rootViewController = self.selfNav
+        popupWindow?.makeKeyAndVisible()
+        self.selfNav?.present(vc, animated: true)
+    
     }
 }
 
@@ -46,3 +73,5 @@ class PresentationVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+

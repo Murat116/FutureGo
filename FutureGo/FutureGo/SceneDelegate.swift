@@ -10,7 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    private var navigationController = UINavigationController()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -23,8 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.overrideUserInterfaceStyle = .light
     
         self.window?.windowScene = windowScene
-        let navController = UINavigationController(rootViewController: ConstructorVC())
-        self.window?.rootViewController = navController
+        self.navigationController = UINavigationController(rootViewController: ConstructorVC())
+        self.window?.rootViewController = self.navigationController
+//        }
         self.window?.makeKeyAndVisible()
     }
 
