@@ -15,7 +15,7 @@ class ElementTableView: UITableView {
     
     public weak var output: ElementTableViewOutput?
     
-    private let elements = ElementsType.allCases.map { ElementModel(type: $0) }
+    private let elements = ElementsType.allCases.map { ElementModel(type: $0, frame: .zero) }
     
     init(){
         super.init(frame: .zero, style: .grouped)

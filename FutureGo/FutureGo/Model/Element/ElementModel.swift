@@ -7,10 +7,22 @@
 
 import UIKit
 
-struct ElementModel {
+class ElementModel {
+    internal init(type: ElementsType, frame: CGRect) {
+        self.type = type
+        self.frame = frame
+    }
+    
+
     let id = UUID().uuidString
     
     let type: ElementsType
+    
+    var frame: CGRect
+    
+    func changeFrame(frame: CGRect) {
+        self.frame = frame
+    }
     
     func getParametrs() -> [ConfigParametrModel] {
         return ConfigParametrModel.allCases
@@ -30,15 +42,15 @@ struct ElementModel {
 //        }
     }
     
-    func getUIProection(parentView: ParentView, output: SelectElementOutput?) -> UIView {
+    func getUIProection(parentView: ParentView, output: SelectElementOutput?, id: String) -> UIView {
         switch type {
         case .window:
-            let view = DragableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)
+            let view = DragableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView, id: id)
             view.backgroundColor = .lightGray
             return view
             
         case .tableView:
-            let view = DragableTableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)
+            let view = DragableTableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView, id: id)
             view.backgroundColor = .green
             return view
             
@@ -46,23 +58,52 @@ struct ElementModel {
             let view =  DragableButton(frame: CGRect(x: 200, y: 400, width: 400, height: 400),
                                        model: self,
                                        parentView: parentView,
-                                       selectOutput: output)
+                                       selectOutput: output, id: id)
             view.backgroundColor = .darkText
             return view
             
         case .textField:
-            let view = DragableTextField(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)
+            let view = DragableTextField(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView, id: id)
             view.backgroundColor = .red
             return view
             
         case .image:
-            let view = DragableImageView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)
+            let view = DragableImageView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView, id: id)
             view.backgroundColor = .blue
             return view
             
         case .label:
-            let view = DragableLabel(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)
+            let view = DragableLabel(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView, id: id)
             view.backgroundColor = .yellow
+            return view
+        }
+    }
+    
+    func gerRealElement() -> UIView {
+        switch self.type {
+        case .window:
+            let view = UIView(frame: self.frame)
+            view.backgroundColor = .lightGray
+            return view
+        case .tableView:
+            let view = UITableView(frame: self.frame)
+            view.backgroundColor = .brown
+            return view
+        case .button:
+            let view = UIButton(frame: self.frame)
+            view.backgroundColor = .yellow
+            return view
+        case .textField:
+            let view = UITextField(frame: self.frame)
+            view.backgroundColor = .red
+            return view
+        case .image:
+            let view = UIImageView(frame: self.frame)
+            view.backgroundColor = .green
+            return view
+        case .label:
+            let view = UILabel(frame: self.frame)
+            view.backgroundColor = .blue
             return view
         }
     }
