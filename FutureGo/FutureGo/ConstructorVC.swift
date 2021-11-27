@@ -9,21 +9,66 @@ import UIKit
 
 class ConstructorVC: UIViewController {
     
+    private var controllBar: UIStackView {
+        let stackView = UIStackView(arrangedSubviews: [self.addController,self.buildBtn,self.addBtn])
+        self.view.addSubview(stackView)
+        stackView.alignment = .center
+        stackView.distribution = .fillProportionally
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.pinToSuperView(sides: [.leftR,.rightR,.topR])
+        stackView.setDemission(.height(50))
+        return stackView
+    }
+    
+    private lazy var addController: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("Add new View Controller", for: .normal)
+        btn.addTarget(self, action: #selector(self.addControllerAction), for: .touchUpInside)
+        return btn
+    }()
+    
+    private lazy var buildBtn: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("Build", for: .normal)
+        btn.addTarget(self, action: #selector(self.buildAction), for: .touchUpInside)
+        return btn
+    }()
+    
+    private lazy var addBtn: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("Add View", for: .normal)
+        btn.addTarget(self, action: #selector(self.showElementTable), for: .touchUpInside)
+        return btn
+    }()
+    
+    public var controllers = [ControllerModel]() {
+        didSet{
+            self.appMap.configure(with: self.controllers)
+            self.controllersMap.configure(with: self.controllers)
+        }
+    }
+    
     private let appMap = AppMapView()
     
     private lazy var controllersMap: ControllersMapView = {
-        return ControllersMapView(selectOutput: self)
+        let view = ControllersMapView(selectOutput: self)
+        view.output = self
+        return view
     }()
     
     private let configComponentView = ConfigComponentView()
     
     public lazy var elementView: ElementTableView = {
         let view = ElementTableView()
+        view.isHidden = true
         return view
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.isHidden = true
         
         self.view.addSubview(self.elementView)
         self.elementView.pinToSuperView(sides: [.topR,.rightR,.bottomR])
@@ -46,10 +91,9 @@ class ConstructorVC: UIViewController {
         
         view.addSubview(appMap)
         
-        appMap.pinToSuperView(sides: [.leftR, .topR, .bottomR])
+        self.appMap.pin(side: .topR, to: .bottom(self.controllBar))
+        appMap.pinToSuperView(sides: [.leftR, .bottomR])
         appMap.setDemission(.width(200))
-        
-        appMap.configure(with: ControllerModel.testItems)
     }
     
     private func setUpConfigComponentView() {
@@ -57,7 +101,8 @@ class ConstructorVC: UIViewController {
         
         view.addSubview(configComponentView)
         
-        configComponentView.pinToSuperView(sides: [.topR, .bottomR])
+        self.configComponentView.pin(side: .topR, to: .bottom(self.controllBar))
+        configComponentView.pinToSuperView(sides: [.bottomR])
         configComponentView.pin(side: .rightR, to: .left(elementView))
         configComponentView.setDemission(.width(200))
         
@@ -68,16 +113,51 @@ class ConstructorVC: UIViewController {
         
         view.addSubview(controllersMap)
         
-        controllersMap.pinToSuperView(sides: [.topR, .bottomR])
+        self.controllersMap.pin(side: .topR, to: .bottom(self.controllBar))
+        controllersMap.pinToSuperView(sides: [.bottomR])
         controllersMap.pin(side: .leftR, to: .right(appMap))
         controllersMap.pin(side: .rightR, to: .left(configComponentView))
         
-        controllersMap.configure(with: ControllerModel.testItems)
+    }
+    
+    @objc func buildAction() {
+        self.navigationController?.pushViewController(UIViewController(), animated: true)
+    }
+    
+    @objc func showElementTable() {
+        self.elementView.isHidden = false
+    }
+    
+    @objc func addControllerAction() {
+        let alert = UIAlertController(title: "Введите имя контроллера", message: nil, preferredStyle: .alert)
+
+        //2. Add the text field. You can configure it however you need.
+        alert.addTextField { (textField) in
+            textField.text = ""
+        }
+
+        // 3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
+            let text = textField?.text
+            let model = ControllerModel(name: text!, elements: [])
+            self.controllers.append(model)
+        }))
+
+        // 4. Present the alert.
+        self.present(alert, animated: true, completion: nil)
+        
     }
 }
 
 extension ConstructorVC: SelectElementOutput {
     func selectElement(_ element: ElementModel) {
         configComponentView.configure(with: element.getParametrs())
+    }
+}
+
+extension ConstructorVC: MapViweOutput {
+    func realoadData(with controllers: [ControllerModel]) {
+        self.controllers = controllers
     }
 }

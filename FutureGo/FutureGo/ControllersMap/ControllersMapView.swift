@@ -15,10 +15,15 @@ protocol SelectElementOutput: AnyObject {
     func selectElement(_ element: ElementModel)
 }
 
+protocol MapViweOutput: AnyObject {
+    func realoadData(with controllers: [ControllerModel])
+}
+
 class ControllersMapView: UICollectionView {
     
     var controllers: [ControllerModel] = []
     public var width: CGFloat = 0
+    public weak var output: MapViweOutput?
     
     weak var selectOutput: SelectElementOutput?
     
@@ -85,5 +90,19 @@ extension ControllersMapView: ElementTableViewOutput {
             return
         }
         cell.addElement(element)
+        let indexOfController = self.controllers.firstIndex{ $0.id == cell.model?.id }
+        guard let indexOfController = indexOfController else { return }
+        self.controllers[indexOfController].elements.append(element)
+        self.output?.realoadData(with: self.controllers)
+    }
+}
+
+extension ControllersMapView: ControllersMapCellOutput {
+    func removewFromSuperview(model: ControllerModel, element: ElementsType) {
+        let indexOfController = self.controllers.firstIndex{ $0.id == model.id }
+        guard let indexOfController = indexOfController else { return }
+//        let index = self.controllers[indexOfController].elements.first(where: $0 == element)
+//        self.controllers[indexOfController].elements.removeFir
+//        self.output?.realoadData(with: self.controllers)
     }
 }

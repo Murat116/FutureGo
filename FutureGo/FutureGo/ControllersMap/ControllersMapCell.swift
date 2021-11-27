@@ -7,9 +7,14 @@
 
 import UIKit
 
-class ControllersMapCell: UICollectionViewCell {
-    
+
+protocol ControllersMapCellOutput: AnyObject {
+    func removewFromSuperview(model: ControllerModel, element: ElementsType)
+}
+
+class ControllersMapCell: UICollectionViewCell, ParentView {
     let mainView = UIView()
+    public weak var output: ControllersMapCellOutput?
     
     var controllerModel: ControllerModel?
     
@@ -35,6 +40,7 @@ class ControllersMapCell: UICollectionViewCell {
     func configure(with model: ControllerModel, selectOutput: SelectElementOutput?) {
         self.controllerModel = model
         self.selectOutput = selectOutput
+        self.output = output
     }
     
     func addElement(_ element: ElementModel) {
@@ -48,4 +54,9 @@ class ControllersMapCell: UICollectionViewCell {
         
         addSubview(view)
     }
+    
+    func removewFromSuperview(type: ElementsType) {
+        self.output?.removewFromSuperview(model: self.model!, element: type)
+    }
+    
 }

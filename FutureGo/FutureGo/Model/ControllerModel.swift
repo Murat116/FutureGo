@@ -8,7 +8,7 @@
 import Foundation
 
 struct ControllerModel {
-    let id: Int
+    let id: String = UUID().uuidString
     let name: String
     var elements: [ElementModel]
     
