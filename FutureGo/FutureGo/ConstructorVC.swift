@@ -9,6 +9,8 @@ import UIKit
 
 class ConstructorVC: UIViewController {
     
+    var selectedElement: ElementModel?
+    
     private var controllBar: UIStackView {
         let stackView = UIStackView(arrangedSubviews: [self.addController,self.buildBtn,self.addBtn])
         self.view.addSubview(stackView)
@@ -106,7 +108,7 @@ class ConstructorVC: UIViewController {
         configComponentView.pin(side: .rightR, to: .left(elementView))
         configComponentView.setDemission(.width(200))
         
-        configComponentView.configure(with: [])
+        configComponentView.configure(with: [], editingParametrOutput: nil)
     }
     
     private func setUpConrollerMap() {
@@ -152,7 +154,14 @@ class ConstructorVC: UIViewController {
 
 extension ConstructorVC: SelectElementOutput {
     func selectElement(_ element: ElementModel) {
-        configComponentView.configure(with: element.parametrs)
+        self.selectedElement = element
+        configComponentView.configure(with: element.parametrs, editingParametrOutput: self)
+    }
+}
+
+extension ConstructorVC: EditingParametrOutput {
+    func changeParametr(_ parametr: ConfigParametrModel) {
+        print(parametr.name)
     }
 }
 
