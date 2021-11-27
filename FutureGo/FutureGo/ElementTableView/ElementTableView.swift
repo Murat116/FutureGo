@@ -46,9 +46,6 @@ extension ElementTableView: UITableViewDelegate {
         let element = ElementsType.allCases[indexPath.row]
         self.output?.addElement(element)
     }
-    
-    
-    
 }
 
 
