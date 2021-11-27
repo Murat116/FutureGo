@@ -17,6 +17,7 @@ protocol SelectElementOutput: AnyObject {
 
 protocol MapViweOutput: AnyObject {
     func realoadData(with controllers: [ControllerModel])
+    var selectedElement: ElementModel? { get }
 }
 
 class ControllersMapView: UICollectionView {
@@ -94,6 +95,9 @@ extension ControllersMapView: UICollectionViewDelegateFlowLayout {
 
 extension ControllersMapView: ElementTableViewOutput {
     func addElement(_ element: ElementModel) {
+        if self.output?.selectedElement != nil {
+            self.output?.selectedElement?.subview.append(element)
+        }
         let index = Int(self.visibleCells.count / 2)
         guard let cell = self.visibleCells[index] as? ControllersMapCell else {
             return
