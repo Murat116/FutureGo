@@ -49,7 +49,8 @@ extension UIView {
         }
     }
     
-    func pin(side: Side,to viewSide: ViewSide) {
+    @discardableResult
+    func pin(side: Side,to viewSide: ViewSide, isActivate: Bool = true) -> NSLayoutConstraint? {
         let layout: NSLayoutConstraint?
         switch (side, viewSide) {
         case (.top(let constant, let uILayoutPriority), .top(let view)):
@@ -78,9 +79,10 @@ extension UIView {
             layout?.priority = uILayoutPriority
         default:
             print("ERROR IN SET CONSTRAINT")
-            return
+            return nil
         }
-        layout?.isActive = true
+        layout?.isActive = isActivate
+        return layout
     }
     
     func setDemission(_ demission: Demission) {

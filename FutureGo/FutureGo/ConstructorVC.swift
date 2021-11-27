@@ -9,13 +9,13 @@ import UIKit
 
 class ConstructorVC: UIViewController {
     
-    private let appMap = UIView()
+    private let appMap = AppMapView()
     
     private lazy var controllersMap: ControllersMapView = {
         return ControllersMapView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     }()
     
-    private let configComponentView = UIView()
+    private let configComponentView = ConfigComponentView()
     
     public lazy var elementView: ElementTableView = {
         let view = ElementTableView()
@@ -48,6 +48,8 @@ class ConstructorVC: UIViewController {
         
         appMap.pinToSuperView(sides: [.leftR, .topR, .bottomR])
         appMap.setDemission(.width(200))
+        
+        appMap.configure(with: ControllerModel.testItems)
     }
     
     private func setUpConfigComponentView() {
@@ -58,6 +60,8 @@ class ConstructorVC: UIViewController {
         configComponentView.pinToSuperView(sides: [.topR, .bottomR])
         configComponentView.pin(side: .rightR, to: .left(elementView))
         configComponentView.setDemission(.width(200))
+        
+        configComponentView.configure(with: ConfigParametrModel.testElements)
     }
     
     private func setUpConrollerMap() {

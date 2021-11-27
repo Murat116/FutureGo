@@ -1,5 +1,5 @@
 //
-//  ConfigComponentView.swift
+//  AppMapView.swift
 //  FutureGo
 //
 //  Created by Roman Shurkin on 27.11.2021.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class ConfigComponentView: UITableView {
+class AppMapView: UITableView {
     
-    var parametrs: [ConfigParametrModel] = []
+    var controllers: [ControllerModel] = []
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -25,23 +25,23 @@ class ConfigComponentView: UITableView {
         dataSource = self
         separatorStyle = .none
         
-        register(ConfigComponentCell.self, forCellReuseIdentifier: "ConfigComponentCell")
+        register(ControllerDesrCell.self, forCellReuseIdentifier: "ControllerDesrCell")
     }
     
-    func configure(with parametrs: [ConfigParametrModel]) {
-        self.parametrs = parametrs
+    func configure(with controllers: [ControllerModel]) {
+        self.controllers = controllers
         reloadData()
     }
 }
-extension ConfigComponentView: UITableViewDataSource {
+extension AppMapView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        parametrs.count
+        controllers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ConfigComponentCell", for: indexPath) as! ConfigComponentCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ControllerDesrCell", for: indexPath) as! ControllerDesrCell
         
-        cell.configure(with: parametrs[indexPath.row])
+        cell.configure(with: controllers[indexPath.row])
         return cell
     }
 }
