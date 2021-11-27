@@ -15,6 +15,7 @@ enum ElementsType: CaseIterable {
     case textField
     case image
     case label
+    case swipableView
     
     var title: String {
         switch self {
@@ -30,6 +31,8 @@ enum ElementsType: CaseIterable {
             return "Картинка"
         case .label:
             return "Лейбл"
+        case .swipableView:
+            return "Тиндер Свайп"
         }
     }
 }

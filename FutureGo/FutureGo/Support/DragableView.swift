@@ -193,6 +193,8 @@ class DragableButton: UIButton, Dragable {
             case let .action(selector):
                 guard let selector = selector else { return }
                 self.addTarget(self, action: selector, for: .touchUpInside)
+            default:
+                break
             }
         }
     }
@@ -333,4 +335,8 @@ class DragableTextField: DragableView {
             }
         }
     }
+}
+
+class DragableSwipe: DragableView {
+    
 }

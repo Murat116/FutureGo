@@ -102,6 +102,9 @@ class ConfigComponentElementView: UIView {
         case .action(_):
             selectBtn.isHidden = true
             textField.isHidden = true
+        case .duration(_):
+            selectBtn.isHidden = true
+            textField.isHidden = true
         }
         
         switch model {
@@ -117,6 +120,8 @@ class ConfigComponentElementView: UIView {
             guard let val = value else { break }
             textField.text = "\(val)"
         case .backgroundImage(_):
+            break
+        case .duration(_):
             break
         case .action(_):
             break
@@ -178,6 +183,9 @@ extension ConfigComponentElementView: UIColorPickerViewControllerDelegate {
             newParametr = .textColor(viewController.selectedColor)
         case .backgroundColor:
             newParametr = .backgroundColor(viewController.selectedColor)
+        case .duration(_):
+            guard let val = Double(textField.text ?? "") else { break }
+            newParametr = .duration(CGFloat(val))
         default:
             break
         }
