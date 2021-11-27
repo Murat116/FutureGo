@@ -14,7 +14,7 @@ class ElementModel {
     }
     
 
-    let id = UUID().uuidString
+    var id = UUID().uuidString
     
     let type: ElementsType
     

@@ -22,6 +22,7 @@ class BuildManager {
             vc.view.addSubview(element.gerRealElement())
         }
         self.navigationConstroller?.pushViewController(vc, animated: true)
+        self.navigationConstroller?.navigationBar.isHidden = false
 //        self.navigationConstroller?.present(vc, animated: true, completion: nil)
     }
 }

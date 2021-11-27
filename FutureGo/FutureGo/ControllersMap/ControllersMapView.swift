@@ -22,7 +22,11 @@ protocol MapViweOutput: AnyObject {
 class ControllersMapView: UICollectionView {
     
     var controllers: [ControllerModel] = []
-    public var width: CGFloat = 0
+    public var width: CGFloat = 0 {
+        didSet{
+            self.contentInset = UIEdgeInsets(top: 0, left: (width - 375) / 2, bottom: 0, right: (width - 375) / 2)
+        }
+    }
     public weak var output: MapViweOutput?
     
     weak var selectOutput: SelectElementOutput?
@@ -79,7 +83,11 @@ extension ControllersMapView: UICollectionViewDelegate {
 
 extension ControllersMapView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.width, height: UIScreen.main.bounds.size.width)
+        return CGSize(width: 375, height: 812)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return (width - 375) / 2
     }
 }
 
