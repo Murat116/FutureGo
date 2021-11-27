@@ -13,7 +13,7 @@ class ConstructorVC: UIViewController {
     
     private let controllersMap = ControllersMapView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     
-    private let configComponentView = UIView()
+    private let configComponentView = ConfigComponentView()
     
     private lazy var elementView: ElementTableView = {
         let view = ElementTableView(output: self)
@@ -49,6 +49,8 @@ class ConstructorVC: UIViewController {
         configComponentView.pinToSuperView(sides: [.topR, .bottomR])
         configComponentView.pin(side: .rightR, to: .left(elementView))
         configComponentView.setDemission(.width(200))
+        
+        configComponentView.configure(with: ConfigParametrModel.testElements)
     }
     
     private func setUpConrollerMap() {

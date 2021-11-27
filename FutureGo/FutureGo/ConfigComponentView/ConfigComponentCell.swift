@@ -28,11 +28,14 @@ class ConfigComponentCell: UITableViewCell {
     }
     
     func configure(with model: ConfigParametrModel) {
-        
+        configView.configure(with: model)
     }
 }
 
 class ConfigComponentElementView: UIView {
+    
+    let nameLabel = UILabel()
+    let valueLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,6 +47,18 @@ class ConfigComponentElementView: UIView {
     }
     
     private func setUp() {
+        addSubview(nameLabel)
+        nameLabel.pinToSuperView(sides: [.top(10, .required), .left(10, .required)])
         
+        addSubview(valueLabel)
+        valueLabel.pinToSuperView(sides: [.top(10), .right(-10)])
+        valueLabel.pin(side: .left(10), to: .right(nameLabel))
+        
+        pin(side: .bottom(-10), to: .bottom(nameLabel))
+    }
+    
+    func configure(with model: ConfigParametrModel) {
+        nameLabel.text = model.name
+        valueLabel.text = "\(model.value)"
     }
 }
