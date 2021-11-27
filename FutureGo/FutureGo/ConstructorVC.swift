@@ -15,13 +15,23 @@ class ConstructorVC: UIViewController {
     
     private let configComponentView = UIView()
     
+    private lazy var elementView: ElementTableView = {
+        let view = ElementTableView(output: self)
+        return view
+    }()
     
+    override func loadView() {
+        self.view = backView
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpAppMap()
         setUpConfigComponentView()
-        setUpConrollerMap()
+        self.view.addSubview(self.elementView)
+        self.elementView.pinToSuperView(sides: [.topR,.rightR,.bottomR])
+        self.elementView.setDemission(.width(100))
     }
     
     private func setUpAppMap() {
@@ -54,3 +64,9 @@ class ConstructorVC: UIViewController {
     }
 }
 
+extension ConstructorVC: ElementTableViewOutput {
+    func addElement(_ element: ElementsType) {
+        let view = element.getUIProection(parentView: self.view)
+        self.view.addSubview(view)
+    }
+}

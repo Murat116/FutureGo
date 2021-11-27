@@ -33,22 +33,37 @@ enum ElementsType: CaseIterable {
         }
     }
     
-    var element: UIView {
+    func getUIProection(parentView: UIView) -> UIView {
         switch self {
         case .window:
-            let view = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
+            let view = DragableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)
             view.backgroundColor = .lightGray
             return view
+            
         case .tableView:
-            return UITableView()
+            let view = DragableTableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)
+            view.backgroundColor = .green
+            return view
+            
         case .button:
-            return UIButton()
+            let view =  DragableButton(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)
+            view.backgroundColor = .darkText
+            return view
+            
         case .textField:
-            return UITextField()
+            let view = DragableTextField(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)
+            view.backgroundColor = .red
+            return view
+            
         case .image:
-            return UIImageView()
+            let view = DragableImageView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)
+            view.backgroundColor = .blue
+            return view
+            
         case .label:
-            return UILabel()
+            let view = DragableLabel(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)
+            view.backgroundColor = .yellow
+            return view
         }
     }
 }
