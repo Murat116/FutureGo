@@ -7,7 +7,9 @@
 
 import UIKit
 
-protocol Dragable: AnyObject {}
+protocol Dragable: AnyObject {
+    func configure(with parametrs: [ConfigParametrModel])
+}
 
 protocol ParentView: UIView {
     func removewFromSuperview(type: ElementsType)
@@ -17,8 +19,13 @@ class DragableView: UIView, Dragable {
     
     let parentView: ParentView
     
-    init(frame: CGRect, parentView: ParentView) {
+    weak var selectOutput: SelectElementOutput?
+    
+    var tapGesture: UITapGestureRecognizer?
+    
+    init(frame: CGRect, parentView: ParentView, selectOutput: SelectElementOutput?) {
         self.parentView = parentView
+        self.selectOutput = selectOutput
         super.init(frame: frame)
         self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handler)))
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed(sender:)))
@@ -62,9 +69,27 @@ class DragableView: UIView, Dragable {
             let draggedView = gesture.view
             draggedView?.center = location
     }
+    
+    func configure(with parametrs: [ConfigParametrModel]) {
+        parametrs.forEach { parametr in
+            switch parametr {
+            case let .backgroundColor(color):
+                self.backgroundColor = color
+            case let .radius(value):
+                self.layer.cornerRadius = value ?? 0
+            case let .action(selector):
+                guard let selector = selector else { return }
+                tapGesture = UITapGestureRecognizer(target: self, action: selector)
+                self.addGestureRecognizer(tapGesture!)
+            default:
+                break
+            }
+        }
+    }
 }
 
 class DragableButton: UIButton, Dragable {
+    
     let parentView: ParentView
     
     let model: ElementModel
@@ -122,13 +147,33 @@ class DragableButton: UIButton, Dragable {
     @objc func selectElement() {
         self.selectOutput?.selectElement(self.model)
     }
+    
+    func configure(with parametrs: [ConfigParametrModel]) {
+        parametrs.forEach { parametr in
+            switch parametr {
+            case let .title(text):
+                self.setTitle(text, for: .normal)
+            case let .textColor(color):
+                self.setTitleColor(color, for: .normal)
+            case let .backgroundColor(color):
+                self.backgroundColor = color
+            case let .radius(value):
+                self.layer.cornerRadius = value ?? 0
+            case let .backgroundImage(image):
+                self.setImage(image, for: .normal)
+            case let .action(selector):
+                guard let selector = selector else { return }
+                self.addTarget(self, action: selector, for: .touchUpInside)
+            }
+        }
+    }
 }
 
 class DragableLabel: DragableView {
     let label = UILabel()
     
-    override init(frame: CGRect, parentView: ParentView) {
-        super.init(frame: frame, parentView: parentView)
+    override init(frame: CGRect, parentView: ParentView, selectOutput: SelectElementOutput?) {
+        super.init(frame: frame, parentView: parentView, selectOutput: selectOutput)
         self.addSubview(self.label)
         self.label.pinToSuperView()
     }
@@ -136,13 +181,37 @@ class DragableLabel: DragableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func configure(with parametrs: [ConfigParametrModel]) {
+        parametrs.forEach { parametr in
+            switch parametr {
+            case let .backgroundColor(color):
+                self.backgroundColor = color
+            case let .radius(value):
+                self.layer.cornerRadius = value ?? 0
+            case let .action(selector):
+                guard let selector = selector else { return }
+                tapGesture = UITapGestureRecognizer(target: self, action: selector)
+                self.addGestureRecognizer(tapGesture!)
+            case let .title(text):
+                self.label.text = text
+            case let .textColor(color):
+                self.label.textColor = color
+            case .backgroundImage(_):
+                break
+            }
+        }
+    }
 }
 
 class DragableTableView: UITableView, Dragable {
     let parentView: ParentView
     
-    init(frame: CGRect, parentView: ParentView) {
+    weak var selectOutput: SelectElementOutput?
+    
+    init(frame: CGRect, parentView: ParentView, selectOutput: SelectElementOutput?) {
         self.parentView = parentView
+        self.selectOutput = selectOutput
         super.init(frame: frame, style: .insetGrouped)
         self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handler)))
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed(sender:)))
@@ -163,19 +232,36 @@ class DragableTableView: UITableView, Dragable {
         let draggedView = gesture.view
         draggedView?.center = location
     }
+    
+    func configure(with parametrs: [ConfigParametrModel]) {
+        
+    }
 }
 
 class DragableImageView: DragableView {
     let imageView = UIImageView()
     
-    override init(frame: CGRect, parentView: ParentView) {
-        super.init(frame: frame, parentView: parentView)
+    override init(frame: CGRect, parentView: ParentView, selectOutput: SelectElementOutput?) {
+        super.init(frame: frame, parentView: parentView, selectOutput: selectOutput)
         self.addSubview(self.imageView)
         self.imageView.pinToSuperView()
+        self.imageView.contentMode = .scaleAspectFit
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func configure(with parametrs: [ConfigParametrModel]) {
+        super.configure(with: parametrs)
+        parametrs.forEach { parametr in
+            switch parametr {
+            case let .backgroundImage(image):
+                self.imageView.image = image
+            default:
+                break
+            }
+        }
     }
 }
 
@@ -183,13 +269,25 @@ class DragableTextField: DragableView {
     
     let textField = UITextField()
     
-    override init(frame: CGRect, parentView: ParentView) {
-        super.init(frame: frame, parentView: parentView)
+    override init(frame: CGRect, parentView: ParentView, selectOutput: SelectElementOutput?) {
+        super.init(frame: frame, parentView: parentView, selectOutput: selectOutput)
         self.addSubview(self.textField)
         self.textField.pinToSuperView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func configure(with parametrs: [ConfigParametrModel]) {
+        super.configure(with: parametrs)
+        parametrs.forEach { parametr in
+            switch parametr {
+            case let .title(text):
+                self.textField.text = text
+            default:
+                break
+            }
+        }
     }
 }

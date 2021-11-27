@@ -152,7 +152,7 @@ class ConstructorVC: UIViewController {
 
 extension ConstructorVC: SelectElementOutput {
     func selectElement(_ element: ElementModel) {
-        configComponentView.configure(with: element.getParametrs())
+        configComponentView.configure(with: element.parametrs)
     }
 }
 
