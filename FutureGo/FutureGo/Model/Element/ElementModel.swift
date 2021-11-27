@@ -20,6 +20,8 @@ class ElementModel {
     
     var frame: CGRect
     
+    var subview = [ElementModel]()
+    
     func changeFrame(frame: CGRect) {
         self.frame = frame
     }
@@ -158,6 +160,9 @@ class ElementModel {
             return view
         case .swipableView:
             let view = SwipeableCardViewContainer()
+            view.frame = self.frame
+            view.backgroundColor = .yellow
+            view.reloadData()
             return view
         }
     }

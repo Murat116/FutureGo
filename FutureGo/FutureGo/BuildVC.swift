@@ -33,6 +33,9 @@ class BuildManager {
         for element in rootVc.elements {
             let view = element.gerRealElement()
             vc.mainView.addSubview(view)
+//            for subElement in element {
+//                subElement.get
+//            }
         }
         
         
