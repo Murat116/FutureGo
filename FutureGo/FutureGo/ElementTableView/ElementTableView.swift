@@ -44,6 +44,7 @@ extension ElementTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let element = ElementsType.allCases[indexPath.row]
         self.output?.addElement(element)
+        self.isHidden = true
     }
 }
 
