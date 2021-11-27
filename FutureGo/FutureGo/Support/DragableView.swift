@@ -181,6 +181,8 @@ class DragableButton: UIButton, Dragable {
             case let .action(selector):
                 guard let selector = selector else { return }
                 self.addTarget(self, action: selector, for: .touchUpInside)
+            default:
+                break
             }
         }
     }
@@ -263,4 +265,8 @@ class DragableTextField: DragableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+class DragableSwipe: DragableView {
+    
 }

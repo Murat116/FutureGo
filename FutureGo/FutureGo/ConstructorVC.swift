@@ -66,6 +66,9 @@ class ConstructorVC: UIViewController {
     public lazy var elementView: ElementTableView = {
         let view = ElementTableView()
         view.isHidden = true
+        self.view.addSubview(view)
+        view.pinToSuperView(sides: [.topR,.rightR,.bottomR])
+        view.setDemission(.width(300))
         return view
     }()
 
@@ -74,9 +77,7 @@ class ConstructorVC: UIViewController {
         
         self.navigationController?.navigationBar.isHidden = true
         
-        self.view.addSubview(self.elementView)
-        self.elementView.pinToSuperView(sides: [.topR,.rightR,.bottomR])
-        self.elementView.setDemission(.width(300))
+        
         self.elementView.output = self.controllersMap
         
         setUpAppMap()
@@ -153,7 +154,12 @@ class ConstructorVC: UIViewController {
         }
         self.build?.hide()
         self.build = nil
-        
+        guard let recognizer = self.recognizer else {
+            return
+        }
+
+        self.view.removeGestureRecognizer(recognizer)
+        self.recognizer = nil
     }
     
     @objc func showElementTable() {

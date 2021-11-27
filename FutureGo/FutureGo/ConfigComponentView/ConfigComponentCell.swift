@@ -98,6 +98,9 @@ class ConfigComponentElementView: UIView {
             break
         case .action(_):
             break
+        case .duration(_):
+            guard let val = Double(textField.text ?? "") else { break }
+            newParametr = .duration(CGFloat(val))
         }
         
         guard let param = newParametr else { return }

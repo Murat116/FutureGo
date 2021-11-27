@@ -104,6 +104,17 @@ class ElementModel {
             view.configure(with: parametrs)
             
             return view
+        case .swipableView:
+            let view = DragableSwipe(frame: CGRect(x: 100, y: 100, width: 200, height: 200), parentView: parentView, id: id, selectOutput: output)
+            view.backgroundColor = .red
+            
+            self.parametrs = [
+                .backgroundColor(.gray),
+                .radius(8)
+            ]
+            
+            view.configure(with: parametrs)
+            return view
         }
     }
     
@@ -135,6 +146,8 @@ class ElementModel {
 //                    view.
                     print("cvbn")
                     break
+                default:
+                    break
                 }
             }
 //            view.backgroundColor = model.parametrs.firstIndex(of: $0 == .backgroundColor)
@@ -154,6 +167,9 @@ class ElementModel {
         case .label:
             let view = UILabel(frame: self.frame)
             view.backgroundColor = .blue
+            return view
+        case .swipableView:
+            let view = SwipeableCardViewContainer()
             return view
         }
     }

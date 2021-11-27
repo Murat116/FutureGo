@@ -3,10 +3,27 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4545362A2752B0C00061805F /* SampleSwipeableCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4545361A2752B0C00061805F /* SampleSwipeableCard.xib */; };
+		4545362B2752B0C00061805F /* SampleSwipeableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4545361B2752B0C00061805F /* SampleSwipeableCellViewModel.swift */; };
+		4545362C2752B0C00061805F /* SwipeableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4545361C2752B0C00061805F /* SwipeableViewDelegate.swift */; };
+		4545362D2752B0C00061805F /* StaticShadowHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4545361D2752B0C00061805F /* StaticShadowHeaderView.xib */; };
+		4545362E2752B0C00061805F /* CGRect+SwipeAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4545361E2752B0C00061805F /* CGRect+SwipeAdditions.swift */; };
+		4545362F2752B0C00061805F /* SwipeableCardViewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4545361F2752B0C00061805F /* SwipeableCardViewCard.swift */; };
+		454536302752B0C00061805F /* SwipeableCardViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454536202752B0C00061805F /* SwipeableCardViewContainer.swift */; };
+		454536312752B0C00061805F /* SwipeableCardViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454536212752B0C00061805F /* SwipeableCardViewDataSource.swift */; };
+		454536322752B0C00061805F /* SampleSwipeableCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454536222752B0C00061805F /* SampleSwipeableCard.swift */; };
+		454536332752B0C00061805F /* SwipeableCardViewCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 454536232752B0C00061805F /* SwipeableCardViewCard.xib */; };
+		454536342752B0C00061805F /* NibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454536242752B0C00061805F /* NibView.swift */; };
+		454536352752B0C00061805F /* StaticShadowHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454536252752B0C00061805F /* StaticShadowHeaderView.swift */; };
+		454536362752B0C00061805F /* CGPoint+SwipeableAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454536262752B0C00061805F /* CGPoint+SwipeableAdditions.swift */; };
+		454536372752B0C00061805F /* SwipeableCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454536272752B0C00061805F /* SwipeableCardViewDelegate.swift */; };
+		454536382752B0C00061805F /* SwipeableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454536282752B0C00061805F /* SwipeableView.swift */; };
+		454536392752B0C00061805F /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454536292752B0C00061805F /* SwipeDirection.swift */; };
+		45CD8E0F2752B22E00204405 /* extensionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CD8E0E2752B22D00204405 /* extensionView.swift */; };
 		45EC5C1727521A3000C7F5A0 /* ElementTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EC5C1627521A3000C7F5A0 /* ElementTableView.swift */; };
 		45EC5C1A27521AD500C7F5A0 /* ElementEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EC5C1927521AD500C7F5A0 /* ElementEnum.swift */; };
 		45EC5C1C27521B1800C7F5A0 /* UIElementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EC5C1B27521B1800C7F5A0 /* UIElementCell.swift */; };
@@ -29,9 +46,27 @@
 		83FFFCE927523D3F0052408B /* AppMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FFFCE827523D3F0052408B /* AppMapView.swift */; };
 		83FFFCEB27523E110052408B /* ControllerDesrCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FFFCEA27523E110052408B /* ControllerDesrCell.swift */; };
 		83FFFCEE27524F010052408B /* ElementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FFFCED27524F010052408B /* ElementModel.swift */; };
+		A0FF69F7A48DE8E5536548B8 /* Pods_FutureGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F97B3EE39AC8FBCA411A2B01 /* Pods_FutureGo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4545361A2752B0C00061805F /* SampleSwipeableCard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SampleSwipeableCard.xib; path = ../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/SampleSwipeableCard.xib; sourceTree = "<group>"; };
+		4545361B2752B0C00061805F /* SampleSwipeableCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SampleSwipeableCellViewModel.swift; path = ../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/SampleSwipeableCellViewModel.swift; sourceTree = "<group>"; };
+		4545361C2752B0C00061805F /* SwipeableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwipeableViewDelegate.swift; path = ../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/SwipeableViewDelegate.swift; sourceTree = "<group>"; };
+		4545361D2752B0C00061805F /* StaticShadowHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StaticShadowHeaderView.xib; path = ../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/StaticShadowHeaderView.xib; sourceTree = "<group>"; };
+		4545361E2752B0C00061805F /* CGRect+SwipeAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGRect+SwipeAdditions.swift"; path = "../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/CGRect+SwipeAdditions.swift"; sourceTree = "<group>"; };
+		4545361F2752B0C00061805F /* SwipeableCardViewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwipeableCardViewCard.swift; path = ../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/SwipeableCardViewCard.swift; sourceTree = "<group>"; };
+		454536202752B0C00061805F /* SwipeableCardViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwipeableCardViewContainer.swift; path = ../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/SwipeableCardViewContainer.swift; sourceTree = "<group>"; };
+		454536212752B0C00061805F /* SwipeableCardViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwipeableCardViewDataSource.swift; path = ../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/SwipeableCardViewDataSource.swift; sourceTree = "<group>"; };
+		454536222752B0C00061805F /* SampleSwipeableCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SampleSwipeableCard.swift; path = ../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/SampleSwipeableCard.swift; sourceTree = "<group>"; };
+		454536232752B0C00061805F /* SwipeableCardViewCard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SwipeableCardViewCard.xib; path = ../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/SwipeableCardViewCard.xib; sourceTree = "<group>"; };
+		454536242752B0C00061805F /* NibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NibView.swift; path = ../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/NibView.swift; sourceTree = "<group>"; };
+		454536252752B0C00061805F /* StaticShadowHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaticShadowHeaderView.swift; path = ../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/StaticShadowHeaderView.swift; sourceTree = "<group>"; };
+		454536262752B0C00061805F /* CGPoint+SwipeableAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGPoint+SwipeableAdditions.swift"; path = "../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/CGPoint+SwipeableAdditions.swift"; sourceTree = "<group>"; };
+		454536272752B0C00061805F /* SwipeableCardViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwipeableCardViewDelegate.swift; path = ../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/SwipeableCardViewDelegate.swift; sourceTree = "<group>"; };
+		454536282752B0C00061805F /* SwipeableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwipeableView.swift; path = ../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/SwipeableView.swift; sourceTree = "<group>"; };
+		454536292752B0C00061805F /* SwipeDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwipeDirection.swift; path = ../../../../Ayda_iOS/letsGo/SupportFile/SwipableView/SupportView/SwipableView/SwipeDirection.swift; sourceTree = "<group>"; };
+		45CD8E0E2752B22D00204405 /* extensionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionView.swift; sourceTree = "<group>"; };
 		45EC5C1627521A3000C7F5A0 /* ElementTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementTableView.swift; sourceTree = "<group>"; };
 		45EC5C1927521AD500C7F5A0 /* ElementEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementEnum.swift; sourceTree = "<group>"; };
 		45EC5C1B27521B1800C7F5A0 /* UIElementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElementCell.swift; sourceTree = "<group>"; };
@@ -56,6 +91,9 @@
 		83FFFCE827523D3F0052408B /* AppMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMapView.swift; sourceTree = "<group>"; };
 		83FFFCEA27523E110052408B /* ControllerDesrCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerDesrCell.swift; sourceTree = "<group>"; };
 		83FFFCED27524F010052408B /* ElementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementModel.swift; sourceTree = "<group>"; };
+		9F102D59536DC34A0A2B83E5 /* Pods-FutureGo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FutureGo.debug.xcconfig"; path = "Target Support Files/Pods-FutureGo/Pods-FutureGo.debug.xcconfig"; sourceTree = "<group>"; };
+		E189E6755AF98E4103562607 /* Pods-FutureGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FutureGo.release.xcconfig"; path = "Target Support Files/Pods-FutureGo/Pods-FutureGo.release.xcconfig"; sourceTree = "<group>"; };
+		F97B3EE39AC8FBCA411A2B01 /* Pods_FutureGo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FutureGo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,12 +101,45 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0FF69F7A48DE8E5536548B8 /* Pods_FutureGo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		336565972DC39BAA41FF2B6E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F97B3EE39AC8FBCA411A2B01 /* Pods_FutureGo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		454536192752B0A70061805F /* SwipableView */ = {
+			isa = PBXGroup;
+			children = (
+				454536262752B0C00061805F /* CGPoint+SwipeableAdditions.swift */,
+				4545361E2752B0C00061805F /* CGRect+SwipeAdditions.swift */,
+				454536242752B0C00061805F /* NibView.swift */,
+				454536222752B0C00061805F /* SampleSwipeableCard.swift */,
+				4545361A2752B0C00061805F /* SampleSwipeableCard.xib */,
+				4545361B2752B0C00061805F /* SampleSwipeableCellViewModel.swift */,
+				454536252752B0C00061805F /* StaticShadowHeaderView.swift */,
+				4545361D2752B0C00061805F /* StaticShadowHeaderView.xib */,
+				4545361F2752B0C00061805F /* SwipeableCardViewCard.swift */,
+				454536232752B0C00061805F /* SwipeableCardViewCard.xib */,
+				454536202752B0C00061805F /* SwipeableCardViewContainer.swift */,
+				454536212752B0C00061805F /* SwipeableCardViewDataSource.swift */,
+				454536272752B0C00061805F /* SwipeableCardViewDelegate.swift */,
+				454536282752B0C00061805F /* SwipeableView.swift */,
+				4545361C2752B0C00061805F /* SwipeableViewDelegate.swift */,
+				454536292752B0C00061805F /* SwipeDirection.swift */,
+				45CD8E0E2752B22D00204405 /* extensionView.swift */,
+			);
+			path = SwipableView;
+			sourceTree = "<group>";
+		};
 		45EC5C1827521AC900C7F5A0 /* ElementTableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,11 +158,22 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		5F9A28268B1C9E4B4D77D178 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9F102D59536DC34A0A2B83E5 /* Pods-FutureGo.debug.xcconfig */,
+				E189E6755AF98E4103562607 /* Pods-FutureGo.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		83FFFCB8275213340052408B = {
 			isa = PBXGroup;
 			children = (
 				83FFFCC3275213340052408B /* FutureGo */,
 				83FFFCC2275213340052408B /* Products */,
+				5F9A28268B1C9E4B4D77D178 /* Pods */,
+				336565972DC39BAA41FF2B6E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,6 +197,7 @@
 				83FFFCD8275220740052408B /* ControllersMap */,
 				83FFFCDD27522E960052408B /* ConfigComponentView */,
 				45EC5C1827521AC900C7F5A0 /* ElementTableView */,
+				454536192752B0A70061805F /* SwipableView */,
 				45EC5C212752605700C7F5A0 /* Support */,
 				83FFFCCA275213340052408B /* Main.storyboard */,
 				83FFFCCD275213370052408B /* Assets.xcassets */,
@@ -178,9 +261,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83FFFCD5275213370052408B /* Build configuration list for PBXNativeTarget "FutureGo" */;
 			buildPhases = (
+				6780FD02ECE286D252D44A6D /* [CP] Check Pods Manifest.lock */,
 				83FFFCBD275213340052408B /* Sources */,
 				83FFFCBE275213340052408B /* Frameworks */,
 				83FFFCBF275213340052408B /* Resources */,
+				6D3446371262ECAB0C776F0D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -228,23 +313,72 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4545362A2752B0C00061805F /* SampleSwipeableCard.xib in Resources */,
 				83FFFCD1275213370052408B /* LaunchScreen.storyboard in Resources */,
 				83FFFCCE275213370052408B /* Assets.xcassets in Resources */,
+				454536332752B0C00061805F /* SwipeableCardViewCard.xib in Resources */,
 				83FFFCCC275213340052408B /* Main.storyboard in Resources */,
+				4545362D2752B0C00061805F /* StaticShadowHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6780FD02ECE286D252D44A6D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FutureGo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6D3446371262ECAB0C776F0D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FutureGo/Pods-FutureGo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FutureGo/Pods-FutureGo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FutureGo/Pods-FutureGo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		83FFFCBD275213340052408B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4545362C2752B0C00061805F /* SwipeableViewDelegate.swift in Sources */,
 				83FFFCEE27524F010052408B /* ElementModel.swift in Sources */,
+				4545362E2752B0C00061805F /* CGRect+SwipeAdditions.swift in Sources */,
+				454536312752B0C00061805F /* SwipeableCardViewDataSource.swift in Sources */,
 				83FFFCDF27522EB30052408B /* ConfigComponentView.swift in Sources */,
 				83FFFCC9275213340052408B /* ConstructorVC.swift in Sources */,
 				83FFFCC5275213340052408B /* AppDelegate.swift in Sources */,
+				454536382752B0C00061805F /* SwipeableView.swift in Sources */,
 				83FFFCE6275238940052408B /* ControllerModel.swift in Sources */,
 				45EC5C202752271000C7F5A0 /* DragableView.swift in Sources */,
 				83FFFCEB27523E110052408B /* ControllerDesrCell.swift in Sources */,
@@ -254,11 +388,21 @@
 				83FFFCDC275227F70052408B /* ControllersMapCell.swift in Sources */,
 				45EC5C1C27521B1800C7F5A0 /* UIElementCell.swift in Sources */,
 				45EC5C232752606C00C7F5A0 /* BuildVC.swift in Sources */,
+				4545362F2752B0C00061805F /* SwipeableCardViewCard.swift in Sources */,
+				454536352752B0C00061805F /* StaticShadowHeaderView.swift in Sources */,
 				83FFFCE12752374C0052408B /* ConfigComponentCell.swift in Sources */,
+				454536362752B0C00061805F /* CGPoint+SwipeableAdditions.swift in Sources */,
 				45EC5C252752617300C7F5A0 /* AppModel.swift in Sources */,
+				4545362B2752B0C00061805F /* SampleSwipeableCellViewModel.swift in Sources */,
 				83FFFCE4275238850052408B /* ConfigParametrModel.swift in Sources */,
+				45CD8E0F2752B22E00204405 /* extensionView.swift in Sources */,
+				454536392752B0C00061805F /* SwipeDirection.swift in Sources */,
 				83FFFCDA275220A70052408B /* ControllersMapView.swift in Sources */,
+				454536322752B0C00061805F /* SampleSwipeableCard.swift in Sources */,
+				454536342752B0C00061805F /* NibView.swift in Sources */,
+				454536372752B0C00061805F /* SwipeableCardViewDelegate.swift in Sources */,
 				83FFFCE927523D3F0052408B /* AppMapView.swift in Sources */,
+				454536302752B0C00061805F /* SwipeableCardViewContainer.swift in Sources */,
 				45EC5C1A27521AD500C7F5A0 /* ElementEnum.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -403,6 +547,7 @@
 		};
 		83FFFCD6275213370052408B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F102D59536DC34A0A2B83E5 /* Pods-FutureGo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -422,6 +567,7 @@
 		};
 		83FFFCD7275213370052408B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E189E6755AF98E4103562607 /* Pods-FutureGo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
