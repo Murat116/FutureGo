@@ -21,7 +21,7 @@ class ControllersMapCell: UICollectionViewCell {
     }
     
     private func setUp() {
-        mainView.backgroundColor = .red
+        mainView.backgroundColor = .white
         
         contentView.addSubview(mainView)
         

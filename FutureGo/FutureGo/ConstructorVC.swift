@@ -11,12 +11,14 @@ class ConstructorVC: UIViewController {
     
     private let appMap = UIView()
     
-    private let controllersMap = ControllersMapView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    private lazy var controllersMap: ControllersMapView = {
+        return ControllersMapView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    }()
     
     private let configComponentView = UIView()
     
-    private lazy var elementView: ElementTableView = {
-        let view = ElementTableView(output: self)
+    public lazy var elementView: ElementTableView = {
+        let view = ElementTableView()
         return view
     }()
 
@@ -26,10 +28,17 @@ class ConstructorVC: UIViewController {
         self.view.addSubview(self.elementView)
         self.elementView.pinToSuperView(sides: [.topR,.rightR,.bottomR])
         self.elementView.setDemission(.width(100))
+        self.elementView.output = self.controllersMap
         
         setUpAppMap()
         setUpConfigComponentView()
         setUpConrollerMap()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.controllersMap.width = self.configComponentView.frame.origin.x - self.appMap.frame.maxX
+        self.controllersMap.reloadData()
     }
     
     private func setUpAppMap() {
@@ -60,12 +69,5 @@ class ConstructorVC: UIViewController {
         controllersMap.pin(side: .rightR, to: .left(configComponentView))
         
         controllersMap.configure(with: ControllerModel.testItems)
-    }
-}
-
-extension ConstructorVC: ElementTableViewOutput {
-    func addElement(_ element: ElementsType) {
-        let view = element.getUIProection(parentView: self.view)
-        self.view.addSubview(view)
     }
 }
