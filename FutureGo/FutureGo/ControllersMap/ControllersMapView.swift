@@ -98,6 +98,13 @@ extension ControllersMapView: ElementTableViewOutput {
 }
 
 extension ControllersMapView: ControllersMapCellOutput {
+    func changeModelOf(model: ControllerModel?) {
+        let indexOfController = self.controllers.firstIndex{ $0.id == model!.id }
+        guard let indexOfController = indexOfController else { return }
+        self.controllers[indexOfController] = model!
+        self.output?.realoadData(with: self.controllers)
+    }
+    
     func removewFromSuperview(model: ControllerModel, element: ElementsType) {
         let indexOfController = self.controllers.firstIndex{ $0.id == model.id }
         guard let indexOfController = indexOfController else { return }
