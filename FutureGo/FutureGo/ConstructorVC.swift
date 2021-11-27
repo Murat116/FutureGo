@@ -82,10 +82,14 @@ class ConstructorVC: UIViewController {
         setUpAppMap()
         setUpConfigComponentView()
         setUpConrollerMap()
+        
+        let model = ControllerModel(name: "Main", elements: [])
+        self.controllers.append(model)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
         self.controllersMap.width = self.configComponentView.frame.origin.x - self.appMap.frame.maxX
         self.controllersMap.reloadData()
     }
@@ -123,12 +127,33 @@ class ConstructorVC: UIViewController {
         controllersMap.pin(side: .rightR, to: .left(configComponentView))
         
     }
-    
+    var recognizer: UITapGestureRecognizer?
+    var blurEffect: UIBlurEffect?
+    var build: BuildManager?
     @objc func buildAction() {
-        let build = BuildManager(model: AppModel(rootVC: self.controllers.first!, controllers: self.controllers))
-        build.navigationConstroller = self.navigationController
-        build.run()
+        self.buildBtn.setTitle("Build \(Int.random(in: 0...100))", for: .normal)
+        self.build = BuildManager(model: AppModel(rootVC: self.controllers.first!, controllers: self.controllers))
+        self.build!.navigationConstroller = self.navigationController
+        self.build!.run()
+        self.blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.view.addSubview(blurEffectView)
+        self.recognizer = UITapGestureRecognizer(target: self, action: #selector(self.hideBlur))
+        self.view.addGestureRecognizer(self.recognizer!)
 //        self.navigationController?.pushViewController(UIViewController(), animated: true)
+    }
+    
+    @objc func hideBlur() {
+        for subview in self.view.subviews {
+            if subview is UIVisualEffectView {
+                subview.removeFromSuperview()
+            }
+        }
+        self.build?.hide()
+        self.build = nil
+        
     }
     
     @objc func showElementTable() {
