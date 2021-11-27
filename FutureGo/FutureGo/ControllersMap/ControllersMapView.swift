@@ -11,10 +11,15 @@ protocol MapViewInput: AnyObject {
     func addElement(view: UIView)
 }
 
+protocol MapViweOutput: AnyObject {
+    func realoadData(with controllers: [ControllerModel])
+}
+
 class ControllersMapView: UICollectionView {
     
     var controllers: [ControllerModel] = []
     public var width: CGFloat = 0
+    public weak var output: MapViweOutput?
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         let flow = UICollectionViewFlowLayout()
@@ -54,7 +59,7 @@ extension ControllersMapView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ControllersMapCell", for: indexPath) as! ControllersMapCell
         
-        cell.configure(with: controllers[indexPath.row])
+        cell.configure(with: controllers[indexPath.row],parent: self)
         
         return cell
     }
@@ -74,8 +79,22 @@ extension ControllersMapView: UICollectionViewDelegateFlowLayout {
 extension ControllersMapView: ElementTableViewOutput {
     func addElement(_ element: ElementsType) {
         let index = Int(self.visibleCells.count / 2)
-        let cell = self.visibleCells[index]
+        let cell = self.visibleCells[index] as! ControllersMapCell
         let view = element.getUIProection(parentView: cell)
         cell.addSubview(view)
+        let indexOfController = self.controllers.firstIndex{ $0.id == cell.model?.id }
+        guard let indexOfController = indexOfController else { return }
+        self.controllers[indexOfController].elements.append(element)
+        self.output?.realoadData(with: self.controllers)
+    }
+}
+
+extension ControllersMapView: ControllersMapCellOutput {
+    func removewFromSuperview(model: ControllerModel, element: ElementsType) {
+        let indexOfController = self.controllers.firstIndex{ $0.id == model.id }
+        guard let indexOfController = indexOfController else { return }
+//        let index = self.controllers[indexOfController].elements.first(where: $0 == element)
+//        self.controllers[indexOfController].elements.removeFir
+//        self.output?.realoadData(with: self.controllers)
     }
 }

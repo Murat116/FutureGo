@@ -52,7 +52,9 @@ class ConstructorVC: UIViewController {
     private let appMap = AppMapView()
     
     private lazy var controllersMap: ControllersMapView = {
-        return ControllersMapView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        let view = ControllersMapView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        view.output = self
+        return view
     }()
     
     private let configComponentView = ConfigComponentView()
@@ -65,6 +67,8 @@ class ConstructorVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.isHidden = true
         
         self.view.addSubview(self.elementView)
         self.elementView.pinToSuperView(sides: [.topR,.rightR,.bottomR])
@@ -143,5 +147,11 @@ class ConstructorVC: UIViewController {
         // 4. Present the alert.
         self.present(alert, animated: true, completion: nil)
         
+    }
+}
+
+extension ConstructorVC: MapViweOutput {
+    func realoadData(with controllers: [ControllerModel]) {
+        self.controllers = controllers
     }
 }

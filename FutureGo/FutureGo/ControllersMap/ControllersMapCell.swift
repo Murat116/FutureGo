@@ -7,9 +7,16 @@
 
 import UIKit
 
-class ControllersMapCell: UICollectionViewCell {
-    
+
+protocol ControllersMapCellOutput: AnyObject {
+    func removewFromSuperview(model: ControllerModel, element: ElementsType)
+}
+
+class ControllersMapCell: UICollectionViewCell, ParentView {
     let mainView = UIView()
+    public weak var output: ControllersMapCellOutput?
+    
+    public var model: ControllerModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,7 +35,13 @@ class ControllersMapCell: UICollectionViewCell {
         mainView.pinToSuperView(sides: [.top(50, .required), .right(-50, .required), .left(50, .required), .bottom(-50, .required)])
     }
     
-    func configure(with model: ControllerModel) {
-        
+    func configure(with model: ControllerModel, parent: ControllersMapCellOutput) {
+        self.output = parent
+        self.model = model
     }
+    
+    func removewFromSuperview(type: ElementsType) {
+        self.output?.removewFromSuperview(model: self.model!, element: type)
+    }
+    
 }
