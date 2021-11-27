@@ -11,6 +11,10 @@ protocol MapViewInput: AnyObject {
     func addElement(view: UIView)
 }
 
+protocol SelectElementOutput: AnyObject {
+    func selectElement(_ element: ElementModel)
+}
+
 protocol MapViweOutput: AnyObject {
     func realoadData(with controllers: [ControllerModel])
 }
@@ -21,10 +25,13 @@ class ControllersMapView: UICollectionView {
     public var width: CGFloat = 0
     public weak var output: MapViweOutput?
     
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+    weak var selectOutput: SelectElementOutput?
+    
+    init(selectOutput: SelectElementOutput?) {
+        self.selectOutput = selectOutput
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .horizontal
-        super.init(frame: frame, collectionViewLayout: flow)
+        super.init(frame: .zero, collectionViewLayout: flow)
         setUp()
     }
     
@@ -59,7 +66,7 @@ extension ControllersMapView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ControllersMapCell", for: indexPath) as! ControllersMapCell
         
-        cell.configure(with: controllers[indexPath.row],parent: self)
+        cell.configure(with: controllers[indexPath.row], output: self, selectOutput: selectOutput)
         
         return cell
     }
@@ -77,12 +84,13 @@ extension ControllersMapView: UICollectionViewDelegateFlowLayout {
 }
 
 extension ControllersMapView: ElementTableViewOutput {
-    func addElement(_ element: ElementsType) {
+    func addElement(_ element: ElementModel) {
         let index = Int(self.visibleCells.count / 2)
-        let cell = self.visibleCells[index] as! ControllersMapCell
-        let view = element.getUIProection(parentView: cell)
-        cell.addSubview(view)
-        let indexOfController = self.controllers.firstIndex{ $0.id == cell.model?.id }
+        guard let cell = self.visibleCells[index] as? ControllersMapCell else {
+            return
+        }
+        cell.addElement(element)
+        let indexOfController = self.controllers.firstIndex{ $0.id == cell.controllerModel?.id }
         guard let indexOfController = indexOfController else { return }
         self.controllers[indexOfController].elements.append(element)
         self.output?.realoadData(with: self.controllers)

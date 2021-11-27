@@ -7,14 +7,39 @@
 
 import UIKit
 
-struct ConfigParametrModel {
-    let name: String
-    let value: CGFloat
+enum ConfigParametrModel: Equatable {
+    case title(String?)
+    case textColor(UIColor?)
+    case backgroundColor
+    case radius
+    case backgroundImage
+    case action
     
-    static let testElements = [
-        ConfigParametrModel(name: "name", value: 1),
-        ConfigParametrModel(name: "color", value: 2),
-        ConfigParametrModel(name: "corner", value: 8),
-        ConfigParametrModel(name: "shadow", value: 3),
-    ]
+    var name: String {
+        switch self {
+        case .title:
+            return "Текст"
+        case .textColor:
+            return "Цвет текста"
+        case .backgroundColor:
+            return "Цвет фона"
+        case .radius:
+            return "Радиус"
+        case .backgroundImage:
+            return "Фоновая картинка"
+        case .action:
+            return "Действие"
+        }
+    }
+    
+    static var allCases: [ConfigParametrModel] {
+        return [
+            .title(nil),
+            .textColor(nil),
+            .backgroundColor,
+            .radius,
+            .backgroundImage,
+            .action
+        ]
+    }
 }
