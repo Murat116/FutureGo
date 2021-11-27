@@ -24,30 +24,12 @@ class ElementModel {
         self.frame = frame
     }
     
-    func getParametrs() -> [ConfigParametrModel] {
-        return ConfigParametrModel.allCases
-//        switch type {
-//        case .window:
-//            return []
-//        case .tableView:
-//            return []
-//        case .button:
-//            return []
-//        case .textField:
-//            return []
-//        case .image:
-//            return []
-//        case .label:
-//            return [.title(nil), .textColor(nil)]
-//        }
-    }
     var parametrs = ConfigParametrModel.allCases
     
     func getUIProection(parentView: ParentView, output: SelectElementOutput?, id: String) -> UIView {
         switch type {
         case .window:
-            let view = DragableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView, id: id, selectOutput: output)
-            view.backgroundColor = .lightGray
+            let view = DragableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
             self.parametrs = [
                 .backgroundColor(.gray),
                 .radius(8)
@@ -57,7 +39,6 @@ class ElementModel {
             
         case .tableView:
             let view = DragableTableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView, id: id, selectOutput: output)
-//            view.backgroundColor = .green
             return view
             
         case .button:
@@ -65,9 +46,10 @@ class ElementModel {
                                        model: self,
                                        parentView: parentView,
                                        selectOutput: output, id: id)
-            view.backgroundColor = .darkText
+            
             self.parametrs = [
                 .backgroundColor(.gray),
+                .textColor(.black),
                 .title("Some Text ..."),
                 .radius(8)
             ]
@@ -75,12 +57,11 @@ class ElementModel {
             return view
             
         case .textField:
-            let view = DragableTextField(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView, id: id, selectOutput: output)
-            view.backgroundColor = .red
-            
+            let view = DragableTextField(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
             
             self.parametrs = [
                 .backgroundColor(.gray),
+                .textColor(.black),
                 .title("Some Text ..."),
                 .radius(8)
             ]
@@ -88,24 +69,31 @@ class ElementModel {
             return view
             
         case .image:
-            let view = DragableImageView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView, id: id, selectOutput: output)
-            view.backgroundColor = .blue
+            let view = DragableImageView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
+            view.backgroundColor = .gray
+            
+            self.parametrs = [
+                .backgroundImage(nil),
+                .radius(8)
+            ]
+            view.configure(with: parametrs)
+            
             return view
             
         case .label:
-            let view = DragableLabel(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView, id: id, selectOutput: output)
-            view.backgroundColor = .yellow
+            let view = DragableLabel(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
             
             self.parametrs = [
                 .backgroundColor(.gray),
                 .title("Some Text ..."),
+                .textColor(.black),
                 .radius(8)
             ]
             view.configure(with: parametrs)
             
             return view
         case .swipableView:
-            let view = DragableSwipe(frame: CGRect(x: 100, y: 100, width: 200, height: 200), parentView: parentView, id: id, selectOutput: output)
+            let view = DragableSwipe(frame: CGRect(x: 100, y: 100, width: 200, height: 200), model: self, parentView: parentView, id: id, selectOutput: output)
             view.backgroundColor = .red
             
             self.parametrs = [

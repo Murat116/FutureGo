@@ -23,15 +23,19 @@ class DragableView: UIView, Dragable {
     var id: String
     let parentView: ParentView
     
+    let model: ElementModel
+    
     weak var selectOutput: SelectElementOutput?
     var tapGesture: UITapGestureRecognizer?
     
-    init(frame: CGRect, parentView: ParentView, id: String, selectOutput: SelectElementOutput?) {
+    init(frame: CGRect, model: ElementModel, parentView: ParentView, id: String, selectOutput: SelectElementOutput?) {
         self.id = id
         self.selectOutput = selectOutput
         self.parentView = parentView
+        self.model = model
         super.init(frame: frame)
         self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handler)))
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.selectElement)))
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed(sender:)))
         self.addGestureRecognizer(longPressRecognizer)
     }
@@ -79,7 +83,12 @@ class DragableView: UIView, Dragable {
         self.parentView.changeFrame(of: self, to: self.frame)
     }
     
+    @objc func selectElement() {
+        self.selectOutput?.selectElement(self.model)
+    }
+    
     func configure(with parametrs: [ConfigParametrModel]) {
+        self.model.parametrs = parametrs
         parametrs.forEach { parametr in
             switch parametr {
             case let .backgroundColor(color):
@@ -166,13 +175,16 @@ class DragableButton: UIButton, Dragable {
     }
     
     func configure(with parametrs: [ConfigParametrModel]) {
+        self.model.parametrs = parametrs
         parametrs.forEach { parametr in
             switch parametr {
             case let .title(text):
                 self.setTitle(text, for: .normal)
             case let .textColor(color):
+                guard let color = color else { break }
                 self.setTitleColor(color, for: .normal)
             case let .backgroundColor(color):
+                guard let color = color else { break }
                 self.backgroundColor = color
             case let .radius(value):
                 self.layer.cornerRadius = value ?? 0
@@ -188,17 +200,38 @@ class DragableButton: UIButton, Dragable {
     }
 }
 
-class DragableLabel: DragableView{
+class DragableLabel: DragableView {
     let label = UILabel()
     
-    override init(frame: CGRect, parentView: ParentView, id: String, selectOutput: SelectElementOutput?) {
-        super.init(frame: frame, parentView: parentView, id: id, selectOutput: selectOutput)
+    override init(frame: CGRect, model: ElementModel, parentView: ParentView, id: String, selectOutput: SelectElementOutput?) {
+        super.init(frame: frame, model: model, parentView: parentView, id: id, selectOutput: selectOutput)
         self.addSubview(self.label)
         self.label.pinToSuperView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func configure(with parametrs: [ConfigParametrModel]) {
+        super.configure(with: parametrs)
+        parametrs.forEach { parametr in
+            switch parametr {
+            case let .title(text):
+                self.label.text = text
+            case let .textColor(color):
+                guard let color = color else { break }
+                self.label.textColor = color
+            case let .radius(value):
+                self.layer.cornerRadius = value ?? 0
+            case let .action(selector):
+                guard let selector = selector else { return }
+                tapGesture = UITapGestureRecognizer(target: self, action: selector)
+                self.addGestureRecognizer(tapGesture!)
+            default:
+                break
+            }
+        }
     }
 }
 
@@ -241,14 +274,29 @@ class DragableTableView: UITableView, Dragable {
 class DragableImageView: DragableView {
     let imageView = UIImageView()
     
-    override init(frame: CGRect, parentView: ParentView, id: String, selectOutput: SelectElementOutput?) {
-        super.init(frame: frame, parentView: parentView, id: id, selectOutput: selectOutput)
+    override init(frame: CGRect, model: ElementModel, parentView: ParentView, id: String, selectOutput: SelectElementOutput?) {
+        super.init(frame: frame, model: model, parentView: parentView, id: id, selectOutput: selectOutput)
         self.addSubview(self.imageView)
         self.imageView.pinToSuperView()
+        self.imageView.clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func configure(with parametrs: [ConfigParametrModel]) {
+        super.configure(with: parametrs)
+        parametrs.forEach { parametr in
+            switch parametr {
+            case let .backgroundImage(image):
+                self.imageView.image = image
+            case let .radius(value):
+                self.imageView.layer.cornerRadius = value ?? 0
+            default:
+                break
+            }
+        }
     }
 }
 
@@ -256,14 +304,36 @@ class DragableTextField: DragableView {
     
     let textField = UITextField()
     
-    override init(frame: CGRect, parentView: ParentView, id: String, selectOutput: SelectElementOutput?) {
-        super.init(frame: frame, parentView: parentView, id: id, selectOutput: selectOutput)
+    override init(frame: CGRect, model: ElementModel, parentView: ParentView, id: String, selectOutput: SelectElementOutput?) {
+        super.init(frame: frame, model: model, parentView: parentView, id: id, selectOutput: selectOutput)
+        self.backgroundColor = .clear
         self.addSubview(self.textField)
+        self.textField.isUserInteractionEnabled = false
         self.textField.pinToSuperView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func configure(with parametrs: [ConfigParametrModel]) {
+        self.model.parametrs = parametrs
+        parametrs.forEach { parametr in
+            switch parametr {
+            case let .title(text):
+                self.textField.text = text
+            case let .radius(value):
+                self.textField.layer.cornerRadius = value ?? 0
+            case let .backgroundColor(color):
+                guard let color = color else { break }
+                self.textField.backgroundColor = color
+            case let .textColor(color):
+                guard let color = color else { break }
+                self.textField.textColor = color
+            default:
+                break
+            }
+        }
     }
 }
 

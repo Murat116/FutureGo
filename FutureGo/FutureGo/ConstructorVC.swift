@@ -83,9 +83,6 @@ class ConstructorVC: UIViewController {
         setUpAppMap()
         setUpConfigComponentView()
         setUpConrollerMap()
-        
-        let model = ControllerModel(name: "Main", elements: [])
-        self.controllers.append(model)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -115,7 +112,7 @@ class ConstructorVC: UIViewController {
         configComponentView.pin(side: .rightR, to: .left(elementView))
         configComponentView.setDemission(.width(200))
         
-        configComponentView.configure(with: [], idElement: nil, editingParametrOutput: nil)
+        configComponentView.configure(with: [], idElement: nil, editingParametrOutput: nil, parentVC: nil)
     }
     
     private func setUpConrollerMap() {
@@ -127,6 +124,7 @@ class ConstructorVC: UIViewController {
         controllersMap.pin(side: .leftR, to: .right(appMap))
         controllersMap.pin(side: .rightR, to: .left(configComponentView))
         
+        self.controllers.append(ControllerModel(name: "Main", elements: []))
     }
     var recognizer: UITapGestureRecognizer?
     var blurEffect: UIBlurEffect?
@@ -191,7 +189,7 @@ class ConstructorVC: UIViewController {
 extension ConstructorVC: SelectElementOutput {
     func selectElement(_ element: ElementModel) {
         self.selectedElement = element
-        configComponentView.configure(with: element.parametrs, idElement: element.id, editingParametrOutput: self)
+        configComponentView.configure(with: element.parametrs, idElement: element.id, editingParametrOutput: self, parentVC: self)
     }
 }
 
@@ -225,6 +223,7 @@ extension ConstructorVC: EditingParametrOutput {
         newParametrs.insert(parametr, at: curInd)
         
         (needView as? Dragable)?.configure(with: newParametrs)
+        needView.layoutIfNeeded()
     }
 }
 

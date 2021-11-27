@@ -55,7 +55,9 @@ class ControllerDesrCell: UITableViewCell {
         
         elementsStack.arrangedSubviews.forEach {
             elementsStack.removeArrangedSubview($0)
+            $0.removeFromSuperview()
         }
+        
         
         model.elements.forEach { element in
             let lbl = UILabel()
