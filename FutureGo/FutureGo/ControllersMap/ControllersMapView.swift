@@ -7,18 +7,6 @@
 
 import UIKit
 
-struct ControllerModel {
-    let id: Int
-    let name: String
-    
-    static let testItems = [
-        ControllerModel(id: 1, name: "one"),
-        ControllerModel(id: 2, name: "second"),
-        ControllerModel(id: 3, name: "third"),
-        ControllerModel(id: 4, name: "fourth")
-    ]
-}
-
 class ControllersMapView: UICollectionView {
     
     var controllers: [ControllerModel] = []
@@ -26,7 +14,7 @@ class ControllersMapView: UICollectionView {
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         let flow = UICollectionViewFlowLayout()
         let mainSize = UIScreen.main.bounds.size
-        flow.itemSize = CGSize(width: mainSize.height - 400, height: mainSize.width)
+        flow.itemSize = CGSize(width: mainSize.height - 500, height: mainSize.width)
         flow.scrollDirection = .horizontal
         super.init(frame: frame, collectionViewLayout: flow)
         setUp()
