@@ -8,6 +8,5 @@
 import Foundation
 
 struct AppModel {
-    var rootVC: ControllerModel
     var controllers = [ControllerModel]()
 }

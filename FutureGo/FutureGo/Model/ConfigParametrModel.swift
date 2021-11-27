@@ -13,8 +13,8 @@ enum ConfigParametrModel: Equatable {
     case backgroundColor(UIColor?)
     case radius(CGFloat?)
     case backgroundImage(UIImage?)
+    case action(String?)
     case duration(CGFloat?)
-    case action(Selector?)
     
     var name: String {
         switch self {
