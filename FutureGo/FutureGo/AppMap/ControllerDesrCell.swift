@@ -59,7 +59,7 @@ class ControllerDesrCell: UITableViewCell {
         
         model.elements.forEach { element in
             let lbl = UILabel()
-            lbl.text = element.title
+            lbl.text = element.type.title
             elementsStack.addArrangedSubview(lbl)
         }
     }

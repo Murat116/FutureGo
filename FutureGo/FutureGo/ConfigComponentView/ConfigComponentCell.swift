@@ -54,11 +54,11 @@ class ConfigComponentElementView: UIView {
         valueLabel.pinToSuperView(sides: [.top(10), .right(-10)])
         valueLabel.pin(side: .left(10), to: .right(nameLabel))
         
-        pin(side: .bottom(-10), to: .bottom(nameLabel))
+        pin(side: .bottom(10), to: .bottom(nameLabel))
     }
     
     func configure(with model: ConfigParametrModel) {
         nameLabel.text = model.name
-        valueLabel.text = "\(model.value)"
+        valueLabel.text = ""
     }
 }

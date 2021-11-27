@@ -7,11 +7,13 @@
 
 import UIKit
 
+protocol Dragable: AnyObject {}
+
 protocol ParentView: UIView {
     func removewFromSuperview(type: ElementsType)
 }
 
-class DragableView: UIView {
+class DragableView: UIView, Dragable {
     
     let parentView: ParentView
     
@@ -62,12 +64,18 @@ class DragableView: UIView {
     }
 }
 
-class DragableButton: UIButton {
+class DragableButton: UIButton, Dragable {
     let parentView: ParentView
     
-    init(frame: CGRect, parentView: ParentView) {
+    let model: ElementModel
+    weak var selectOutput: SelectElementOutput?
+    
+    init(frame: CGRect, model: ElementModel, parentView: ParentView, selectOutput: SelectElementOutput?) {
         self.parentView = parentView
+        self.model = model
+        self.selectOutput = selectOutput
         super.init(frame: frame)
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectElement)))
         self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handler)))
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed(sender:)))
         self.addGestureRecognizer(longPressRecognizer)
@@ -110,6 +118,10 @@ class DragableButton: UIButton {
             let draggedView = gesture.view
             draggedView?.center = location
     }
+    
+    @objc func selectElement() {
+        self.selectOutput?.selectElement(self.model)
+    }
 }
 
 class DragableLabel: DragableView {
@@ -126,7 +138,7 @@ class DragableLabel: DragableView {
     }
 }
 
-class DragableTableView: UITableView {
+class DragableTableView: UITableView, Dragable {
     let parentView: ParentView
     
     init(frame: CGRect, parentView: ParentView) {

@@ -10,5 +10,5 @@ import Foundation
 struct ControllerModel {
     let id: String = UUID().uuidString
     let name: String
-    var elements: [ElementsType]
+    var elements: [ElementModel]
 }

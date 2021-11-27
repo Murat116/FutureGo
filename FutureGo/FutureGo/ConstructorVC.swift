@@ -52,7 +52,7 @@ class ConstructorVC: UIViewController {
     private let appMap = AppMapView()
     
     private lazy var controllersMap: ControllersMapView = {
-        let view = ControllersMapView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        let view = ControllersMapView(selectOutput: self)
         view.output = self
         return view
     }()
@@ -106,7 +106,7 @@ class ConstructorVC: UIViewController {
         configComponentView.pin(side: .rightR, to: .left(elementView))
         configComponentView.setDemission(.width(200))
         
-        configComponentView.configure(with: ConfigParametrModel.testElements)
+        configComponentView.configure(with: [])
     }
     
     private func setUpConrollerMap() {
@@ -147,6 +147,12 @@ class ConstructorVC: UIViewController {
         // 4. Present the alert.
         self.present(alert, animated: true, completion: nil)
         
+    }
+}
+
+extension ConstructorVC: SelectElementOutput {
+    func selectElement(_ element: ElementModel) {
+        configComponentView.configure(with: element.getParametrs())
     }
 }
 
