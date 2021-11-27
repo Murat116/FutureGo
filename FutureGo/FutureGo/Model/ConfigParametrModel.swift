@@ -10,10 +10,10 @@ import UIKit
 enum ConfigParametrModel: Equatable {
     case title(String?)
     case textColor(UIColor?)
-    case backgroundColor
-    case radius
-    case backgroundImage
-    case action
+    case backgroundColor(UIColor?)
+    case radius(CGFloat?)
+    case backgroundImage(UIImage?)
+    case action(Selector?)
     
     var name: String {
         switch self {
@@ -36,10 +36,10 @@ enum ConfigParametrModel: Equatable {
         return [
             .title(nil),
             .textColor(nil),
-            .backgroundColor,
-            .radius,
-            .backgroundImage,
-            .action
+            .backgroundColor(nil),
+            .radius(nil),
+            .backgroundImage(nil),
+            .action(nil)
         ]
     }
 }
