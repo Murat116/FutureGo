@@ -76,7 +76,7 @@ class ConstructorVC: UIViewController {
         
         self.view.addSubview(self.elementView)
         self.elementView.pinToSuperView(sides: [.topR,.rightR,.bottomR])
-        self.elementView.setDemission(.width(100))
+        self.elementView.setDemission(.width(300))
         self.elementView.output = self.controllersMap
         
         setUpAppMap()
@@ -90,7 +90,7 @@ class ConstructorVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-        self.controllersMap.width = self.configComponentView.frame.origin.x - self.appMap.frame.maxX
+        self.controllersMap.width = -self.configComponentView.frame.origin.y + self.appMap.frame.maxY
         self.controllersMap.reloadData()
     }
     
