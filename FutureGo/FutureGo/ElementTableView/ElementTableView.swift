@@ -8,12 +8,14 @@
 import UIKit
 
 protocol ElementTableViewOutput: AnyObject {
-    func addElement(_ element: ElementsType)
+    func addElement(_ element: ElementModel)
 }
 
 class ElementTableView: UITableView {
     
     public weak var output: ElementTableViewOutput?
+    
+    private let elements = ElementsType.allCases.map { ElementModel(type: $0) }
     
     init(){
         super.init(frame: .zero, style: .grouped)
@@ -30,7 +32,7 @@ class ElementTableView: UITableView {
 
 extension ElementTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        ElementsType.allCases.count
+        elements.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -42,7 +44,7 @@ extension ElementTableView: UITableViewDataSource {
 
 extension ElementTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let element = ElementsType.allCases[indexPath.row]
+        let element = elements[indexPath.row]
         self.output?.addElement(element)
     }
 }

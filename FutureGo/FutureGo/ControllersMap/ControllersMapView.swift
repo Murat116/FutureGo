@@ -11,15 +11,22 @@ protocol MapViewInput: AnyObject {
     func addElement(view: UIView)
 }
 
+protocol SelectElementOutput: AnyObject {
+    func selectElement(_ element: ElementModel)
+}
+
 class ControllersMapView: UICollectionView {
     
     var controllers: [ControllerModel] = []
     public var width: CGFloat = 0
     
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+    weak var selectOutput: SelectElementOutput?
+    
+    init(selectOutput: SelectElementOutput?) {
+        self.selectOutput = selectOutput
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .horizontal
-        super.init(frame: frame, collectionViewLayout: flow)
+        super.init(frame: .zero, collectionViewLayout: flow)
         setUp()
     }
     
@@ -54,7 +61,7 @@ extension ControllersMapView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ControllersMapCell", for: indexPath) as! ControllersMapCell
         
-        cell.configure(with: controllers[indexPath.row])
+        cell.configure(with: controllers[indexPath.row], selectOutput: selectOutput)
         
         return cell
     }
@@ -72,10 +79,11 @@ extension ControllersMapView: UICollectionViewDelegateFlowLayout {
 }
 
 extension ControllersMapView: ElementTableViewOutput {
-    func addElement(_ element: ElementsType) {
+    func addElement(_ element: ElementModel) {
         let index = Int(self.visibleCells.count / 2)
-        let cell = self.visibleCells[index]
-        let view = element.getUIProection(parentView: cell)
-        cell.addSubview(view)
+        guard let cell = self.visibleCells[index] as? ControllersMapCell else {
+            return
+        }
+        cell.addElement(element)
     }
 }

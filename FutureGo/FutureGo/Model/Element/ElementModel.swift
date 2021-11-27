@@ -1,40 +1,37 @@
 //
-//  ElementEnum.swift
+//  ElementModel.swift
 //  FutureGo
 //
-//  Created by Мурат Камалов on 11/27/21.
+//  Created by Roman Shurkin on 27.11.2021.
 //
 
-import Foundation
 import UIKit
 
-enum ElementsType: CaseIterable {
-    case window
-    case tableView
-    case button
-    case textField
-    case image
-    case label
+struct ElementModel {
+    let id = UUID().uuidString
     
-    var title: String {
-        switch self {
-        case .window:
-            return "Окно"
-        case .tableView:
-            return "Табличное представление"
-        case .button:
-            return "Кнопка"
-        case .textField:
-            return "Текстовое поле"
-        case .image:
-            return "Картинка"
-        case .label:
-            return "Лейбл"
-        }
+    let type: ElementsType
+    
+    func getParametrs() -> [ConfigParametrModel] {
+        return ConfigParametrModel.allCases
+//        switch type {
+//        case .window:
+//            return []
+//        case .tableView:
+//            return []
+//        case .button:
+//            return []
+//        case .textField:
+//            return []
+//        case .image:
+//            return []
+//        case .label:
+//            return [.title(nil), .textColor(nil)]
+//        }
     }
     
-    func getUIProection(parentView: UIView) -> UIView {
-        switch self {
+    func getUIProection(parentView: UIView, output: SelectElementOutput?) -> UIView {
+        switch type {
         case .window:
             let view = DragableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)
             view.backgroundColor = .lightGray
@@ -46,7 +43,10 @@ enum ElementsType: CaseIterable {
             return view
             
         case .button:
-            let view =  DragableButton(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)
+            let view =  DragableButton(frame: CGRect(x: 200, y: 400, width: 400, height: 400),
+                                       model: self,
+                                       parentView: parentView,
+                                       selectOutput: output)
             view.backgroundColor = .darkText
             return view
             

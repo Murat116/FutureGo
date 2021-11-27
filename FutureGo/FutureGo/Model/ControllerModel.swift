@@ -10,12 +10,12 @@ import Foundation
 struct ControllerModel {
     let id: Int
     let name: String
-    var elements: [ElementsType]
+    var elements: [ElementModel]
     
     static let testItems = [
-        ControllerModel(id: 1, name: "one", elements: [.button, .image]),
-        ControllerModel(id: 2, name: "second", elements: [.label, .tableView]),
-        ControllerModel(id: 3, name: "third", elements: [.textField, .window]),
-        ControllerModel(id: 4, name: "fourth", elements: [.button, .image])
+        ControllerModel(id: 1, name: "one", elements: [ElementModel(type: .button), ElementModel(type: .image)]),
+        ControllerModel(id: 2, name: "second", elements: [ElementModel(type: .label), ElementModel(type: .tableView)]),
+        ControllerModel(id: 3, name: "third", elements: [ElementModel(type: .textField), ElementModel(type: .window)]),
+        ControllerModel(id: 4, name: "fourth", elements: [ElementModel(type: .button), ElementModel(type: .image)])
     ]
 }
