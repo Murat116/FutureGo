@@ -39,7 +39,6 @@ class ElementModel {
             
         case .tableView:
             let view = DragableTableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView, id: id, selectOutput: output)
-//            view.backgroundColor = .green
             return view
             
         case .button:
@@ -50,6 +49,7 @@ class ElementModel {
             
             self.parametrs = [
                 .backgroundColor(.gray),
+                .textColor(.black),
                 .title("Some Text ..."),
                 .radius(8)
             ]

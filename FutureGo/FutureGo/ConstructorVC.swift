@@ -82,9 +82,6 @@ class ConstructorVC: UIViewController {
         setUpAppMap()
         setUpConfigComponentView()
         setUpConrollerMap()
-        
-        let model = ControllerModel(name: "Main", elements: [])
-        self.controllers.append(model)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -126,7 +123,7 @@ class ConstructorVC: UIViewController {
         controllersMap.pin(side: .leftR, to: .right(appMap))
         controllersMap.pin(side: .rightR, to: .left(configComponentView))
         
-        self.controllers.append(ControllerModel(name: "New", elements: []))
+        self.controllers.append(ControllerModel(name: "Main", elements: []))
     }
     var recognizer: UITapGestureRecognizer?
     var blurEffect: UIBlurEffect?
