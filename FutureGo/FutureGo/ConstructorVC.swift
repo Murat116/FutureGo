@@ -9,6 +9,8 @@ import UIKit
 
 class ConstructorVC: UIViewController {
     
+    var selectedElement: ElementModel?
+    
     private var controllBar: UIStackView {
         let stackView = UIStackView(arrangedSubviews: [self.addController,self.buildBtn,self.addBtn])
         self.view.addSubview(stackView)
@@ -108,7 +110,7 @@ class ConstructorVC: UIViewController {
         configComponentView.pin(side: .rightR, to: .left(elementView))
         configComponentView.setDemission(.width(200))
         
-        configComponentView.configure(with: [])
+        configComponentView.configure(with: [], idElement: nil, editingParametrOutput: nil)
     }
     
     private func setUpConrollerMap() {
@@ -157,7 +159,41 @@ class ConstructorVC: UIViewController {
 
 extension ConstructorVC: SelectElementOutput {
     func selectElement(_ element: ElementModel) {
-        configComponentView.configure(with: element.parametrs)
+        self.selectedElement = element
+        configComponentView.configure(with: element.parametrs, idElement: element.id, editingParametrOutput: self)
+    }
+}
+
+extension ConstructorVC: EditingParametrOutput {
+    func changeParametr(_ parametr: ConfigParametrModel, for idElement: String?) {
+        let index = Int(controllersMap.visibleCells.count / 2)
+        guard let cell = controllersMap.visibleCells[index] as? ControllersMapCell else {
+            return
+        }
+        
+        guard
+            let needView = cell.subviews.first(where: { view in
+                guard let drag = view as? Dragable else {
+                    return false
+                }
+                return drag.id == idElement
+            })
+        else {
+            return
+        }
+        
+        guard let currentParams = cell.controllerModel?.elements.first(where: { el in
+            el.id == idElement
+        })?.parametrs else { return }
+        
+        var newParametrs = currentParams
+        
+        guard let curInd = currentParams.firstIndex(of: parametr) else { return }
+        
+        newParametrs.remove(at: curInd)
+        newParametrs.insert(parametr, at: curInd)
+        
+        (needView as? Dragable)?.configure(with: newParametrs)
     }
 }
 

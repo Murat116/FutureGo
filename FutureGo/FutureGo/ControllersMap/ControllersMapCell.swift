@@ -47,11 +47,9 @@ class ControllersMapCell: UICollectionViewCell, ParentView {
             return
         }
         
-        var el = element
+        let view = element.getUIProection(parentView: self, output: selectOutput, id: element.id)
         
-        let view = el.getUIProection(parentView: self, output: selectOutput, id: el.id)
-        
-        model.elements.append(el)
+        model.elements.append(element)
         controllerModel = model
         
         addSubview(view)
