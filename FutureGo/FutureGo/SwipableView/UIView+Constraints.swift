@@ -1,8 +1,9 @@
 //
-//  extensionView.swift
-//  FutureGo
+//  UIView+Constraints.swift
+//  Swipeable-View-Stack
 //
-//  Created by Мурат Камалов on 11/27/21.
+//  Created by Phill Farrugia on 10/21/17.
+//  Copyright © 2017 Phill Farrugia. All rights reserved.
 //
 
 import UIKit
