@@ -42,4 +42,51 @@ enum ConfigParametrModel: Equatable {
             .action(nil)
         ]
     }
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        switch lhs {
+        case .title(_):
+            switch rhs {
+            case .title(_):
+                return true
+            default:
+                return false
+            }
+        case .textColor(_):
+            switch rhs {
+            case .textColor(_):
+                return true
+            default:
+                return false
+            }
+        case .backgroundColor(_):
+            switch rhs {
+            case .backgroundColor(_):
+                return true
+            default:
+                return false
+            }
+        case .radius(_):
+            switch rhs {
+            case .radius(_):
+                return true
+            default:
+                return false
+            }
+        case .backgroundImage(_):
+            switch rhs {
+            case .backgroundImage(_):
+                return true
+            default:
+                return false
+            }
+        case .action(_):
+            switch rhs {
+            case .action(_):
+                return true
+            default:
+                return false
+            }
+        }
+    }
 }

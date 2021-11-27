@@ -8,7 +8,7 @@
 import UIKit
 
 protocol EditingParametrOutput: AnyObject {
-    func changeParametr(_ parametr: ConfigParametrModel)
+    func changeParametr(_ parametr: ConfigParametrModel, for idElement: String?)
 }
 
 class ConfigComponentCell: UITableViewCell {
@@ -33,13 +33,14 @@ class ConfigComponentCell: UITableViewCell {
         contentView.pin(side: .bottomR, to: .bottom(configView))
     }
     
-    func configure(with model: ConfigParametrModel, editingOutput: EditingParametrOutput?) {
-        configView.configure(with: model, editingOutput: editingOutput)
+    func configure(with model: ConfigParametrModel, idElement: String?, editingOutput: EditingParametrOutput?) {
+        configView.configure(with: model, idElement: idElement, editingOutput: editingOutput)
     }
 }
 
 class ConfigComponentElementView: UIView {
     
+    var idElement: String?
     var model: ConfigParametrModel?
      
     weak var editingOutput: EditingParametrOutput?
@@ -70,8 +71,9 @@ class ConfigComponentElementView: UIView {
         pin(side: .bottom(10), to: .bottom(textField))
     }
     
-    func configure(with model: ConfigParametrModel, editingOutput: EditingParametrOutput?) {
+    func configure(with model: ConfigParametrModel, idElement: String?, editingOutput: EditingParametrOutput?) {
         self.model = model
+        self.idElement = idElement
         self.editingOutput = editingOutput
         nameLabel.text = model.name
         textField.text = ""
@@ -99,6 +101,6 @@ class ConfigComponentElementView: UIView {
         }
         
         guard let param = newParametr else { return }
-        self.editingOutput?.changeParametr(param)
+        self.editingOutput?.changeParametr(param, for: idElement)
     }
 }

@@ -9,6 +9,8 @@ import UIKit
 
 class ConfigComponentView: UITableView {
     
+    var idElement: String?
+    
     var parametrs: [ConfigParametrModel] = []
     
     weak var editingParametrOutput: EditingParametrOutput?
@@ -30,7 +32,8 @@ class ConfigComponentView: UITableView {
         register(ConfigComponentCell.self, forCellReuseIdentifier: "ConfigComponentCell")
     }
     
-    func configure(with parametrs: [ConfigParametrModel], editingParametrOutput: EditingParametrOutput?) {
+    func configure(with parametrs: [ConfigParametrModel], idElement: String?, editingParametrOutput: EditingParametrOutput?) {
+        self.idElement = idElement
         self.editingParametrOutput = editingParametrOutput
         self.parametrs = parametrs
         reloadData()
@@ -44,7 +47,7 @@ extension ConfigComponentView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConfigComponentCell", for: indexPath) as! ConfigComponentCell
         
-        cell.configure(with: parametrs[indexPath.row], editingOutput: editingParametrOutput)
+        cell.configure(with: parametrs[indexPath.row], idElement: idElement, editingOutput: editingParametrOutput)
         return cell
     }
 }
