@@ -42,6 +42,8 @@ class ConstructorVC: UIViewController {
         return btn
     }()
     
+    // MARK: - Model
+    
     public var controllers = [ControllerModel]() {
         didSet{
             self.appMap.configure(with: self.controllers)

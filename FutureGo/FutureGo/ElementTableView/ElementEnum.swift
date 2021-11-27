@@ -66,4 +66,33 @@ enum ElementsType: CaseIterable {
             return view
         }
     }
+    
+    func gerRealElement() -> UIView {
+        switch self {
+        case .window:
+            let view = UIView(frame: CGRect(x: 200, y: 400, width: 400, height: 400))
+            view.backgroundColor = .lightGray
+            return view
+        case .tableView:
+            let view = UITableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400))
+            view.backgroundColor = .brown
+            return view
+        case .button:
+            let view = UIButton(frame: CGRect(x: 200, y: 400, width: 400, height: 400))
+            view.backgroundColor = .yellow
+            return view
+        case .textField:
+            let view = UITextField(frame: CGRect(x: 200, y: 400, width: 400, height: 400))
+            view.backgroundColor = .red
+            return view
+        case .image:
+            let view = UIImageView(frame: CGRect(x: 200, y: 400, width: 400, height: 400))
+            view.backgroundColor = .green
+            return view
+        case .label:
+            let view = UILabel(frame: CGRect(x: 200, y: 400, width: 400, height: 400))
+            view.backgroundColor = .blue
+            return view
+        }
+    }
 }
