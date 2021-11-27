@@ -33,8 +33,9 @@ class DragableView: UIView {
         let locationLoc = gesture.location(in: self)
         let c : CGFloat = 40
         if locationLoc.x < c, locationLoc.y < c {
-            self.frame.size = CGSize(width: locationLoc.x, height: self.frame.height - locationLoc.y)
+            self.frame.size = CGSize(width: self.frame.width - locationLoc.x, height: self.frame.height - locationLoc.y)
             self.frame.origin.y += locationLoc.y
+            self.frame.origin.x += locationLoc.x
             return
         }
         if self.frame.width - locationLoc.x < c, locationLoc.y < c {
@@ -52,9 +53,9 @@ class DragableView: UIView {
             return
         }
         
-//            let location = gesture.location(in: self.parentView)
-//            let draggedView = gesture.view
-//            draggedView?.center = location
+            let location = gesture.location(in: self.parentView)
+            let draggedView = gesture.view
+            draggedView?.center = location
         
     }
 }
