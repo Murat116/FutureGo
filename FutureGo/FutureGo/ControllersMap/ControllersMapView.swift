@@ -24,7 +24,7 @@ class ControllersMapView: UICollectionView {
     var controllers: [ControllerModel] = []
     public var width: CGFloat = 0 {
         didSet{
-            self.contentInset = UIEdgeInsets(top: 0, left: (width - 375) / 2, bottom: 0, right: (width - 375) / 2)
+            self.contentInset = UIEdgeInsets(top: 0, left: self.width - 100 - 375/2, bottom: 0, right: 0)
         }
     }
     

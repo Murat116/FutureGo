@@ -94,7 +94,7 @@ class ElementModel {
         }
     }
     
-    func gerRealElement(model: ElementModel) -> UIView {
+    func gerRealElement() -> UIView {
         switch self.type {
         case .window:
             let view = UIView(frame: self.frame)
@@ -106,7 +106,7 @@ class ElementModel {
             return view
         case .button:
             let view = UIButton(frame: self.frame)
-            for parameter in model.parametrs {
+            for parameter in self.parametrs {
                 switch parameter {
                 case .title(let optional):
                     view.setTitle(optional, for: .normal)

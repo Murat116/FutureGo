@@ -143,26 +143,31 @@ class DragableButton: UIButton, Dragable {
             self.frame.size = CGSize(width: self.frame.width - locationLoc.x, height: self.frame.height - locationLoc.y)
             self.frame.origin.y += locationLoc.y
             self.frame.origin.x += locationLoc.x
+            self.parentView.changeFrame(of: self, to: self.frame)
             return
         }
         if self.frame.width - locationLoc.x < c, locationLoc.y < c {
             self.frame.size = CGSize(width: locationLoc.x, height: self.frame.height - locationLoc.y)
             self.frame.origin.y += locationLoc.y
+            self.parentView.changeFrame(of: self, to: self.frame)
             return
         }
         if locationLoc.x < c, self.frame.height - locationLoc.y < c {
             self.frame.size = CGSize(width: self.frame.width - locationLoc.x, height: locationLoc.y)
             self.frame.origin.x += locationLoc.x
+            self.parentView.changeFrame(of: self, to: self.frame)
             return
         }
         if self.frame.width - locationLoc.x < c, self.frame.height - locationLoc.y < c {
             self.frame.size = CGSize(width: locationLoc.x, height: locationLoc.y)
+            self.parentView.changeFrame(of: self, to: self.frame)
             return
         }
         
             let location = gesture.location(in: self.parentView)
             let draggedView = gesture.view
             draggedView?.center = location
+        self.parentView.changeFrame(of: self, to: self.frame)
     }
     
     @objc func selectElement() {
