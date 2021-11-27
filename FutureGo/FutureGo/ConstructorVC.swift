@@ -20,18 +20,16 @@ class ConstructorVC: UIViewController {
         return view
     }()
     
-    override func loadView() {
-        self.view = backView
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpAppMap()
-        setUpConfigComponentView()
         self.view.addSubview(self.elementView)
         self.elementView.pinToSuperView(sides: [.topR,.rightR,.bottomR])
         self.elementView.setDemission(.width(100))
+        
+        setUpAppMap()
+        setUpConfigComponentView()
+        setUpConrollerMap()
     }
     
     private func setUpAppMap() {
@@ -48,7 +46,8 @@ class ConstructorVC: UIViewController {
         
         view.addSubview(configComponentView)
         
-        configComponentView.pinToSuperView(sides: [.rightR, .topR, .bottomR])
+        configComponentView.pinToSuperView(sides: [.topR, .bottomR])
+        configComponentView.pin(side: .rightR, to: .left(elementView))
         configComponentView.setDemission(.width(200))
     }
     
