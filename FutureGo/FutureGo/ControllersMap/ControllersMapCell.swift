@@ -14,7 +14,7 @@ protocol ControllersMapCellOutput: AnyObject {
 }
 
 class ControllersMapCell: UICollectionViewCell, ParentView {
-    let mainView = UIView()
+    let imageView = UIImageView()
     public weak var output: ControllersMapCellOutput?
     
     var controllerModel: ControllerModel?
@@ -24,6 +24,9 @@ class ControllersMapCell: UICollectionViewCell, ParentView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
+        self.addSubview(self.imageView)
+        self.imageView.pinToSuperView()
+        self.imageView.image = UIImage(named: "IphoneView")
     }
     
     required init?(coder: NSCoder) {
@@ -31,11 +34,6 @@ class ControllersMapCell: UICollectionViewCell, ParentView {
     }
     
     private func setUp() {
-        mainView.backgroundColor = .white
-        
-        contentView.addSubview(mainView)
-        
-        mainView.pinToSuperView(sides: [.top(50, .required), .right(-50, .required), .left(50, .required), .bottom(-50, .required)])
     }
     
     func configure(with model: ControllerModel, output: ControllersMapCellOutput?, selectOutput: SelectElementOutput?) {

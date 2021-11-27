@@ -14,7 +14,7 @@ class ElementModel {
     }
     
 
-    let id = UUID().uuidString
+    var id = UUID().uuidString
     
     let type: ElementsType
     
@@ -107,7 +107,7 @@ class ElementModel {
         }
     }
     
-    func gerRealElement() -> UIView {
+    func gerRealElement(model: ElementModel) -> UIView {
         switch self.type {
         case .window:
             let view = UIView(frame: self.frame)
@@ -119,7 +119,29 @@ class ElementModel {
             return view
         case .button:
             let view = UIButton(frame: self.frame)
-            view.backgroundColor = .yellow
+            for parameter in model.parametrs {
+                switch parameter {
+                case .title(let optional):
+                    view.setTitle(optional, for: .normal)
+                case .textColor(let optional):
+                    view.setTitleColor(optional, for: .normal)
+                case .backgroundColor(let optional):
+                    view.backgroundColor = optional
+                case .radius(let optional):
+                    view.layer.cornerRadius = optional ?? 0
+                case .backgroundImage(let optional):
+                    view.setImage(optional, for: .normal)
+                case .action(let optional):
+//                    view.
+                    print("cvbn")
+                    break
+                }
+            }
+//            view.backgroundColor = model.parametrs.firstIndex(of: $0 == .backgroundColor)
+//            view.backgroundColor = model.parametrs.firstIndex(of: $0 == .backgroundColor)
+//            view.backgroundColor = model.parametrs.firstIndex(of: $0 == .backgroundColor)
+//            view.backgroundColor = model.parametrs.firstIndex(of: $0 == .backgroundColor)
+            
             return view
         case .textField:
             let view = UITextField(frame: self.frame)
