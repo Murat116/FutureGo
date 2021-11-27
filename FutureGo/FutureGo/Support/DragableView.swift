@@ -181,8 +181,10 @@ class DragableButton: UIButton, Dragable {
             case let .title(text):
                 self.setTitle(text, for: .normal)
             case let .textColor(color):
+                guard let color = color else { break }
                 self.setTitleColor(color, for: .normal)
             case let .backgroundColor(color):
+                guard let color = color else { break }
                 self.backgroundColor = color
             case let .radius(value):
                 self.layer.cornerRadius = value ?? 0
@@ -196,7 +198,7 @@ class DragableButton: UIButton, Dragable {
     }
 }
 
-class DragableLabel: DragableView{
+class DragableLabel: DragableView {
     let label = UILabel()
     
     override init(frame: CGRect, model: ElementModel, parentView: ParentView, id: String, selectOutput: SelectElementOutput?) {
@@ -207,6 +209,27 @@ class DragableLabel: DragableView{
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func configure(with parametrs: [ConfigParametrModel]) {
+        super.configure(with: parametrs)
+        parametrs.forEach { parametr in
+            switch parametr {
+            case let .title(text):
+                self.label.text = text
+            case let .textColor(color):
+                guard let color = color else { break }
+                self.label.textColor = color
+            case let .radius(value):
+                self.layer.cornerRadius = value ?? 0
+            case let .action(selector):
+                guard let selector = selector else { return }
+                tapGesture = UITapGestureRecognizer(target: self, action: selector)
+                self.addGestureRecognizer(tapGesture!)
+            default:
+                break
+            }
+        }
     }
 }
 
