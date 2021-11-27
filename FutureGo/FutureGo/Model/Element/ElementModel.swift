@@ -86,6 +86,7 @@ class ElementModel {
             self.parametrs = [
                 .backgroundColor(.gray),
                 .title("Some Text ..."),
+                .textColor(.black),
                 .radius(8)
             ]
             view.configure(with: parametrs)
