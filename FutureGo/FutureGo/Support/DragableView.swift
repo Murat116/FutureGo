@@ -95,10 +95,6 @@ class DragableView: UIView, Dragable {
                 self.backgroundColor = color
             case let .radius(value):
                 self.layer.cornerRadius = value ?? 0
-            case let .action(selector):
-                guard let selector = selector else { return }
-                tapGesture = UITapGestureRecognizer(target: self, action: selector)
-                self.addGestureRecognizer(tapGesture!)
             default:
                 break
             }
@@ -190,9 +186,8 @@ class DragableButton: UIButton, Dragable {
                 self.layer.cornerRadius = value ?? 0
             case let .backgroundImage(image):
                 self.setImage(image, for: .normal)
-            case let .action(selector):
-                guard let selector = selector else { return }
-                self.addTarget(self, action: selector, for: .touchUpInside)
+            case .action(_):
+                break
             }
         }
     }
@@ -222,10 +217,6 @@ class DragableLabel: DragableView {
                 self.label.textColor = color
             case let .radius(value):
                 self.layer.cornerRadius = value ?? 0
-            case let .action(selector):
-                guard let selector = selector else { return }
-                tapGesture = UITapGestureRecognizer(target: self, action: selector)
-                self.addGestureRecognizer(tapGesture!)
             default:
                 break
             }

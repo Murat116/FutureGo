@@ -9,6 +9,7 @@ import UIKit
 
 protocol EditingParametrOutput: AnyObject {
     func changeParametr(_ parametr: ConfigParametrModel, for idElement: String?)
+    func getControllers() -> [ControllerModel]
 }
 
 class ConfigComponentCell: UITableViewCell {
@@ -51,6 +52,11 @@ class ConfigComponentElementView: UIView {
     let textField = UITextField()
     let selectBtn = UIButton()
     
+    let actionPicker = UIPickerView()
+    
+    var bottomToPicker: NSLayoutConstraint?
+    var bottomToTextField: NSLayoutConstraint?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
@@ -72,7 +78,7 @@ class ConfigComponentElementView: UIView {
         textField.pinToSuperView(sides: [.left(10), .right(-10)])
         textField.pin(side: .top(5), to: .bottom(nameLabel))
         
-        pin(side: .bottom(20), to: .bottom(textField))
+        self.bottomToTextField = pin(side: .bottom(20), to: .bottom(textField))
         
         selectBtn.setTitle("Выбрать", for: .normal)
         selectBtn.setTitleColor(.black, for: .normal)
@@ -82,6 +88,16 @@ class ConfigComponentElementView: UIView {
         selectBtn.pinToSuperView(sides: [.left(10), .right(-10)])
         selectBtn.pin(side: .top(5), to: .bottom(nameLabel))
         selectBtn.setDemission(.height(20))
+        
+        actionPicker.dataSource = self
+        actionPicker.delegate = self
+        
+        addSubview(actionPicker)
+        actionPicker.pinToSuperView(sides: [.left(10), .right(-10)])
+        actionPicker.pin(side: .top(5), to: .bottom(nameLabel))
+        actionPicker.setDemission(.height(150))
+     
+        self.bottomToPicker = pin(side: .bottom(20), to: .bottom(actionPicker), isActivate: false)
     }
     
     func configure(with model: ConfigParametrModel, idElement: String?, editingOutput: EditingParametrOutput?, parentVC: UIViewController?) {
@@ -91,17 +107,27 @@ class ConfigComponentElementView: UIView {
         self.parentVC = parentVC
         nameLabel.text = model.name
         
+        actionPicker.isHidden = true
+        
         switch model {
         case .title, .radius:
             selectBtn.isHidden = true
             textField.isHidden = false
+            bottomToPicker?.isActive = false
+            bottomToTextField?.isActive = true
             
         case .textColor, .backgroundColor, .backgroundImage:
             selectBtn.isHidden = false
             textField.isHidden = true
-        case .action(_):
+            bottomToPicker?.isActive = false
+            bottomToTextField?.isActive = true
+            
+        case .action:
+            actionPicker.isHidden = false
             selectBtn.isHidden = true
             textField.isHidden = true
+            bottomToPicker?.isActive = true
+            bottomToTextField?.isActive = false
         }
         
         switch model {
@@ -118,8 +144,8 @@ class ConfigComponentElementView: UIView {
             textField.text = "\(val)"
         case .backgroundImage(_):
             break
-        case .action(_):
-            break
+        case .action:
+            actionPicker.reloadAllComponents()
         }
     }
     
@@ -210,5 +236,33 @@ extension ConfigComponentElementView: UIImagePickerControllerDelegate, UINavigat
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated:  true, completion: nil)
+    }
+}
+
+extension ConfigComponentElementView: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        self.editingOutput?.getControllers().count ?? 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        self.editingOutput?.getControllers()[row].name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        var newParametr: ConfigParametrModel? = nil
+        
+        switch model {
+        case .action:
+            newParametr = .action(self.editingOutput?.getControllers()[row].id)
+        default:
+            break
+        }
+        
+        guard let param = newParametr else { return }
+        self.editingOutput?.changeParametr(param, for: idElement)
     }
 }
