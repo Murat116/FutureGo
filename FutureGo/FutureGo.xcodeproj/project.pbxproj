@@ -24,6 +24,8 @@
 		83FFFCE12752374C0052408B /* ConfigComponentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FFFCE02752374C0052408B /* ConfigComponentCell.swift */; };
 		83FFFCE4275238850052408B /* ConfigParametrModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FFFCE3275238850052408B /* ConfigParametrModel.swift */; };
 		83FFFCE6275238940052408B /* ControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FFFCE5275238940052408B /* ControllerModel.swift */; };
+		83FFFCE927523D3F0052408B /* AppMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FFFCE827523D3F0052408B /* AppMapView.swift */; };
+		83FFFCEB27523E110052408B /* ControllerDesrCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FFFCEA27523E110052408B /* ControllerDesrCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		83FFFCE02752374C0052408B /* ConfigComponentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigComponentCell.swift; sourceTree = "<group>"; };
 		83FFFCE3275238850052408B /* ConfigParametrModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigParametrModel.swift; sourceTree = "<group>"; };
 		83FFFCE5275238940052408B /* ControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerModel.swift; sourceTree = "<group>"; };
+		83FFFCE827523D3F0052408B /* AppMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMapView.swift; sourceTree = "<group>"; };
+		83FFFCEA27523E110052408B /* ControllerDesrCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerDesrCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +96,7 @@
 				83FFFCC4275213340052408B /* AppDelegate.swift */,
 				83FFFCC6275213340052408B /* SceneDelegate.swift */,
 				83FFFCC8275213340052408B /* ConstructorVC.swift */,
+				83FFFCE727523D2E0052408B /* AppMap */,
 				83FFFCD8275220740052408B /* ControllersMap */,
 				83FFFCDD27522E960052408B /* ConfigComponentView */,
 				45EC5C1D27521C2B00C7F5A0 /* extensionConstrint.swift */,
@@ -130,6 +135,15 @@
 				83FFFCE5275238940052408B /* ControllerModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		83FFFCE727523D2E0052408B /* AppMap */ = {
+			isa = PBXGroup;
+			children = (
+				83FFFCE827523D3F0052408B /* AppMapView.swift */,
+				83FFFCEA27523E110052408B /* ControllerDesrCell.swift */,
+			);
+			path = AppMap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +221,7 @@
 				83FFFCC5275213340052408B /* AppDelegate.swift in Sources */,
 				83FFFCE6275238940052408B /* ControllerModel.swift in Sources */,
 				45EC5C202752271000C7F5A0 /* DragableView.swift in Sources */,
+				83FFFCEB27523E110052408B /* ControllerDesrCell.swift in Sources */,
 				45EC5C1727521A3000C7F5A0 /* ElementTableView.swift in Sources */,
 				45EC5C1E27521C2B00C7F5A0 /* extensionConstrint.swift in Sources */,
 				83FFFCC7275213340052408B /* SceneDelegate.swift in Sources */,
@@ -215,6 +230,7 @@
 				83FFFCE12752374C0052408B /* ConfigComponentCell.swift in Sources */,
 				83FFFCE4275238850052408B /* ConfigParametrModel.swift in Sources */,
 				83FFFCDA275220A70052408B /* ControllersMapView.swift in Sources */,
+				83FFFCE927523D3F0052408B /* AppMapView.swift in Sources */,
 				45EC5C1A27521AD500C7F5A0 /* ElementEnum.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

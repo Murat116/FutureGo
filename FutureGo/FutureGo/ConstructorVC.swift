@@ -9,7 +9,7 @@ import UIKit
 
 class ConstructorVC: UIViewController {
     
-    private let appMap = UIView()
+    private let appMap = AppMapView()
     
     private let controllersMap = ControllersMapView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     
@@ -39,6 +39,8 @@ class ConstructorVC: UIViewController {
         
         appMap.pinToSuperView(sides: [.leftR, .topR, .bottomR])
         appMap.setDemission(.width(200))
+        
+        appMap.configure(with: ControllerModel.testItems)
     }
     
     private func setUpConfigComponentView() {
