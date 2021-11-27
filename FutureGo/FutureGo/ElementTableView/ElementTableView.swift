@@ -13,10 +13,9 @@ protocol ElementTableViewOutput: AnyObject {
 
 class ElementTableView: UITableView {
     
-    private weak var output: ElementTableViewOutput?
+    public weak var output: ElementTableViewOutput?
     
-    init(output: ElementTableViewOutput){
-        self.output = output
+    init(){
         super.init(frame: .zero, style: .grouped)
         self.delegate = self
         self.dataSource = self

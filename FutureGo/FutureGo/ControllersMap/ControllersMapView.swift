@@ -7,14 +7,17 @@
 
 import UIKit
 
+protocol MapViewInput: AnyObject {
+    func addElement(view: UIView)
+}
+
 class ControllersMapView: UICollectionView {
     
     var controllers: [ControllerModel] = []
+    public var width: CGFloat = 0
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         let flow = UICollectionViewFlowLayout()
-        let mainSize = UIScreen.main.bounds.size
-        flow.itemSize = CGSize(width: mainSize.height - 500, height: mainSize.width)
         flow.scrollDirection = .horizontal
         super.init(frame: frame, collectionViewLayout: flow)
         setUp()
@@ -30,6 +33,7 @@ class ControllersMapView: UICollectionView {
         
         delegate = self
         dataSource = self
+    
         isPagingEnabled = true
         showsHorizontalScrollIndicator = false
         
@@ -59,4 +63,19 @@ extension ControllersMapView: UICollectionViewDataSource {
 }
 
 extension ControllersMapView: UICollectionViewDelegate {
+}
+
+extension ControllersMapView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: self.width, height: UIScreen.main.bounds.size.width)
+    }
+}
+
+extension ControllersMapView: ElementTableViewOutput {
+    func addElement(_ element: ElementsType) {
+        let index = Int(self.visibleCells.count / 2)
+        let cell = self.visibleCells[index]
+        let view = element.getUIProection(parentView: cell)
+        cell.addSubview(view)
+    }
 }
