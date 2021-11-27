@@ -27,6 +27,7 @@ class ControllersMapView: UICollectionView {
             self.contentInset = UIEdgeInsets(top: 0, left: (width - 375) / 2, bottom: 0, right: (width - 375) / 2)
         }
     }
+    
     public weak var output: MapViweOutput?
     
     weak var selectOutput: SelectElementOutput?
@@ -37,6 +38,7 @@ class ControllersMapView: UICollectionView {
         flow.scrollDirection = .horizontal
         super.init(frame: .zero, collectionViewLayout: flow)
         setUp()
+        self.isScrollEnabled = false
     }
     
     required init?(coder: NSCoder) {
