@@ -33,7 +33,7 @@ enum ElementsType: CaseIterable {
         }
     }
     
-    func getUIProection(parentView: UIView) -> UIView {
+    func getUIProection(parentView: ParentView) -> UIView {
         switch self {
         case .window:
             let view = DragableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)

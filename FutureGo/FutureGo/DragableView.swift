@@ -7,12 +7,15 @@
 
 import UIKit
 
+protocol ParentView: UIView {
+    func removewFromSuperview(type: ElementsType)
+}
 
 class DragableView: UIView {
     
-    let parentView: UIView
+    let parentView: ParentView
     
-    init(frame: CGRect, parentView: UIView) {
+    init(frame: CGRect, parentView: ParentView) {
         self.parentView = parentView
         super.init(frame: frame)
         self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handler)))
@@ -60,9 +63,9 @@ class DragableView: UIView {
 }
 
 class DragableButton: UIButton {
-    let parentView: UIView
+    let parentView: ParentView
     
-    init(frame: CGRect, parentView: UIView) {
+    init(frame: CGRect, parentView: ParentView) {
         self.parentView = parentView
         super.init(frame: frame)
         self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handler)))
@@ -112,7 +115,7 @@ class DragableButton: UIButton {
 class DragableLabel: DragableView {
     let label = UILabel()
     
-    override init(frame: CGRect, parentView: UIView) {
+    override init(frame: CGRect, parentView: ParentView) {
         super.init(frame: frame, parentView: parentView)
         self.addSubview(self.label)
         self.label.pinToSuperView()
@@ -124,9 +127,9 @@ class DragableLabel: DragableView {
 }
 
 class DragableTableView: UITableView {
-    let parentView: UIView
+    let parentView: ParentView
     
-    init(frame: CGRect, parentView: UIView) {
+    init(frame: CGRect, parentView: ParentView) {
         self.parentView = parentView
         super.init(frame: frame, style: .insetGrouped)
         self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handler)))
@@ -153,7 +156,7 @@ class DragableTableView: UITableView {
 class DragableImageView: DragableView {
     let imageView = UIImageView()
     
-    override init(frame: CGRect, parentView: UIView) {
+    override init(frame: CGRect, parentView: ParentView) {
         super.init(frame: frame, parentView: parentView)
         self.addSubview(self.imageView)
         self.imageView.pinToSuperView()
@@ -168,7 +171,7 @@ class DragableTextField: DragableView {
     
     let textField = UITextField()
     
-    override init(frame: CGRect, parentView: UIView) {
+    override init(frame: CGRect, parentView: ParentView) {
         super.init(frame: frame, parentView: parentView)
         self.addSubview(self.textField)
         self.textField.pinToSuperView()
