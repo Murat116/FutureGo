@@ -8,6 +8,7 @@
 import UIKit
 
 protocol Dragable: AnyObject {}
+
 protocol ParentView: UIView {
     func removewFromSuperview(type: ElementsType)
 }

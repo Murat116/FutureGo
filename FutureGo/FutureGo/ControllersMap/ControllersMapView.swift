@@ -66,7 +66,7 @@ extension ControllersMapView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ControllersMapCell", for: indexPath) as! ControllersMapCell
         
-        cell.configure(with: controllers[indexPath.row], selectOutput: selectOutput)
+        cell.configure(with: controllers[indexPath.row], output: self, selectOutput: selectOutput)
         
         return cell
     }
@@ -90,7 +90,7 @@ extension ControllersMapView: ElementTableViewOutput {
             return
         }
         cell.addElement(element)
-        let indexOfController = self.controllers.firstIndex{ $0.id == cell.model?.id }
+        let indexOfController = self.controllers.firstIndex{ $0.id == cell.controllerModel?.id }
         guard let indexOfController = indexOfController else { return }
         self.controllers[indexOfController].elements.append(element)
         self.output?.realoadData(with: self.controllers)

@@ -30,7 +30,7 @@ struct ElementModel {
 //        }
     }
     
-    func getUIProection(parentView: UIView, output: SelectElementOutput?) -> UIView {
+    func getUIProection(parentView: ParentView, output: SelectElementOutput?) -> UIView {
         switch type {
         case .window:
             let view = DragableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView)

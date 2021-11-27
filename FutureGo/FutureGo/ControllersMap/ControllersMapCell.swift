@@ -37,7 +37,7 @@ class ControllersMapCell: UICollectionViewCell, ParentView {
         mainView.pinToSuperView(sides: [.top(50, .required), .right(-50, .required), .left(50, .required), .bottom(-50, .required)])
     }
     
-    func configure(with model: ControllerModel, selectOutput: SelectElementOutput?) {
+    func configure(with model: ControllerModel, output: ControllersMapCellOutput?, selectOutput: SelectElementOutput?) {
         self.controllerModel = model
         self.selectOutput = selectOutput
         self.output = output
@@ -56,7 +56,7 @@ class ControllersMapCell: UICollectionViewCell, ParentView {
     }
     
     func removewFromSuperview(type: ElementsType) {
-        self.output?.removewFromSuperview(model: self.model!, element: type)
+        self.output?.removewFromSuperview(model: self.controllerModel!, element: type)
     }
     
 }
