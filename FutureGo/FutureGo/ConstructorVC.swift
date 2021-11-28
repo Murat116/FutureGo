@@ -7,12 +7,99 @@
 
 import UIKit
 
+class TopView: UIView {
+    let backIcon = UIImageView(image: UIImage(named: "backIcon"))
+    let avatarImage = UIImageView(image: UIImage(named: "avatar"))
+    let namePrLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = .systemFont(ofSize: 16, weight: .bold)
+        lbl.text = "Мое первое приложение"
+        return lbl
+    }()
+    let appFlow: UILabel = {
+        let lbl = UILabel()
+        lbl.font = .systemFont(ofSize: 16)
+        lbl.text = "Appflow"
+        lbl.textColor = UIColor(hex: "#547AEB")
+        return lbl
+    }()
+    
+    public lazy var shareButton: UIButton = {
+        let btn = UIButton()
+        btn.setTitleColor(.white, for: .normal)
+        btn.titleLabel?.font = .systemFont(ofSize: 14)
+        btn.layer.cornerRadius = 4
+        btn.backgroundColor = .black
+        btn.setTitle("Поделиться", for: .normal)
+        return btn
+    }()
+    
+    public lazy var presentButton: UIButton = {
+        let btn = UIButton()
+        btn.setTitleColor(.white, for: .normal)
+        btn.titleLabel?.font = .systemFont(ofSize: 14)
+        btn.layer.cornerRadius = 4
+        btn.backgroundColor = .black
+        btn.setTitle("Презентовать", for: .normal)
+        return btn
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUp()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setUp() {
+        self.backgroundColor = .white
+        
+        self.addSubview(backIcon)
+        backIcon.pinToSuperView(sides: [.centerYR, .left(30)])
+        backIcon.setDemission(.height(24))
+        backIcon.setDemission(.width(24))
+        
+        avatarImage.clipsToBounds = true
+        avatarImage.layer.cornerRadius = 4
+        
+        self.addSubview(avatarImage)
+        avatarImage.pinToSuperView(sides: [.centerYR])
+        avatarImage.pin(side: .left(24), to: .right(backIcon))
+        avatarImage.setDemission(.height(42))
+        avatarImage.setDemission(.width(42))
+        
+        self.addSubview(namePrLabel)
+        namePrLabel.pin(side: .left(19), to: .right(avatarImage))
+        namePrLabel.pinToSuperView(sides: [.centerYR])
+        
+        self.addSubview(shareButton)
+        shareButton.pinToSuperView(sides: [.centerYR, .right(-30)])
+        shareButton.setDemission(.height(45))
+        shareButton.setDemission(.width(135))
+        
+        self.addSubview(presentButton)
+        presentButton.pinToSuperView(sides: [.centerYR])
+        presentButton.pin(side: .right(-24), to: .left(shareButton))
+        presentButton.setDemission(.height(45))
+        presentButton.setDemission(.width(135))
+        
+        let line = UIView()
+        addSubview(line)
+        line.pinToSuperView(sides: [.leftR, .rightR, .bottomR])
+        line.setDemission(.height(1))
+        line.backgroundColor = UIColor(hex: "#4E4C4C")
+    }
+}
 
 class ConstructorVC: UIViewController {
     
     static var keyName: String = ""
     
     var selectedElement: ElementModel?
+    
+    let topView = TopView()
     
     public lazy var label: UILabel = {
         let label = UILabel()
@@ -41,38 +128,38 @@ class ConstructorVC: UIViewController {
         return btn
     }()
     
-    private var controllBar: UIStackView {
-        let stackView = UIStackView(arrangedSubviews: [self.addController,self.buildBtn,self.addBtn])
-        self.view.addSubview(stackView)
-        stackView.alignment = .center
-        stackView.distribution = .fillProportionally
-        stackView.axis = .horizontal
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.pinToSuperView(sides: [.leftR,.rightR,.topR])
-        stackView.setDemission(.height(50))
-        return stackView
-    }
-    
     private lazy var addController: UIButton = {
         let btn = UIButton()
-        btn.setTitle("Add new View Controller", for: .normal)
+        btn.setTitle("Добавить экран", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
+        btn.titleLabel?.font = .systemFont(ofSize: 14)
+        btn.layer.cornerRadius = 4
+        btn.backgroundColor = .black
+        
         btn.addTarget(self, action: #selector(self.addControllerAction), for: .touchUpInside)
         return btn
     }()
     
-    private lazy var buildBtn: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("Build", for: .normal)
-        btn.addTarget(self, action: #selector(self.buildAction), for: .touchUpInside)
-        return btn
+    let segmContr: UISegmentedControl = {
+        let sc = UISegmentedControl(items: ["Свойства элемента", "Добавить элемент"])
+        sc.selectedSegmentIndex = 0
+        sc.backgroundColor = .clear
+        sc.addTarget(self, action: #selector(sgTap(_:)), for: .valueChanged)
+        return sc
     }()
     
-    private lazy var addBtn: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("Add View", for: .normal)
-        btn.addTarget(self, action: #selector(self.showElementTable), for: .touchUpInside)
-        return btn
-    }()
+    @objc func sgTap(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            self.elementView.isHidden = true
+            self.configComponentView.isHidden = false
+        case 1:
+            self.elementView.isHidden = false
+            self.configComponentView.isHidden = true
+        default:
+            break
+        }
+    }
     
     // MARK: - Model
     
@@ -96,9 +183,6 @@ class ConstructorVC: UIViewController {
     public lazy var elementView: ElementTableView = {
         let view = ElementTableView()
         view.isHidden = true
-        self.view.addSubview(view)
-        view.pinToSuperView(sides: [.topR,.rightR,.bottomR])
-        view.setDemission(.width(300))
         return view
     }()
 
@@ -108,13 +192,35 @@ class ConstructorVC: UIViewController {
         welcomeImg.removeFromSuperview()
     }
     
+    @objc func shareTap() {
+        let parser = Parser()
+        parser.write(self.controllers)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = UIColor(hex: "#DEDFDF")
         self.navigationController?.navigationBar.isHidden = true
         
+        topView.shareButton.addTarget(self, action: #selector(shareTap), for: .touchUpInside)
+        topView.presentButton.addTarget(self, action: #selector(self.buildAction), for: .touchUpInside)
         
         self.elementView.output = self.controllersMap
+        
+        view.addSubview(topView)
+        topView.pinToSuperView(sides: [.top(20),.leftR, .rightR])
+        topView.setDemission(.height(80))
+        
+        view.addSubview(segmContr)
+        segmContr.pinToSuperView(sides: [.rightR])
+        segmContr.pin(side: .top(5), to: .bottom(topView))
+        segmContr.setDemission(.width(300))
+        segmContr.setDemission(.height(50))
+        
+        self.view.addSubview(elementView)
+        elementView.pinToSuperView(sides: [.rightR,.bottomR])
+        elementView.pin(side: .topR, to: .bottom(self.segmContr))
+        elementView.setDemission(.width(300))
         
         setUpAppMap()
         setUpConfigComponentView()
@@ -143,9 +249,14 @@ class ConstructorVC: UIViewController {
         
         view.addSubview(appMap)
         
-        self.appMap.pin(side: .topR, to: .bottom(self.controllBar))
+        self.appMap.pin(side: .topR, to: .bottom(self.topView))
         appMap.pinToSuperView(sides: [.leftR, .bottomR])
         appMap.setDemission(.width(300))
+        
+        view.addSubview(addController)
+        addController.pinToSuperView(sides: [.left(35), .bottom(-30)])
+        addController.setDemission(.height(45))
+        addController.setDemission(.width(135))
     }
     
     private func setUpConfigComponentView() {
@@ -153,10 +264,9 @@ class ConstructorVC: UIViewController {
         
         view.addSubview(configComponentView)
         
-        self.configComponentView.pin(side: .topR, to: .bottom(self.controllBar))
-        configComponentView.pinToSuperView(sides: [.bottomR])
-        configComponentView.pin(side: .rightR, to: .left(elementView))
-        configComponentView.setDemission(.width(200))
+        self.configComponentView.pin(side: .topR, to: .bottom(self.segmContr))
+        configComponentView.pinToSuperView(sides: [.bottomR, .rightR])
+        configComponentView.setDemission(.width(300))
         
         configComponentView.configure(with: [], idElement: nil, editingParametrOutput: nil, parentVC: nil)
     }
@@ -165,7 +275,7 @@ class ConstructorVC: UIViewController {
         
         view.addSubview(controllersMap)
         
-        self.controllersMap.pin(side: .topR, to: .bottom(self.controllBar))
+        self.controllersMap.pin(side: .topR, to: .bottom(self.topView))
         controllersMap.pinToSuperView(sides: [.bottomR])
         controllersMap.pin(side: .leftR, to: .right(appMap))
         controllersMap.pin(side: .rightR, to: .left(configComponentView))
@@ -176,7 +286,6 @@ class ConstructorVC: UIViewController {
     var blurEffect: UIBlurEffect?
     var build: BuildManager?
     @objc func buildAction() {
-        self.buildBtn.setTitle("Build \(Int.random(in: 0...100))", for: .normal)
         self.build = BuildManager(model: AppModel(controllers: self.controllers))
         self.build!.navigationConstroller = self.navigationController
         self.build!.run()
@@ -187,10 +296,6 @@ class ConstructorVC: UIViewController {
         self.view.addSubview(blurEffectView)
         self.recognizer = UITapGestureRecognizer(target: self, action: #selector(self.hideBlur))
         self.view.addGestureRecognizer(self.recognizer!)
-//        self.navigationController?.pushViewController(UIViewController(), animated: true)
-        
-        let parser = Parser()
-        parser.write(self.controllers)
     }
     
     @objc func hideBlur() {
@@ -207,10 +312,6 @@ class ConstructorVC: UIViewController {
 
         self.view.removeGestureRecognizer(recognizer)
         self.recognizer = nil
-    }
-    
-    @objc func showElementTable() {
-        self.elementView.isHidden = false
     }
     
     @objc func addControllerAction() {

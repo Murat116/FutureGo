@@ -11,7 +11,7 @@ class ControllerDesrCell: UITableViewCell {
     
     let nameLabel: UILabel = {
         let lbl = UILabel()
-        lbl.font = .systemFont(ofSize: 24, weight: .bold)
+        lbl.font = .systemFont(ofSize: 26, weight: .bold)
         return lbl
     }()
     
@@ -63,11 +63,9 @@ class ControllerDesrCell: UITableViewCell {
         
         
         model.elements.forEach { element in
-            let lbl = UILabel()
-            lbl.font = .systemFont(ofSize: 16)
-            lbl.textColor = UIColor(hex: "#4E4C4C")
-            lbl.text = element.type.title
-            elementsStack.addArrangedSubview(lbl)
+            let view = ElementView()
+            view.configure(with: element)
+            elementsStack.addArrangedSubview(view)
         }
     }
     
@@ -79,6 +77,42 @@ class ControllerDesrCell: UITableViewCell {
         } else {
             bottomCellConstrToStack?.isActive = true
             bottomCellConstrToName?.isActive = false
+        }
+    }
+}
+
+extension ControllerDesrCell {
+    class ElementView: UIView {
+        let imageView = UIImageView()
+        let label = UILabel()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setUp()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setUp() {
+            label.font = .systemFont(ofSize: 18)
+            label.textColor = UIColor(hex: "#4E4C4C")
+            
+            addSubview(imageView)
+            imageView.pinToSuperView(sides: [.centerYR])
+            imageView.setDemission(.height(28))
+            imageView.setDemission(.width(28))
+            
+            addSubview(label)
+            label.pinToSuperView(sides: [.centerYR])
+            label.pin(side: .left(6), to: .right(imageView))
+            pin(side: .bottomR, to: .bottom(imageView))
+        }
+        
+        func configure(with model: ElementModel) {
+            imageView.image = model.type.icon
+            label.text = model.type.title
         }
     }
 }

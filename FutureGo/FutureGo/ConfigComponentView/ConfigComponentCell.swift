@@ -67,12 +67,14 @@ class ConfigComponentElementView: UIView {
     }
     
     private func setUp() {
+        nameLabel.textColor = UIColor(hex: "#4E4C4C")
         
         addSubview(nameLabel)
         nameLabel.pinToSuperView(sides: [.top(10), .left(10), .right(-10)])
         
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         textField.placeholder = "Введите значение"
+        textField.font = .systemFont(ofSize: 16, weight: .semibold)
         
         addSubview(textField)
         textField.pinToSuperView(sides: [.left(10), .right(-10)])
@@ -82,6 +84,7 @@ class ConfigComponentElementView: UIView {
         
         selectBtn.setTitle("Выбрать", for: .normal)
         selectBtn.setTitleColor(.black, for: .normal)
+        selectBtn.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         selectBtn.addTarget(self, action: #selector(selectSome), for: .touchUpInside)
         
         addSubview(selectBtn)

@@ -9,8 +9,6 @@ import UIKit
 
 class ConfigComponentView: UITableView {
     
-   
-    
     var idElement: String?
     
     var parametrs: [ConfigParametrModel] = []
