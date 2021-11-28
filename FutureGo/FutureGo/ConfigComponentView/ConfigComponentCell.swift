@@ -41,7 +41,7 @@ class ConfigBackendParametrCell: UITableViewCell {
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .medium)
         contentView.addSubview(button)
         
-        button.pinToSuperView(sides: [.leftR, .rightR, .top(8)])
+        button.pinToSuperView(sides: [.left(15), .right(-15), .top(8)])
         contentView.pin(side: .bottom(8), to: .bottom(button))
     }
     
