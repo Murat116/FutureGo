@@ -13,7 +13,9 @@ class MyModel {
     var price: String = ""
     var graphic: UIImage? = nil
     
-    static var model = [MyModel]()
+    static var model: [MyModel] = [
+        MyModel()
+    ]
 }
 
 

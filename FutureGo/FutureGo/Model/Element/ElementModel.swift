@@ -248,7 +248,7 @@ class ElementModel: Codable  {
             view.backgroundColor = .yellow
 //            view.swipeViews = SwipeableCardViewCard()
             
-            for model in BackendModel.globalModel {
+            for model in MyModel.model {
                 let swipableView = SwipeableCardViewCard()
                 for element in self.subview {
                     let subView = element.getRealElement(parentView: view)
@@ -260,9 +260,14 @@ class ElementModel: Codable  {
                     
                     switch element.type {
                     case .label:
-                        (subView as! UILabel).text = model.first{$0.key ==  ConstructorVC.keyName}?.value as? String
+                        if (subView as! UILabel).text == "price" {
+                            (subView as! UILabel).text = model.price
+                        }
+                        if (subView as! UILabel).text == "title" {
+                            (subView as! UILabel).text = model.title
+                        }
                     case .image:
-                        (subView as! UIImageView).image = UIImage(data: (model.first{$0.key == "Image"}?.value as? Data)!)
+                        (subView as! UIImageView).image = model.graphic
                     default:
                         break
                     }
