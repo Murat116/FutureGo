@@ -99,9 +99,10 @@ extension ControllersMapView: UICollectionViewDelegateFlowLayout {
 
 extension ControllersMapView: ElementTableViewOutput {
     func addElement(_ element: ElementModel) {
-        if self.output?.selectedElement != nil {
+        if self.output?.selectedElement != nil, self.output?.selectedElement?.id != element.id  {
             self.output?.selectedElement?.subview.append(element)
         }
+        
         let index = Int(self.visibleCells.count / 2)
         
         guard let cell = self.visibleCells[index] as? ControllersMapCell else {
@@ -109,7 +110,6 @@ extension ControllersMapView: ElementTableViewOutput {
         }
         cell.addElement(element, isSubView: self.output?.selectedElement != nil)
         guard self.output?.selectedElement == nil else {
-//            self.reloadData()
             return
         }
         let indexOfController = self.controllers.firstIndex{ $0.id == cell.controllerModel?.id }
