@@ -22,7 +22,8 @@ class ElementTableView: UITableView {
         self.delegate = self
         self.dataSource = self
         self.register(UIElementCell.self, forCellReuseIdentifier: "UIElementCell")
-        self.rowHeight = 60
+        backgroundColor = .white
+        separatorStyle = .none
     }
     
     required init?(coder: NSCoder) {
@@ -37,7 +38,7 @@ extension ElementTableView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UIElementCell") as? UIElementCell else { return UITableViewCell() }
-        cell.configure(title: ElementsType.allCases[indexPath.row].title)
+        cell.configure(with: ElementsType.allCases[indexPath.row])
         return cell
     }
 }
@@ -47,7 +48,6 @@ extension ElementTableView: UITableViewDelegate {
         let element = elements[indexPath.row]
         let el = ElementModel(type: element.type, frame: element.frame)
         self.output?.addElement(el)
-        self.isHidden = true
     }
 }
 

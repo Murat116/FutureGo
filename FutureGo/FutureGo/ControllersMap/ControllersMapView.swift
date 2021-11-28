@@ -47,7 +47,7 @@ class ControllersMapView: UICollectionView {
     
     private func setUp() {
         
-        backgroundColor = .gray
+        backgroundColor = UIColor(hex: "#DEDFDF")
         
         delegate = self
         dataSource = self
