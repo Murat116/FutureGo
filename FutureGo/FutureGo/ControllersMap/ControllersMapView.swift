@@ -25,7 +25,8 @@ class ControllersMapView: UICollectionView {
     var controllers: [ControllerModel] = []
     public var width: CGFloat = 0 {
         didSet{
-            self.contentInset = UIEdgeInsets(top: 0, left: self.width - 100 - 375/2, bottom: 0, right: 0)
+            let insetSide = (self.width - 375)/2
+            self.contentInset = UIEdgeInsets(top: 0, left: insetSide, bottom: 0, right: insetSide)
         }
     }
     
@@ -102,6 +103,7 @@ extension ControllersMapView: ElementTableViewOutput {
             self.output?.selectedElement?.subview.append(element)
         }
         let index = Int(self.visibleCells.count / 2)
+        
         guard let cell = self.visibleCells[index] as? ControllersMapCell else {
             return
         }
