@@ -7,7 +7,18 @@
 
 import UIKit
 
-class ElementModel {
+struct FrameRect: Codable {
+    let x: Float
+    let y: Float
+    let width: Float
+    let height: Float
+    
+    static func fromCGRect(_ rect: CGRect) -> FrameRect {
+        FrameRect(x: Float(rect.origin.x), y: Float(rect.origin.y), width: Float(rect.width), height: Float(rect.height))
+    }
+}
+
+class ElementModel: Codable  {
     internal init(type: ElementsType, frame: CGRect) {
         self.type = type
         self.frame = frame
@@ -26,17 +37,19 @@ class ElementModel {
         self.frame = frame
     }
     
-    var parametrs = ConfigParametrModel.allCases
+    var parametrs = [ConfigParametrModel]()
     
     func getUIProection(parentView: ParentView, output: SelectElementOutput?, id: String) -> UIView {
         switch type {
         case .window:
             let view = DragableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
-            self.parametrs = [
-                .backgroundColor(.gray),
-                .radius(8),
-                .action(nil)
-            ]
+            if parametrs.isEmpty {
+                self.parametrs = [
+                    .backgroundColor(.gray),
+                    .radius(8),
+                    .action(nil)
+                ]
+            }
             view.configure(with: parametrs)
             return view
             
@@ -49,26 +62,29 @@ class ElementModel {
                                        model: self,
                                        parentView: parentView,
                                        selectOutput: output, id: id)
-            
-            self.parametrs = [
-                .backgroundColor(.gray),
-                .textColor(.black),
-                .title("Some Text ..."),
-                .radius(8),
-                .action(nil)
-            ]
+            if parametrs.isEmpty {
+                self.parametrs = [
+                    .backgroundColor(.gray),
+                    .textColor(.black),
+                    .title("Some Text ..."),
+                    .radius(8),
+                    .action(nil)
+                ]
+            }
             view.configure(with: parametrs)
             return view
             
         case .textField:
             let view = DragableTextField(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
             
-            self.parametrs = [
-                .backgroundColor(.gray),
-                .textColor(.black),
-                .title("Some Text ..."),
-                .radius(8)
-            ]
+            if parametrs.isEmpty {
+                self.parametrs = [
+                    .backgroundColor(.gray),
+                    .textColor(.black),
+                    .title("Some Text ..."),
+                    .radius(8)
+                ]
+            }
             view.configure(with: parametrs)
             return view
             
@@ -76,11 +92,13 @@ class ElementModel {
             let view = DragableImageView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
             view.backgroundColor = .gray
             
-            self.parametrs = [
-                .backgroundImage(nil),
-                .radius(8),
-                .action(nil)
-            ]
+            if parametrs.isEmpty {
+                self.parametrs = [
+                    .backgroundImage(nil),
+                    .radius(8),
+                    .action(nil)
+                ]
+            }
             view.configure(with: parametrs)
             
             return view
@@ -88,24 +106,28 @@ class ElementModel {
         case .label:
             let view = DragableLabel(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
             
-            self.parametrs = [
-                .backgroundColor(.gray),
-                .title("Some Text ..."),
-                .textColor(.black),
-                .radius(8),
-                .action(nil)
-            ]
+            if parametrs.isEmpty {
+                self.parametrs = [
+                    .backgroundColor(.gray),
+                    .title("Some Text ..."),
+                    .textColor(.black),
+                    .radius(8),
+                    .action(nil)
+                ]
+            }
+            
             view.configure(with: parametrs)
             
             return view
         case .swipableView:
             let view = DragableSwipe(frame: CGRect(x: 100, y: 100, width: 200, height: 200), model: self, parentView: parentView, id: id, selectOutput: output)
-            view.backgroundColor = .red
             
-            self.parametrs = [
-                .backgroundColor(.gray),
-                .radius(8)
-            ]
+            if parametrs.isEmpty {
+                self.parametrs = [
+                    .backgroundColor(.gray),
+                    .radius(8)
+                ]
+            }
             
             view.configure(with: parametrs)
             return view

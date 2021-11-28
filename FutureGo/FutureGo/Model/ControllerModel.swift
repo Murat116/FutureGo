@@ -7,8 +7,13 @@
 
 import Foundation
 
-struct ControllerModel {
-    let id: String = UUID().uuidString
+struct CControllerModel: Codable {
+//    var id: String = UUID().uuidString
+    var name: String = ""
+}
+
+struct ControllerModel: Codable {
+    var id: String = UUID().uuidString
     let name: String
     var elements: [ElementModel]
 }
