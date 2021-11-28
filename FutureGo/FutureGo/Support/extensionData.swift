@@ -8,14 +8,7 @@
 import Foundation
 
 extension Data {
-    var jsonDictionary: [String : Any]? {
-        guard self.count > 0 else { return [String : Any]() }
-        do {
-            return try JSONSerialization.jsonObject(with: self ) as? [String : Any]
-        } catch {
-            return nil
-        }
-    }
+    
     
     var jsonArray: [Any]? {
         guard self.count > 0 else { return [Any]() }
@@ -34,13 +27,7 @@ extension Dictionary {
         return String(bytes: jsonData, encoding: .utf8)
     }
 
-    var jsonData: Data? {
-        do {
-            return try JSONSerialization.data(withJSONObject: self )
-        } catch {
-            return nil
-        }
-    }
+   
 }
 
 extension Array {

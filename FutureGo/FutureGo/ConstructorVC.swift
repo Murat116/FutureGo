@@ -7,9 +7,39 @@
 
 import UIKit
 
+
 class ConstructorVC: UIViewController {
     
+    static var keyName: String = ""
+    
     var selectedElement: ElementModel?
+    
+    public lazy var label: UILabel = {
+        let label = UILabel()
+        self.view.addSubview(label)
+        label.pinToSuperView(sides: [.bottomR,.centerXR])
+//        label.setDemission(.height(100))
+//        label.setDemission(.width(200))
+        return label
+    }()
+    
+    public lazy var addButton: UIButton = {
+        let btn = UIButton()
+        self.view.addSubview(btn)
+        btn.pinToSuperView(sides: [.centerXR])
+        btn.pin(side: .bottomR, to: .top(self.label))
+        btn.setTitle("Добавить новую модель", for: .normal)
+        return btn
+    }()
+    
+    public lazy var addUrl: UIButton = {
+        let btn = UIButton()
+        self.view.addSubview(btn)
+        btn.pinToSuperView(sides: [.centerXR])
+        btn.pin(side: .bottomR, to: .top(self.addButton))
+        btn.setTitle("Добавить url", for: .normal)
+        return btn
+    }()
     
     private var controllBar: UIStackView {
         let stackView = UIStackView(arrangedSubviews: [self.addController,self.buildBtn,self.addBtn])
@@ -94,6 +124,11 @@ class ConstructorVC: UIViewController {
         view.addSubview(welcomeImg)
         welcomeImg.pinToSuperView()
         welcomeImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(removeWelcome)))
+        
+        self.addButton.addTarget(self, action: #selector(self.addBack), for: .touchUpInside)
+        self.addUrl.addTarget(self, action: #selector(self.addUrlaction), for: .touchUpInside)
+        
+        BackendModel.reqeustToTask()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -197,6 +232,78 @@ class ConstructorVC: UIViewController {
         // 4. Present the alert.
         self.present(alert, animated: true, completion: nil)
         
+    }
+    
+    @objc func addBack() {
+        let alert = UIAlertController(title: "Данные модели", message: nil, preferredStyle: .alert)
+
+        //2. Add the text field. You can configure it however you need.
+        alert.addTextField { (textField) in
+            textField.text = "Ключ"
+        }
+
+        alert.addTextField { (textField) in
+            textField.text = "Значение"
+        }
+        
+        alert.addTextField { (textField) in
+            textField.text = "Тип"
+        }
+
+        
+        // 3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            let text = alert?.textFields![0].text // Force unwrapping because we know it exists.
+            if self.label.text == nil {
+                self.label.text = (" Ключ " + text!)
+            } else {
+                self.label.text! += (" Ключ " + text!)
+            }
+            
+            let text1 = alert?.textFields![1].text // Force unwrapping because we know it exists.
+            if self.label.text == nil {
+                self.label.text = (" Значение " + text1!)
+            } else {
+                self.label.text! += (" Значение " + text1!)
+            }
+            
+            let text2 = alert?.textFields![2].text // Force unwrapping because we know it exists.
+            if self.label.text == nil {
+                self.label.text = (" Тип " + text2!)
+            } else {
+                self.label.text! += (" Тип " + text2!)
+            }
+            
+            if text2 == "String" {
+                ConstructorVC.keyName = text!
+            }
+        }))
+
+        // 4. Present the alert.
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func addUrlaction() {
+        let alert = UIAlertController(title: "Введите URL Get запроса", message: nil, preferredStyle: .alert)
+
+        //2. Add the text field. You can configure it however you need.
+        alert.addTextField { (textField) in
+            textField.text = "URL"
+        }
+        
+        // 3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
+            let text = textField?.text
+            if self.label.text == nil {
+                self.label.text = ("URL Get запроса " + text!)
+            } else {
+                self.label.text! += ("URL Get запроса " + text!)
+            }
+        }))
+
+        // 4. Present the alert.
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
