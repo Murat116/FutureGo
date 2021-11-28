@@ -94,6 +94,7 @@ class ElementModel: Codable  {
             
             if parametrs.isEmpty {
                 self.parametrs = [
+                    .title(nil),
                     .backgroundImage(nil),
                     .radius(8),
                     .action(nil)
