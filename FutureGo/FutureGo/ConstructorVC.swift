@@ -218,7 +218,7 @@ class ConstructorVC: UIViewController {
         super.viewDidAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
         self.controllersMap.width = -self.configComponentView.frame.origin.y + self.appMap.frame.maxY
-        self.controllersMap.reloadData()
+//        self.controllersMap.reloadData()
     }
     
     private func setUpAppMap() {
