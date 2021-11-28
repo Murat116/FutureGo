@@ -50,6 +50,9 @@ class ControllersMapCell: UICollectionViewCell, ParentView {
         }
         model.elements.forEach { model in
             self.addElement(model, isSubView: false) //FIXME: может быть баг)))))))) РОМА СОРИ)))
+            let view = model.getUIProection(parentView: self, output: selectOutput, id: model.id)
+            
+            self.addSubview(view)
         }
     }
     
@@ -60,11 +63,12 @@ class ControllersMapCell: UICollectionViewCell, ParentView {
         
         let view = element.getUIProection(parentView: self, output: selectOutput, id: element.id)
         
+        guard isSubView else { return }
         self.addSubview(view)
         
         guard !isSubView else { return }
-        model.elements.append(element)
-        controllerModel = model
+//        model.elements.append(element)
+//        controllerModel = model
         
     }
     
