@@ -27,7 +27,7 @@ class Parser {
     
     func parse(from data: Data?) -> [ControllerModel]? {
         guard
-            let data = try? Data(contentsOf: FileManager.default.temporaryDirectory.appendingPathComponent("model.json")),
+            let data = data,
             let array = data.jsonArray as? [[String : Any]]
         else { return nil }
 

@@ -6,6 +6,17 @@
 //
 
 import Foundation
+import UIKit
+
+class MyModel {
+    var title: String = ""
+    var price: String = ""
+    var graphic: UIImage? = nil
+    
+    static var model = [MyModel]()
+}
+
+
 
 class BackendModel {
     internal init(key: String, value: Any?, type: ValueTypes) {

@@ -153,13 +153,6 @@
 			path = SwipableView;
 			sourceTree = "<group>";
 		};
-		45CC7D372753547400FE5DAC /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Packages;
-			sourceTree = "<group>";
-		};
 		45EC5C1827521AC900C7F5A0 /* ElementTableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,7 +186,6 @@
 		83FFFCB8275213340052408B = {
 			isa = PBXGroup;
 			children = (
-				45CC7D372753547400FE5DAC /* Packages */,
 				83FFFCC3275213340052408B /* FutureGo */,
 				83FFFCC2275213340052408B /* Products */,
 				5F9A28268B1C9E4B4D77D178 /* Pods */,

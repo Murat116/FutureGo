@@ -47,6 +47,7 @@ class TopView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -179,6 +180,9 @@ class ConstructorVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         self.view.backgroundColor = UIColor(hex: "#DEDFDF")
         self.navigationController?.navigationBar.isHidden = true
         
@@ -255,8 +259,13 @@ class ConstructorVC: UIViewController {
         controllersMap.pinToSuperView(sides: [.bottomR])
         controllersMap.pin(side: .leftR, to: .right(appMap))
         controllersMap.pin(side: .rightR, to: .left(configComponentView))
-        
-        self.controllers.append(ControllerModel(name: "Main", elements: []))
+        if let asset = NSDataAsset(name: "model") {
+            let data = asset.data
+            let controllers = Parser().parse(from: data)
+            self.controllers = controllers ?? []
+        } else {
+            self.controllers.append(ControllerModel(name: "Main", elements: []))
+        }
     }
     var recognizer: UITapGestureRecognizer?
     var blurEffect: UIBlurEffect?

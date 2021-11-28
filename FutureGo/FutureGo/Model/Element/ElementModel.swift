@@ -205,7 +205,7 @@ class ElementModel: Codable  {
             }
             return view
         case .image:
-            let view = MyImage(frame: self.frame)//TappedImageView(frame: self.frame)
+            let view = MyImage(frame: self.frame)
             view.clipsToBounds = true
             view.backgroundColor = .green
             for parameter in self.parametrs {
@@ -278,15 +278,15 @@ class ElementModel: Codable  {
 
 
 class MyImage: TappedImageView {
-    
+
     let imagePredictor = ImagePredictor()
-    
+
     override var image: UIImage? {
         didSet {
             self.classifyImage(self.image!)
         }
     }
-    
+
     private func classifyImage(_ image: UIImage) {
         do {
             try self.imagePredictor.makePredictions(for: image,
@@ -295,7 +295,7 @@ class MyImage: TappedImageView {
             print("Vision was unable to make a prediction...\n\n\(error.localizedDescription)")
         }
     }
-    
+
     private func imagePredictionHandler(_ predictions: [ImagePredictor.Prediction]?) {
         guard let predictions = predictions else {
             updatePredictionLabel("No predictions. (Check console log.)")
@@ -307,9 +307,9 @@ class MyImage: TappedImageView {
         let predictionString = formattedPredictions.joined(separator: "\n")
         updatePredictionLabel(predictionString)
     }
-    
+
     let predictionsToShow = 2
-    
+
     private func formatPredictions(_ predictions: [ImagePredictor.Prediction]) -> [String] {
         // Vision sorts the classifications in descending confidence order.
         let topPredictions: [String] = predictions.prefix(predictionsToShow).map { prediction in
@@ -325,9 +325,9 @@ class MyImage: TappedImageView {
 
         return topPredictions
     }
-    
+
     var firstRun = true
-    
+
     func updatePredictionLabel(_ message: String) {
         DispatchQueue.main.async {
             print(message)
