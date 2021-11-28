@@ -274,6 +274,7 @@ class DragableImageView: DragableView {
         super.init(frame: frame, model: model, parentView: parentView, id: id, selectOutput: selectOutput)
         self.addSubview(self.imageView)
         self.imageView.pinToSuperView()
+        self.clipsToBounds = true
         self.imageView.clipsToBounds = true
     }
     
