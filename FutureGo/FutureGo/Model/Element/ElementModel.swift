@@ -15,12 +15,25 @@ class ElementModel {
     
 
     var id = UUID().uuidString
+    var key: String {
+        get{
+            if type == .label {
+                return "Name"
+            }
+            if type == .image {
+                return "Image"
+            }
+            return ""
+        }
+    }
     
     let type: ElementsType
     
     var frame: CGRect
     
     var subview = [ElementModel]()
+    
+    var model = [BackendModel]()
     
     func changeFrame(frame: CGRect) {
         self.frame = frame
@@ -112,11 +125,7 @@ class ElementModel {
         }
     }
     
-    func getAction() -> String? {
-        return ""
-    }
-    
-    func getRealElement() -> UIView {
+    func getRealElement(parentView: UIView) -> UIView {
         switch self.type {
         case .window:
             let view = TappedView(frame: self.frame)
@@ -218,6 +227,30 @@ class ElementModel {
             let view = SwipeableCardViewContainer()
             view.frame = self.frame
             view.backgroundColor = .yellow
+//            view.swipeViews = SwipeableCardViewCard()
+            
+            for model in BackendModel.globalModel {
+                let swipableView = SwipeableCardViewCard()
+                for element in self.subview {
+                    let subView = element.getRealElement(parentView: view)
+                    
+                    swipableView.addSubview(subView)
+                    let tap = subView.frame.origin
+                    let convertedTap = parentView.convert(tap, to: view)
+                    subView.frame.origin = convertedTap
+                    
+                    switch element.type {
+                    case .label:
+                        (subView as! UILabel).text = model.first{$0.key ==  ConstructorVC.keyName}?.value as? String
+                    case .image:
+                        (subView as! UIImageView).image = UIImage(data: (model.first{$0.key == "Image"}?.value as? Data)!)
+                    default:
+                        break
+                    }
+                }
+                view.swipeViews.append(swipableView)
+            }
+            
             view.reloadData()
             return view
         }

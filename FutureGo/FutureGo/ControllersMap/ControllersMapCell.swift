@@ -42,17 +42,19 @@ class ControllersMapCell: UICollectionViewCell, ParentView {
         self.output = output
     }
     
-    func addElement(_ element: ElementModel) {
+    func addElement(_ element: ElementModel, isSubView: Bool) {
         guard var model = controllerModel else {
             return
         }
         
         let view = element.getUIProection(parentView: self, output: selectOutput, id: element.id)
         
+        self.addSubview(view)
+        
+        guard !isSubView else { return }
         model.elements.append(element)
         controllerModel = model
         
-        addSubview(view)
     }
     
     func removewFromSuperview(type: ElementsType) {
@@ -61,6 +63,9 @@ class ControllersMapCell: UICollectionViewCell, ParentView {
     
     func changeFrame(of: Dragable, to new: CGRect) {
         self.controllerModel?.elements.first{$0.id == of.id}?.changeFrame(frame: new)
+        self.controllerModel?.elements.forEach{
+            $0.subview.first{$0.id == of.id}?.changeFrame(frame: new)
+        }
         self.output?.changeModelOf(model: self.controllerModel)
     }
         

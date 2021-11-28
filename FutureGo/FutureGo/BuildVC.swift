@@ -40,7 +40,7 @@ class BuildManager {
         allControllers.forEach { vc in
             guard let vcModel = vc.controllerModel else { return }
             vcModel.elements.forEach { elementModel in
-                let view = elementModel.getRealElement()
+                let view = elementModel.getRealElement(parentView: vc.mainView)
                 vc.mainView.addSubview(view)
                 
                 if
@@ -51,7 +51,8 @@ class BuildManager {
                     })
                 {
                     view.tapCompl = {
-                        self.selfNav?.pushViewController(prVC, animated: true)
+                        vc.present(prVC, animated: true)
+//                        self.selfNav?.pushViewController(prVC, animated: true)
                     }
                 }
             }

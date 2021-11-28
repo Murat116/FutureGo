@@ -10,6 +10,8 @@ import UIKit
 
 class SwipeableCardViewContainer: UIView, SwipeableViewDelegate {
 
+    var swipeViews = [SwipeableCardViewCard]()
+    
     static let horizontalInset: CGFloat = 12.0
 
     static let verticalInset: CGFloat = 12.0
@@ -19,6 +21,8 @@ class SwipeableCardViewContainer: UIView, SwipeableViewDelegate {
             reloadData()
         }
     }
+    
+    var model = [[BackendModel]]()
 
     var delegate: SwipeableCardViewDelegate?
 
@@ -158,13 +162,11 @@ extension SwipeableCardViewContainer {
 
 extension SwipeableCardViewContainer: SwipeableCardViewDataSource{
     func numberOfCards() -> Int {
-        return 3
+        return self.swipeViews.count
     }
     
     func card(forItemAtIndex index: Int) -> SwipeableCardViewCard {
-        let view = SwipeableCardViewCard()
-        view.backgroundColor = .red
-        return view
+        return self.swipeViews[index]
     }
     
     func viewForEmptyCards() -> UIView? {

@@ -25,6 +25,7 @@
 		4501D0092752C0AE0045F587 /* SampleSwipeableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4501CFF62752C0AE0045F587 /* SampleSwipeableCellViewModel.swift */; };
 		4501D00A2752C0AE0045F587 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4501CFF72752C0AE0045F587 /* ViewController.swift */; };
 		4501D00B2752C0AE0045F587 /* StaticShadowHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4501CFF82752C0AE0045F587 /* StaticShadowHeaderView.xib */; };
+		4501D00D2752FD050045F587 /* BackendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4501D00C2752FD050045F587 /* BackendModel.swift */; };
 		45EC5C1727521A3000C7F5A0 /* ElementTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EC5C1627521A3000C7F5A0 /* ElementTableView.swift */; };
 		45EC5C1A27521AD500C7F5A0 /* ElementEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EC5C1927521AD500C7F5A0 /* ElementEnum.swift */; };
 		45EC5C1C27521B1800C7F5A0 /* UIElementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EC5C1B27521B1800C7F5A0 /* UIElementCell.swift */; };
@@ -70,6 +71,7 @@
 		4501CFF62752C0AE0045F587 /* SampleSwipeableCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleSwipeableCellViewModel.swift; sourceTree = "<group>"; };
 		4501CFF72752C0AE0045F587 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4501CFF82752C0AE0045F587 /* StaticShadowHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StaticShadowHeaderView.xib; sourceTree = "<group>"; };
+		4501D00C2752FD050045F587 /* BackendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendModel.swift; sourceTree = "<group>"; };
 		45EC5C1627521A3000C7F5A0 /* ElementTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementTableView.swift; sourceTree = "<group>"; };
 		45EC5C1927521AD500C7F5A0 /* ElementEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementEnum.swift; sourceTree = "<group>"; };
 		45EC5C1B27521B1800C7F5A0 /* UIElementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElementCell.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 			children = (
 				45EC5C1927521AD500C7F5A0 /* ElementEnum.swift */,
 				83FFFCED27524F010052408B /* ElementModel.swift */,
+				4501D00C2752FD050045F587 /* BackendModel.swift */,
 			);
 			path = Element;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				83FFFCDC275227F70052408B /* ControllersMapCell.swift in Sources */,
 				83FFFCF02752949A0052408B /* extensionUIColor.swift in Sources */,
 				4501CFFD2752C0AE0045F587 /* SwipeableView.swift in Sources */,
+				4501D00D2752FD050045F587 /* BackendModel.swift in Sources */,
 				4501CFFF2752C0AE0045F587 /* SwipeDirection.swift in Sources */,
 				4501D0022752C0AE0045F587 /* StaticShadowHeaderView.swift in Sources */,
 				45EC5C1C27521B1800C7F5A0 /* UIElementCell.swift in Sources */,
