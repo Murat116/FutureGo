@@ -18,6 +18,7 @@ class SwipeableCardViewCard: SwipeableView, NibView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         xibSetup()
+        self.backgroundColor = .white
     }
 
 }

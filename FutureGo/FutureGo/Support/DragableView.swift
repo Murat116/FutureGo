@@ -22,6 +22,7 @@ class DragableView: UIView, Dragable {
     
     var id: String
     let parentView: ParentView
+    let image = UIImageView()
     
     let model: ElementModel
     
@@ -38,6 +39,8 @@ class DragableView: UIView, Dragable {
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.selectElement)))
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressed(sender:)))
         self.addGestureRecognizer(longPressRecognizer)
+        self.addSubview(self.image)
+        self.image.pinToSuperView()
     }
     
     @objc func longPressed(sender: UILongPressGestureRecognizer)
@@ -95,6 +98,8 @@ class DragableView: UIView, Dragable {
                 self.backgroundColor = color
             case let .radius(value):
                 self.layer.cornerRadius = value ?? 0
+            case let .backgroundImage(image):
+                self.image.image = image
             default:
                 break
             }

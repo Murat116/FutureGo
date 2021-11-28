@@ -107,7 +107,7 @@ extension ControllersMapView: ElementTableViewOutput {
         }
         cell.addElement(element, isSubView: self.output?.selectedElement != nil)
         guard self.output?.selectedElement == nil else {
-            self.reloadData()
+//            self.reloadData()
             return
         }
         let indexOfController = self.controllers.firstIndex{ $0.id == cell.controllerModel?.id }
