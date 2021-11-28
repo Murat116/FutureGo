@@ -17,7 +17,7 @@ protocol SelectElementOutput: AnyObject {
 
 protocol MapViweOutput: AnyObject {
     func realoadData(with controllers: [ControllerModel])
-    var selectedElement: ElementModel? { get }
+    var selectedElement: ElementModel? { get set }
 }
 
 class ControllersMapView: UICollectionView {
@@ -81,6 +81,9 @@ extension ControllersMapView: UICollectionViewDataSource {
 }
 
 extension ControllersMapView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.output?.selectedElement = nil
+    }
 }
 
 extension ControllersMapView: UICollectionViewDelegateFlowLayout {
@@ -102,7 +105,11 @@ extension ControllersMapView: ElementTableViewOutput {
         guard let cell = self.visibleCells[index] as? ControllersMapCell else {
             return
         }
-        cell.addElement(element)
+        cell.addElement(element, isSubView: self.output?.selectedElement != nil)
+        guard self.output?.selectedElement == nil else {
+            self.reloadData()
+            return
+        }
         let indexOfController = self.controllers.firstIndex{ $0.id == cell.controllerModel?.id }
         guard let indexOfController = indexOfController else { return }
         self.controllers[indexOfController].elements.append(element)
