@@ -1,19 +1,43 @@
 //
 //  BackendModel.swift
 //  FutureGo
-//
-//  Created by Мурат Камалов on 11/28/21.
-//
 
 import Foundation
 import UIKit
 
 class MyModel {
-    var title: String = ""
-    var price: String = ""
-    var graphic: UIImage? = nil
+    internal init(title: String,upString: String, price: String, graphic: UIImage? = nil) {
+        self.title = title
+        self.price = price
+        self.graphic = graphic
+        self.upString = upString
+    }
     
-    static var model = [MyModel]()
+    var title: String
+    var upString: String
+    var price: String
+    var graphic: UIImage?
+    
+    static var model = [
+        MyModel(title: "Ford",upString: "54.18%", price: "19.68 $", graphic: UIImage(named: "img1")),
+        MyModel(title: "SPB биржа",upString: "9,16%",price: "13,81 $", graphic: UIImage(named: "img2")),
+        MyModel(title: "virdgin Galactic",upString: "-34,62%", price: "16.71$", graphic: UIImage(named: "img3")),
+        MyModel(title: "VIP Shop",upString: "-57,31%", price: "9.82 $", graphic: UIImage(named: "img4")),
+        MyModel(title: "Alibaba",upString: "-36,84%", price: "133.1$", graphic: UIImage(named: "img5")),
+        MyModel(title: "Газпром нефть",upString: "30,32%", price: "491 R", graphic: UIImage(named: "img6")),
+        MyModel(title: "VISA", upString: "-13,7%",price: "197,5", graphic: UIImage(named: "img7")),
+        MyModel(title: "Southwestern Enregy",upString: "-3,69%", price: "4,94 $", graphic: UIImage(named: "img1")),
+        MyModel(title: "NOKIA",upString: "11%", price: "5,6 $", graphic: UIImage(named: "img1")),
+        MyModel(title: "TSM",upString: "2,46%", price: "161,88 $", graphic: UIImage(named: "img1")),
+        MyModel(title: "TAL",upString: "-87,87%", price: "5.03 $", graphic: UIImage(named: "img1")),
+        MyModel(title: "Газпром",upString: "-25,38%", price: "326Р", graphic: UIImage(named: "img1")),
+        MyModel(title: "EUR",upString: "-5,04%", price: "85,5 R ", graphic: UIImage(named: "img1")),
+        MyModel(title: "SNAP INC",upString: "-15,87%", price: "49,76", graphic: UIImage(named: "img1")),
+        MyModel(title: "Microsoft",upString: "30,97%", price: "329,85", graphic: UIImage(named: "img1")),
+        MyModel(title: "Apple",upString: "23,57%", price: "157,15", graphic: UIImage(named: "img1")),
+        MyModel(title: "Hugo Boss", upString: "14,29%",price: "52,2 E", graphic: UIImage(named: "img1")),
+        MyModel(title: "Yandex",upString: "9,79%", price: "5 387 P", graphic: UIImage(named: "img1")),
+    ]
 }
 
 
