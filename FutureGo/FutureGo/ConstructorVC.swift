@@ -145,7 +145,6 @@ class ConstructorVC: UIViewController {
     
     public var controllers = [ControllerModel]() {
         didSet {
-            guard oldValue.count != self.controllers.count else { return }
             self.appMap.configure(with: self.controllers)
             self.controllersMap.configure(with: self.controllers)
         }
