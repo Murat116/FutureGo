@@ -72,6 +72,12 @@ class ConstructorVC: UIViewController {
         return view
     }()
 
+    let welcomeImg = UIImageView(image: UIImage(named: "welcome"))
+    
+    @objc func removeWelcome() {
+        welcomeImg.removeFromSuperview()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -83,6 +89,11 @@ class ConstructorVC: UIViewController {
         setUpAppMap()
         setUpConfigComponentView()
         setUpConrollerMap()
+        
+        welcomeImg.isUserInteractionEnabled = true
+        view.addSubview(welcomeImg)
+        welcomeImg.pinToSuperView()
+        welcomeImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(removeWelcome)))
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -99,7 +110,7 @@ class ConstructorVC: UIViewController {
         
         self.appMap.pin(side: .topR, to: .bottom(self.controllBar))
         appMap.pinToSuperView(sides: [.leftR, .bottomR])
-        appMap.setDemission(.width(200))
+        appMap.setDemission(.width(300))
     }
     
     private func setUpConfigComponentView() {

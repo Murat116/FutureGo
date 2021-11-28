@@ -9,7 +9,11 @@ import UIKit
 
 class ControllerDesrCell: UITableViewCell {
     
-    let nameLabel = UILabel()
+    let nameLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = .systemFont(ofSize: 24, weight: .bold)
+        return lbl
+    }()
     
     let elementsStack = UIStackView()
     
@@ -34,17 +38,16 @@ class ControllerDesrCell: UITableViewCell {
         contentView.clipsToBounds = true
         
         contentView.addSubview(nameLabel)
-        nameLabel.pinToSuperView(sides: [.leftR, .topR, .rightR])
+        nameLabel.pinToSuperView(sides: [.left(34), .top(47), .rightR])
         
         elementsStack.axis = .vertical
         elementsStack.distribution = .fill
-        elementsStack.spacing = 3
+        elementsStack.spacing = 12
         elementsStack.alignment = .leading
         
         contentView.addSubview(elementsStack)
-        elementsStack.pin(side: .top(5), to: .bottom(nameLabel))
-        elementsStack.pin(side: .left(10), to: .left(nameLabel))
-        elementsStack.pinToSuperView(sides: [.rightR])
+        elementsStack.pin(side: .top(18), to: .bottom(nameLabel))
+        elementsStack.pinToSuperView(sides: [.left(34), .rightR])
         
         bottomCellConstrToStack = contentView.pin(side: .bottomR, to: .bottom(elementsStack))
         bottomCellConstrToName = contentView.pin(side: .bottomR, to: .bottom(nameLabel), isActivate: false)
@@ -61,6 +64,8 @@ class ControllerDesrCell: UITableViewCell {
         
         model.elements.forEach { element in
             let lbl = UILabel()
+            lbl.font = .systemFont(ofSize: 16)
+            lbl.textColor = UIColor(hex: "#4E4C4C")
             lbl.text = element.type.title
             elementsStack.addArrangedSubview(lbl)
         }

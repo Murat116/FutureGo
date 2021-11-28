@@ -30,7 +30,7 @@ enum ElementsType: Int, CaseIterable, Codable  {
         case .image:
             return "Картинка"
         case .label:
-            return "Лейбл"
+            return "Текс"
         case .swipableView:
             return "Тиндер Свайп"
         }
