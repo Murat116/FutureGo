@@ -14,7 +14,6 @@ class Parser {
             return
         }
         let tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent("model.json")
-        print(tmpURL)
         do {
             try data.write(to: tmpURL)
         } catch {
@@ -22,7 +21,11 @@ class Parser {
         }
     }
     
-    func parse() -> [ControllerModel]? {
+    func parse(from string: String?) -> [ControllerModel]? {
+        self.parse(from: string?.data(using: .utf8))
+    }
+    
+    func parse(from data: Data?) -> [ControllerModel]? {
         guard
             let data = try? Data(contentsOf: FileManager.default.temporaryDirectory.appendingPathComponent("model.json")),
             let array = data.jsonArray as? [[String : Any]]
