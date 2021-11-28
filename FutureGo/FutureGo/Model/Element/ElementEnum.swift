@@ -30,9 +30,30 @@ enum ElementsType: Int, CaseIterable, Codable  {
         case .image:
             return "Картинка"
         case .label:
-            return "Лейбл"
+            return "Текс"
         case .swipableView:
             return "Тиндер Свайп"
         }
+    }
+    
+    var icon: UIImage? {
+        let path: String
+        switch self {
+        case .window:
+            path = "viewIcon"
+        case .tableView:
+            path = "tableIcon"
+        case .button:
+            path = "btnIcon"
+        case .textField:
+            path = "textIcon"
+        case .image:
+            path = "imageIcon"
+        case .label:
+            path = "textIcon"
+        case .swipableView:
+            path = ""
+        }
+        return UIImage(named: path)
     }
 }
