@@ -12,6 +12,57 @@ protocol EditingParametrOutput: AnyObject {
     func getControllers() -> [ControllerModel]
 }
 
+class ConfigBackendParametrCell: UITableViewCell {
+    
+    weak var parentVC: UIViewController?
+    
+    var parametrsCount: Int = 0
+    var index: Int = 0
+    
+    let button = UIButton()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setUp()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setUp() {
+        selectionStyle = .none
+        
+        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
+        
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = UIColor(hex: "#DEDFDF")
+        button.layer.cornerRadius = 8
+        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .medium)
+        contentView.addSubview(button)
+        
+        button.pinToSuperView(sides: [.leftR, .rightR, .top(8)])
+        contentView.pin(side: .bottom(8), to: .bottom(button))
+    }
+    
+    func configure(index: Int, paramsCount: Int, parentVC: UIViewController?) {
+        self.parentVC = parentVC
+        self.index = index
+        self.parametrsCount = paramsCount
+        button.setTitle(index == paramsCount ? "Добавить url" : "Добавить новую модель", for: .normal)
+    }
+    
+    @objc func tap() {
+        if let parent = parentVC as? ConstructorVC {
+            if index == parametrsCount {
+                parent.addUrlaction()
+            } else {
+                parent.addBack()
+            }
+        }
+    }
+}
+
 class ConfigComponentCell: UITableViewCell {
     
     let configView = ConfigComponentElementView()

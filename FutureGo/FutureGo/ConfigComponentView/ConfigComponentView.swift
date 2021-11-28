@@ -28,9 +28,11 @@ class ConfigComponentView: UITableView {
     
     private func setUp() {
         dataSource = self
+        delegate = self
         separatorStyle = .none
         
         register(ConfigComponentCell.self, forCellReuseIdentifier: "ConfigComponentCell")
+        register(ConfigBackendParametrCell.self, forCellReuseIdentifier: "ConfigBackendParametrCell")
     }
     
     func configure(with parametrs: [ConfigParametrModel], idElement: String?, editingParametrOutput: EditingParametrOutput?, parentVC: UIViewController?) {
@@ -41,15 +43,24 @@ class ConfigComponentView: UITableView {
         reloadData()
     }
 }
-extension ConfigComponentView: UITableViewDataSource {
+extension ConfigComponentView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        parametrs.count
+        parametrs.count + 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ConfigComponentCell", for: indexPath) as! ConfigComponentCell
         
-        cell.configure(with: parametrs[indexPath.row], idElement: idElement, editingOutput: editingParametrOutput, parentVC: parentVC)
-        return cell
+        if indexPath.row >= parametrs.count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ConfigBackendParametrCell", for: indexPath) as! ConfigBackendParametrCell
+            
+            cell.configure(index: indexPath.row, paramsCount: parametrs.count, parentVC: parentVC)
+            
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ConfigComponentCell", for: indexPath) as! ConfigComponentCell
+            
+            cell.configure(with: parametrs[indexPath.row], idElement: idElement, editingOutput: editingParametrOutput, parentVC: parentVC)
+            return cell
+        }
     }
 }

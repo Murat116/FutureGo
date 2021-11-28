@@ -104,28 +104,8 @@ class ConstructorVC: UIViewController {
     public lazy var label: UILabel = {
         let label = UILabel()
         self.view.addSubview(label)
-        label.pinToSuperView(sides: [.bottomR,.centerXR])
-//        label.setDemission(.height(100))
-//        label.setDemission(.width(200))
+        label.pinToSuperView(sides: [.bottom(-20),.centerXR])
         return label
-    }()
-    
-    public lazy var addButton: UIButton = {
-        let btn = UIButton()
-        self.view.addSubview(btn)
-        btn.pinToSuperView(sides: [.centerXR])
-        btn.pin(side: .bottomR, to: .top(self.label))
-        btn.setTitle("Добавить новую модель", for: .normal)
-        return btn
-    }()
-    
-    public lazy var addUrl: UIButton = {
-        let btn = UIButton()
-        self.view.addSubview(btn)
-        btn.pinToSuperView(sides: [.centerXR])
-        btn.pin(side: .bottomR, to: .top(self.addButton))
-        btn.setTitle("Добавить url", for: .normal)
-        return btn
     }()
     
     private lazy var addController: UIButton = {
@@ -230,9 +210,6 @@ class ConstructorVC: UIViewController {
         view.addSubview(welcomeImg)
         welcomeImg.pinToSuperView()
         welcomeImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(removeWelcome)))
-        
-        self.addButton.addTarget(self, action: #selector(self.addBack), for: .touchUpInside)
-        self.addUrl.addTarget(self, action: #selector(self.addUrlaction), for: .touchUpInside)
         
         BackendModel.reqeustToTask()
     }
