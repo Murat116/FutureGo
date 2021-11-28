@@ -259,13 +259,14 @@ class ConstructorVC: UIViewController {
         controllersMap.pinToSuperView(sides: [.bottomR])
         controllersMap.pin(side: .leftR, to: .right(appMap))
         controllersMap.pin(side: .rightR, to: .left(configComponentView))
-        if let asset = NSDataAsset(name: "model") {
-            let data = asset.data
-            let controllers = Parser().parse(from: data)
-            self.controllers = controllers ?? []
-        } else {
+//        if
+//            let data = try? Data(contentsOf: FileManager.default.temporaryDirectory.appendingPathComponent("model.json"))
+//        {
+//            let controllers = Parser().parse(from: data)
+//            self.controllers = controllers ?? []
+//        } else {
             self.controllers.append(ControllerModel(name: "Main", elements: []))
-        }
+//        }
     }
     var recognizer: UITapGestureRecognizer?
     var blurEffect: UIBlurEffect?
@@ -418,9 +419,22 @@ extension ConstructorVC: EditingParametrOutput {
             return
         }
         
-        guard let currentParams = cell.controllerModel?.elements.first(where: { el in
+        var currentElement: ElementModel? = nil
+        if let curElement = cell.controllerModel?.elements.first(where: { el in
             el.id == idElement
-        })?.parametrs else { return }
+        }) {
+            currentElement = curElement
+        }
+        else {
+            cell.controllerModel?.elements.forEach({ element in
+                let sbvs = element.subview.filter { el in
+                    el.id == idElement
+                }
+                currentElement = sbvs.first
+            })
+        }
+        
+        guard let currentParams = currentElement?.parametrs else { return }
         
         var newParametrs = currentParams
         

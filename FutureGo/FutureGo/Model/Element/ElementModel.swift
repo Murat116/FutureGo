@@ -207,7 +207,6 @@ class ElementModel: Codable  {
         case .image:
             let view = TappedImageView(frame: self.frame)
             view.clipsToBounds = true
-            view.backgroundColor = .green
             for parameter in self.parametrs {
                 switch parameter {
                 case .backgroundColor(let optional):
@@ -245,14 +244,15 @@ class ElementModel: Codable  {
         case .swipableView:
             let view = SwipeableCardViewContainer()
             view.frame = self.frame
-            view.backgroundColor = .yellow
+            view.backgroundColor = .darkGray
 //            view.swipeViews = SwipeableCardViewCard()
             
             for model in MyModel.model {
                 let swipableView = SwipeableCardViewCard()
+                swipableView.backgroundColor = .darkGray
                 for element in self.subview {
-                    let subView = element.getRealElement(parentView: view)
                     
+                    let subView = element.getRealElement(parentView: view)
                     swipableView.addSubview(subView)
                     let tap = subView.frame.origin
                     let convertedTap = parentView.convert(tap, to: view)
@@ -260,11 +260,17 @@ class ElementModel: Codable  {
                     
                     switch element.type {
                     case .label:
-                        if (subView as! UILabel).text == "price" {
-                            (subView as! UILabel).text = model.price
-                        }
-                        if (subView as! UILabel).text == "title" {
-                            (subView as! UILabel).text = model.title
+                        let lbl = subView as! UILabel
+                        lbl.textAlignment = .center
+                        switch lbl.text {
+                        case "Title":
+                            lbl.text = model.title
+                        case "Price":
+                            lbl.text = model.price
+                        case "Percent":
+                            lbl.text = model.upString
+                        default:
+                            break
                         }
                     case .image:
                         (subView as! UIImageView).image = model.graphic
