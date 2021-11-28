@@ -145,7 +145,7 @@ class ConstructorVC: UIViewController {
     // MARK: - Model
     
     public var controllers = [ControllerModel]() {
-        didSet{
+        didSet {
             self.appMap.configure(with: self.controllers)
             self.controllersMap.configure(with: self.controllers)
         }

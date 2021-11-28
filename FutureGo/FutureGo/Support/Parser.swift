@@ -85,10 +85,10 @@ class Parser {
                     }
                 }
                 
-                let image: UIImage? = nil
-//                if let data = Data(base64Encoded: backgroundImage) {
-//                    image = UIImage(data: data)
-//                }
+                var image: UIImage? = nil
+                if let str = backgroundImage, let data = Data(base64Encoded: str) {
+                    image = UIImage(data: data)
+                }
                 
                 element.parametrs = [
                     .title(title),

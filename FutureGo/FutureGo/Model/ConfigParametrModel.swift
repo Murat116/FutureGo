@@ -82,7 +82,7 @@ enum ConfigParametrModel: Equatable, Codable {
             guard let value = value else { break }
             try container.encode(Float(value), forKey: .radius)
         case .backgroundImage(let image):
-            try container.encode(image?.pngData(), forKey: .backgroundImage)
+            try container.encode(image?.pngData()?.base64EncodedString(), forKey: .backgroundImage)
         case .action(let id):
             try container.encode(id, forKey: .action)
         case .duration(let value):
