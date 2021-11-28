@@ -166,11 +166,14 @@ class TappedLabel: UILabel, TappedViewProtocol {
 class TappedImageView: UIImageView, TappedViewProtocol {
     var tapCompl: (() -> Void)?
     var idContrForPush: String?
+    var label = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         isUserInteractionEnabled = true
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapped)))
+        self.addSubview(self.label)
+        self.label.pinToSuperView(sides: [.centerXR, .centerYR])
     }
     
     required init?(coder: NSCoder) {
