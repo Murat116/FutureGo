@@ -177,6 +177,9 @@ class ConstructorVC: UIViewController {
         self.recognizer = UITapGestureRecognizer(target: self, action: #selector(self.hideBlur))
         self.view.addGestureRecognizer(self.recognizer!)
 //        self.navigationController?.pushViewController(UIViewController(), animated: true)
+        
+        let parser = Parser()
+        parser.write(self.controllers)
     }
     
     @objc func hideBlur() {

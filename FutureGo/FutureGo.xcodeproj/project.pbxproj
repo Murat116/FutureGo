@@ -49,6 +49,8 @@
 		83FFFCEB27523E110052408B /* ControllerDesrCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FFFCEA27523E110052408B /* ControllerDesrCell.swift */; };
 		83FFFCEE27524F010052408B /* ElementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FFFCED27524F010052408B /* ElementModel.swift */; };
 		83FFFCF02752949A0052408B /* extensionUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FFFCEF275294990052408B /* extensionUIColor.swift */; };
+		83FFFCF22752E9B10052408B /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FFFCF12752E9B00052408B /* Parser.swift */; };
+		83FFFCF42752ECD10052408B /* extensionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FFFCF32752ECD10052408B /* extensionData.swift */; };
 		A0FF69F7A48DE8E5536548B8 /* Pods_FutureGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F97B3EE39AC8FBCA411A2B01 /* Pods_FutureGo.framework */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +99,8 @@
 		83FFFCEA27523E110052408B /* ControllerDesrCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerDesrCell.swift; sourceTree = "<group>"; };
 		83FFFCED27524F010052408B /* ElementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementModel.swift; sourceTree = "<group>"; };
 		83FFFCEF275294990052408B /* extensionUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionUIColor.swift; sourceTree = "<group>"; };
+		83FFFCF12752E9B00052408B /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		83FFFCF32752ECD10052408B /* extensionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionData.swift; sourceTree = "<group>"; };
 		9F102D59536DC34A0A2B83E5 /* Pods-FutureGo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FutureGo.debug.xcconfig"; path = "Target Support Files/Pods-FutureGo/Pods-FutureGo.debug.xcconfig"; sourceTree = "<group>"; };
 		E189E6755AF98E4103562607 /* Pods-FutureGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FutureGo.release.xcconfig"; path = "Target Support Files/Pods-FutureGo/Pods-FutureGo.release.xcconfig"; sourceTree = "<group>"; };
 		F97B3EE39AC8FBCA411A2B01 /* Pods_FutureGo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FutureGo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +166,8 @@
 				45EC5C1D27521C2B00C7F5A0 /* extensionConstrint.swift */,
 				45EC5C1F2752271000C7F5A0 /* DragableView.swift */,
 				83FFFCEF275294990052408B /* extensionUIColor.swift */,
+				83FFFCF12752E9B00052408B /* Parser.swift */,
+				83FFFCF32752ECD10052408B /* extensionData.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -399,6 +405,7 @@
 				4501D0042752C0AE0045F587 /* SwipeableViewDelegate.swift in Sources */,
 				4501CFF92752C0AE0045F587 /* UIView+Constraints.swift in Sources */,
 				83FFFCC7275213340052408B /* SceneDelegate.swift in Sources */,
+				83FFFCF42752ECD10052408B /* extensionData.swift in Sources */,
 				83FFFCDC275227F70052408B /* ControllersMapCell.swift in Sources */,
 				83FFFCF02752949A0052408B /* extensionUIColor.swift in Sources */,
 				4501CFFD2752C0AE0045F587 /* SwipeableView.swift in Sources */,
@@ -413,6 +420,7 @@
 				45EC5C252752617300C7F5A0 /* AppModel.swift in Sources */,
 				4501D00A2752C0AE0045F587 /* ViewController.swift in Sources */,
 				83FFFCE4275238850052408B /* ConfigParametrModel.swift in Sources */,
+				83FFFCF22752E9B10052408B /* Parser.swift in Sources */,
 				83FFFCDA275220A70052408B /* ControllersMapView.swift in Sources */,
 				83FFFCE927523D3F0052408B /* AppMapView.swift in Sources */,
 				45EC5C1A27521AD500C7F5A0 /* ElementEnum.swift in Sources */,

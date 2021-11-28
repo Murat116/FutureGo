@@ -7,7 +7,18 @@
 
 import UIKit
 
-class ElementModel {
+struct FrameRect: Codable {
+    let x: Float
+    let y: Float
+    let width: Float
+    let height: Float
+    
+    static func fromCGRect(_ rect: CGRect) -> FrameRect {
+        FrameRect(x: Float(rect.origin.x), y: Float(rect.origin.y), width: Float(rect.width), height: Float(rect.height))
+    }
+}
+
+class ElementModel: Codable  {
     internal init(type: ElementsType, frame: CGRect) {
         self.type = type
         self.frame = frame
@@ -15,17 +26,6 @@ class ElementModel {
     
 
     var id = UUID().uuidString
-    var key: String {
-        get{
-            if type == .label {
-                return "Name"
-            }
-            if type == .image {
-                return "Image"
-            }
-            return ""
-        }
-    }
     
     let type: ElementsType
     
@@ -33,92 +33,111 @@ class ElementModel {
     
     var subview = [ElementModel]()
     
-    var model = [BackendModel]()
+//    var model = [BackendModel]()
     
     func changeFrame(frame: CGRect) {
         self.frame = frame
     }
     
-    var parametrs = ConfigParametrModel.allCases
+    var parametrs = [ConfigParametrModel]()
     
     func getUIProection(parentView: ParentView, output: SelectElementOutput?, id: String) -> UIView {
         switch type {
         case .window:
-            let view = DragableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
-            self.parametrs = [
-                .backgroundColor(.gray),
-                .radius(8),
-                .action(nil)
-            ]
+            let frame = self.frame == .zero ? CGRect(x: 200, y: 400, width: 400, height: 400) : self.frame
+            let view = DragableView(frame: frame, model: self, parentView: parentView, id: id, selectOutput: output)
+            if parametrs.isEmpty {
+                self.parametrs = [
+                    .backgroundColor(.gray),
+                    .radius(8),
+                    .action(nil)
+                ]
+            }
             view.configure(with: parametrs)
             return view
             
         case .tableView:
-            let view = DragableTableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView, id: id, selectOutput: output)
+            let frame = self.frame == .zero ? CGRect(x: 200, y: 400, width: 400, height: 400) : self.frame
+            let view = DragableTableView(frame: frame, parentView: parentView, id: id, selectOutput: output)
             return view
             
         case .button:
-            let view =  DragableButton(frame: CGRect(x: 200, y: 400, width: 450, height: 100),
+            let frame = self.frame == .zero ? CGRect(x: 200, y: 400, width: 450, height: 100) : self.frame
+            let view =  DragableButton(frame: frame,
                                        model: self,
                                        parentView: parentView,
                                        selectOutput: output, id: id)
-            
-            self.parametrs = [
-                .backgroundColor(.gray),
-                .textColor(.black),
-                .title("Some Text ..."),
-                .radius(8),
-                .action(nil)
-            ]
+            if parametrs.isEmpty {
+                self.parametrs = [
+                    .backgroundColor(.gray),
+                    .textColor(.black),
+                    .title("Some Text ..."),
+                    .radius(8),
+                    .action(nil)
+                ]
+            }
             view.configure(with: parametrs)
             return view
             
         case .textField:
-            let view = DragableTextField(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
+            let frame = self.frame == .zero ? CGRect(x: 200, y: 400, width: 400, height: 400) : self.frame
+            let view = DragableTextField(frame: frame, model: self, parentView: parentView, id: id, selectOutput: output)
             
-            self.parametrs = [
-                .backgroundColor(.gray),
-                .textColor(.black),
-                .title("Some Text ..."),
-                .radius(8)
-            ]
+            if parametrs.isEmpty {
+                self.parametrs = [
+                    .backgroundColor(.gray),
+                    .textColor(.black),
+                    .title("Some Text ..."),
+                    .radius(8)
+                ]
+            }
             view.configure(with: parametrs)
             return view
             
         case .image:
-            let view = DragableImageView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
+            let frame = self.frame == .zero ? CGRect(x: 200, y: 400, width: 400, height: 400) : self.frame
+            let view = DragableImageView(frame: frame, model: self, parentView: parentView, id: id, selectOutput: output)
             view.backgroundColor = .gray
             
-            self.parametrs = [
-                .backgroundImage(nil),
-                .radius(8),
-                .action(nil)
-            ]
+            if parametrs.isEmpty {
+                self.parametrs = [
+                    .title(nil),
+                    .backgroundImage(nil),
+                    .radius(8),
+                    .action(nil)
+                ]
+            }
             view.configure(with: parametrs)
             
             return view
             
         case .label:
-            let view = DragableLabel(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
+            let frame = self.frame == .zero ? CGRect(x: 200, y: 400, width: 400, height: 400) : self.frame
+            let view = DragableLabel(frame: frame, model: self, parentView: parentView, id: id, selectOutput: output)
             
-            self.parametrs = [
-                .backgroundColor(.gray),
-                .title("Some Text ..."),
-                .textColor(.black),
-                .radius(8),
-                .action(nil)
-            ]
+            if parametrs.isEmpty {
+                self.parametrs = [
+                    .backgroundColor(.gray),
+                    .title("Some Text ..."),
+                    .textColor(.black),
+                    .radius(8),
+                    .action(nil)
+                ]
+            }
+            
             view.configure(with: parametrs)
             
             return view
         case .swipableView:
-            let view = DragableSwipe(frame: CGRect(x: 100, y: 100, width: 200, height: 200), model: self, parentView: parentView, id: id, selectOutput: output)
-            view.backgroundColor = .red
+            let frame = self.frame == .zero ? CGRect(x: 100, y: 100, width: 200, height: 200) : self.frame
+            let view = DragableSwipe(frame: frame, model: self, parentView: parentView, id: id, selectOutput: output)
             
-            self.parametrs = [
-                .backgroundColor(.gray),
-                .radius(8)
-            ]
+            if parametrs.isEmpty {
+                self.parametrs = [
+                    .backgroundColor(.gray),
+                    .radius(8)
+                ]
+            }
             
             view.configure(with: parametrs)
             return view

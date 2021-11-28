@@ -7,7 +7,90 @@
 
 import UIKit
 
-enum ConfigParametrModel: Equatable {
+enum ConfigParametrModel: Equatable, Codable {
+    enum CodingKeys: CodingKey {
+        case title
+        case textColor
+        case backgroundColor
+        case radius
+        case backgroundImage
+        case action
+        case duration
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let key = container.allKeys.first!
+        
+        switch key {
+        case .title:
+            let text = try container.decode(
+                String.self,
+                forKey: .title
+            )
+            self = .title(text)
+        case .textColor:
+            let hex = try container.decode(
+                String.self,
+                forKey: .textColor
+            )
+            self = .textColor(UIColor(hex: hex))
+        case .backgroundColor:
+            let hex = try container.decode(
+                String.self,
+                forKey: .backgroundColor
+            )
+            self = .backgroundColor(UIColor(hex: hex))
+        case .radius:
+            let value = try container.decode(
+                Float.self,
+                forKey: .radius
+            )
+            self = .radius(CGFloat(value))
+        case .backgroundImage:
+            let data = try container.decode(
+                Data.self,
+                forKey: .radius
+            )
+            self = .backgroundImage(UIImage(data: data))
+        case .action:
+            let id = try container.decode(
+                String.self,
+                forKey: .action
+            )
+            self = .action(id)
+        case .duration:
+            let value = try container.decode(
+                Float.self,
+                forKey: .duration
+            )
+            self = .radius(CGFloat(value))
+        }
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        switch self {
+        case .title(let text):
+            try container.encode(text, forKey: .title)
+        case .textColor(let color):
+            try container.encode(color?.hex, forKey: .textColor)
+        case .backgroundColor(let color):
+            try container.encode(color?.hex, forKey: .backgroundColor)
+        case .radius(let value):
+            guard let value = value else { break }
+            try container.encode(Float(value), forKey: .radius)
+        case .backgroundImage(let image):
+            try container.encode(image?.pngData(), forKey: .backgroundImage)
+        case .action(let id):
+            try container.encode(id, forKey: .action)
+        case .duration(let value):
+            guard let value = value else { break }
+            try container.encode(Float(value), forKey: .duration)
+        }
+    }
+    
     case title(String?)
     case textColor(UIColor?)
     case backgroundColor(UIColor?)

@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-enum ElementsType: CaseIterable {
-    case window
+enum ElementsType: Int, CaseIterable, Codable  {
+    case window = 0
     case tableView
     case button
     case textField
