@@ -38,8 +38,19 @@ class ControllersMapCell: UICollectionViewCell, ParentView {
     
     func configure(with model: ControllerModel, output: ControllersMapCellOutput?, selectOutput: SelectElementOutput?) {
         self.controllerModel = model
+        self.update(with: model)
         self.selectOutput = selectOutput
         self.output = output
+    }
+    
+    func update(with model: ControllerModel) {
+        self.subviews.forEach { view in
+            guard (view is UIImageView) == false else { return }
+            view.removeFromSuperview()
+        }
+        model.elements.forEach { model in
+            self.addElement(model)
+        }
     }
     
     func addElement(_ element: ElementModel) {

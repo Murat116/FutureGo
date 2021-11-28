@@ -50,22 +50,36 @@ class Parser {
                 let fr = CGRect(x: frame[0][0], y: frame[0][1], width: frame[1][0], height: frame[1][1])
                 let element = ElementModel(type: type, frame: fr)
                 
-                var title: String?
-                var textColor: String?
-                var backgroundColor: String?
-                var radius: CGFloat?
-                var backgroundImage: String?
-                var action: String?
-                var duration: CGFloat?
+                var title: String? = nil
+                var textColor: String? = nil
+                var backgroundColor: String? = nil
+                var radius: CGFloat? = nil
+                var backgroundImage: String? = nil
+                var action: String? = nil
+                var duration: CGFloat? = nil
                 
                 parametrs.forEach { parametrDict in
-                    title = parametrDict["title"] as? String
-                    textColor = parametrDict["textColor"] as? String
-                    backgroundColor = parametrDict["backgroundColor"] as? String
-                    radius = parametrDict["radius"] as? CGFloat
-                    backgroundImage = parametrDict["backgroundImage"] as? String
-                    action = parametrDict["action"] as? String
-                    duration = parametrDict["duration"] as? CGFloat
+                    if let t = parametrDict["title"] as? String {
+                        title = t
+                    }
+                    if let tColor = parametrDict["textColor"] as? String {
+                        textColor = tColor
+                    }
+                    if let bColor = parametrDict["backgroundColor"] as? String {
+                        backgroundColor = bColor
+                    }
+                    if let r = parametrDict["radius"] as? CGFloat {
+                        radius = r
+                    }
+                    if let bImage = parametrDict["backgroundImage"] as? String {
+                        backgroundImage = bImage
+                    }
+                    if let ac = parametrDict["action"] as? String {
+                        action = ac
+                    }
+                    if let dur = parametrDict["duration"] as? CGFloat {
+                        duration = dur
+                    }
                 }
                 
                 let image: UIImage? = nil

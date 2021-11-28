@@ -115,7 +115,7 @@ extension ControllersMapView: ControllersMapCellOutput {
         let indexOfController = self.controllers.firstIndex{ $0.id == model!.id }
         guard let indexOfController = indexOfController else { return }
         self.controllers[indexOfController] = model!
-        self.output?.realoadData(with: self.controllers)
+//        self.output?.realoadData(with: self.controllers)
     }
     
     func removewFromSuperview(model: ControllerModel, element: ElementsType) {

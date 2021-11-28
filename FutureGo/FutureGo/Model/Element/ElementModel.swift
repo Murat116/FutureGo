@@ -42,7 +42,8 @@ class ElementModel: Codable  {
     func getUIProection(parentView: ParentView, output: SelectElementOutput?, id: String) -> UIView {
         switch type {
         case .window:
-            let view = DragableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
+            let frame = self.frame == .zero ? CGRect(x: 200, y: 400, width: 400, height: 400) : self.frame
+            let view = DragableView(frame: frame, model: self, parentView: parentView, id: id, selectOutput: output)
             if parametrs.isEmpty {
                 self.parametrs = [
                     .backgroundColor(.gray),
@@ -54,11 +55,13 @@ class ElementModel: Codable  {
             return view
             
         case .tableView:
-            let view = DragableTableView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), parentView: parentView, id: id, selectOutput: output)
+            let frame = self.frame == .zero ? CGRect(x: 200, y: 400, width: 400, height: 400) : self.frame
+            let view = DragableTableView(frame: frame, parentView: parentView, id: id, selectOutput: output)
             return view
             
         case .button:
-            let view =  DragableButton(frame: CGRect(x: 200, y: 400, width: 450, height: 100),
+            let frame = self.frame == .zero ? CGRect(x: 200, y: 400, width: 450, height: 100) : self.frame
+            let view =  DragableButton(frame: frame,
                                        model: self,
                                        parentView: parentView,
                                        selectOutput: output, id: id)
@@ -75,7 +78,8 @@ class ElementModel: Codable  {
             return view
             
         case .textField:
-            let view = DragableTextField(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
+            let frame = self.frame == .zero ? CGRect(x: 200, y: 400, width: 400, height: 400) : self.frame
+            let view = DragableTextField(frame: frame, model: self, parentView: parentView, id: id, selectOutput: output)
             
             if parametrs.isEmpty {
                 self.parametrs = [
@@ -89,7 +93,8 @@ class ElementModel: Codable  {
             return view
             
         case .image:
-            let view = DragableImageView(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
+            let frame = self.frame == .zero ? CGRect(x: 200, y: 400, width: 400, height: 400) : self.frame
+            let view = DragableImageView(frame: frame, model: self, parentView: parentView, id: id, selectOutput: output)
             view.backgroundColor = .gray
             
             if parametrs.isEmpty {
@@ -105,7 +110,8 @@ class ElementModel: Codable  {
             return view
             
         case .label:
-            let view = DragableLabel(frame: CGRect(x: 200, y: 400, width: 400, height: 400), model: self, parentView: parentView, id: id, selectOutput: output)
+            let frame = self.frame == .zero ? CGRect(x: 200, y: 400, width: 400, height: 400) : self.frame
+            let view = DragableLabel(frame: frame, model: self, parentView: parentView, id: id, selectOutput: output)
             
             if parametrs.isEmpty {
                 self.parametrs = [
@@ -121,7 +127,8 @@ class ElementModel: Codable  {
             
             return view
         case .swipableView:
-            let view = DragableSwipe(frame: CGRect(x: 100, y: 100, width: 200, height: 200), model: self, parentView: parentView, id: id, selectOutput: output)
+            let frame = self.frame == .zero ? CGRect(x: 100, y: 100, width: 200, height: 200) : self.frame
+            let view = DragableSwipe(frame: frame, model: self, parentView: parentView, id: id, selectOutput: output)
             
             if parametrs.isEmpty {
                 self.parametrs = [

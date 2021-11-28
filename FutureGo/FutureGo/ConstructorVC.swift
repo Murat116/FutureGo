@@ -145,8 +145,6 @@ class ConstructorVC: UIViewController {
         
         let parser = Parser()
         parser.write(self.controllers)
-        
-        print(parser.parse())
     }
     
     @objc func hideBlur() {
