@@ -16,6 +16,7 @@ enum ElementsType: Int, CaseIterable, Codable  {
     case image
     case label
     case swipableView
+    case mapView
     
     var title: String {
         switch self {
@@ -33,6 +34,8 @@ enum ElementsType: Int, CaseIterable, Codable  {
             return "Текс"
         case .swipableView:
             return "Тиндер Свайп"
+        case .mapView:
+            return "Map"
         }
     }
     
@@ -51,7 +54,7 @@ enum ElementsType: Int, CaseIterable, Codable  {
             path = "imageIcon"
         case .label:
             path = "textIcon"
-        case .swipableView:
+        case .swipableView, .mapView:
             path = ""
         }
         return UIImage(named: path)

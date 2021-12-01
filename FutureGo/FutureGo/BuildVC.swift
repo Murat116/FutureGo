@@ -70,6 +70,7 @@ class BuildManager {
             popupWindow = UIWindow(windowScene: windowScene)
         }
         self.selfNav = UINavigationController(rootViewController: UIViewController())
+        self.selfNav?.navigationBar.isHidden = true
         popupWindow?.frame = CGRect(x: 0, y: 0, width: 375, height: 812)
         popupWindow?.center = self.navigationConstroller!.view.center
         popupWindow?.backgroundColor = .clear
@@ -85,16 +86,16 @@ class PresentationVC: UIViewController {
     var controllerModel: ControllerModel?
     
     public let mainView = UIView()
-    private let image = UIImageView(image: UIImage(named: "IphoneView"))
     
     init() {
         super.init(nibName: nil, bundle: nil)
         self.view.addSubview(self.mainView)
+        self.navigationController?.navigationBar.isHidden = true
         self.mainView.pinToSuperView(sides: [.centerXR, .centerYR])
         self.mainView.setDemission(.height(812))
         self.mainView.setDemission(.width(375))
-        self.mainView.addSubview(self.image)
-        self.image.pinToSuperView()
+        self.mainView.backgroundColor = .white
+//        self.mainView.addSubview(self.image)
     }
     
     required init?(coder: NSCoder) {

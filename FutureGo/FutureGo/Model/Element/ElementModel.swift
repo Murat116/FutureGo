@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 
 struct FrameRect: Codable {
     let x: Float
@@ -141,6 +142,12 @@ class ElementModel: Codable  {
             
             view.configure(with: parametrs)
             return view
+            
+        case .mapView:
+            let frame = self.frame == .zero ? CGRect(x: 62, y: 83, width: 322, height: 563) : self.frame
+            let view = MapView(frame: frame, model: self, parentView: parentView, id: id, selectOutput: output)
+            return view
+            
         }
     }
     
@@ -241,15 +248,18 @@ class ElementModel: Codable  {
                 }
             }
             return view
+        case .mapView:
+            let view = MKMapView(frame: self.frame)
+            return view
         case .swipableView:
             let view = SwipeableCardViewContainer()
             view.frame = self.frame
-            view.backgroundColor = .darkGray
+            view.backgroundColor = .clear
 //            view.swipeViews = SwipeableCardViewCard()
             
             for model in MyModel.model {
                 let swipableView = SwipeableCardViewCard()
-                swipableView.backgroundColor = .darkGray
+                swipableView.backgroundColor = .clear
                 for element in self.subview {
                     
                     let subView = element.getRealElement(parentView: view)
@@ -262,6 +272,7 @@ class ElementModel: Codable  {
                     case .label:
                         let lbl = subView as! UILabel
                         lbl.textAlignment = .center
+                        lbl.layer.cornerRadius = 10
                         switch lbl.text {
                         case "Title":
                             lbl.text = model.title
@@ -273,7 +284,9 @@ class ElementModel: Codable  {
                             break
                         }
                     case .image:
-                        (subView as! UIImageView).image = model.graphic
+                        let imgView = subView as! UIImageView
+                        imgView.contentMode = .scaleAspectFit
+                        imgView.image = model.graphic
                     default:
                         break
                     }
